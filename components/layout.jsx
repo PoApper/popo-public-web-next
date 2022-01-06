@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from '../styles/theme'
 import { useRouter } from 'next/router'
-import Navbar from './navbar'
+import NavbarDesktop from './navbar/navbar.desktop'
 
 const Layout = ({ children }) => {
     const router = useRouter()
@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
             </Head>
             <>
                 <main>
-                    <Navbar/>
+                    <NavbarDesktop/>
                     <Wrapper>
                         <div style={{ width: '100%' }}>
                             {children}
