@@ -1,7 +1,7 @@
 
 /**
  * Color theme used by styled-components
- * Used in src/components/layout.jsx
+ * Used in src/components/layout.tsx
  */
 
 const theme = {

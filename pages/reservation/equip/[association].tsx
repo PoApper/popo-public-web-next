@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import * as moment from "moment";
+
 
 const ownerName = {
     'dongyeon': '동아리연합회',
@@ -14,18 +16,22 @@ const ownerLocation = {
 }
 
 
-const EquipAssociation = (props) => {
+const EquipAssociation = (props: any) => {
     console.log(props)
     const association = props.match.params.association
-    const [selectedDate, setDate] = useState(moment(new Date()).format('YYYYMMDD'))
-    const [userInfo, serUserInfo] = useState()
+    const [selectedDate, setDate] = useState((new Date()))
+    const [userInfo, setUserInfo] = useState()
     const [equipments, setEquipments] = useState([])
 
-    useEffect(async () => {
-        await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
-            { withCredentials: true }).then(res => setUserInfo(res.data)).catch(() => {})
-        const res2 = await axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${association}`)
-        setEquipments(res2.data)
+    useEffect(() => {
+        const res1 = async () => {
+            await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
+                { withCredentials: true }).then(res => setUserInfo(res.data)).catch(() => {})
+        }
+        const res2 = async () => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${association}`)
+            setEquipments(response.data)
+        }
     }, [selectedDate, association])
 
     return (

@@ -1,6 +1,6 @@
 import {Table} from "semantic-ui-react";
 
-const EquipmentReservationTable = (props) => {
+const EquipmentReservationTable = (props: any) => {
     const reservations = props.reservations
     const start_idx = props.startIdx
 

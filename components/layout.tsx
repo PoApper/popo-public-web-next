@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import Head from 'next/head'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from '../styles/theme'
 import { useRouter } from 'next/router'
 import NavbarDesktop from './navbar/navbar.desktop'
 
-const Layout = ({ children }) => {
+type LayoutProps = {
+    children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
     const router = useRouter()
 
     return (

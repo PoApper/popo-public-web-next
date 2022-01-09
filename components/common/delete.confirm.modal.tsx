@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 import {Button, Modal} from "semantic-ui-react"
 
-const DeleteConfirmModal = (props) => {
+const DeleteConfirmModal = (props: any) => {
     const deleteTarget = props.target
     const deleteURI = props.deleteURI
     const [open, setOpen] = useState(props.open)
