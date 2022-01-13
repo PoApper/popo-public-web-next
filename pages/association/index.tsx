@@ -13,8 +13,6 @@ const AssociationIndexPage = () => {
       catch(() => alert('소개글을 불러오는데 실패했습니다.'))
   }, [])
 
-  console.log(introList)
-
   /**
    * A function for generate grid
    */
@@ -42,11 +40,10 @@ const AssociationIndexPage = () => {
                     <Image
                       centered size="small"
                       href={`/association/introduce/${_intro.name}`}
-                      src={(_intro.logoName)
-                        ?
-                        `${process.env.NEXT_PUBLIC_API}/introduce/association/image/${_intro.logoName}`
-                        :
-                        'https://react.semantic-ui.com/images/wireframe/image.png'}
+                      src={
+                        _intro.logoName ?
+                          `${process.env.NEXT_PUBLIC_API}/introduce/association/image/${_intro.logoName}`
+                          : 'https://react.semantic-ui.com/images/wireframe/image.png'}
                       alt={`${_intro.name}_logo`}
                     />
                     <AssociationName>{_intro.name}</AssociationName>
