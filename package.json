@@ -36,5 +36,11 @@
   "engines": {
     "npm": ">=8.3.0",
     "node": ">=16.13.0"
+  },
+  "lint-staged": {
+    "**/*.{js, jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
