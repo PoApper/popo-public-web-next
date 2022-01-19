@@ -45,7 +45,7 @@ const ClubTypeIndexPage = () => {
                     <Container style={{width: "12em", lineHeight: "12em"}}>
                       <Image
                         centered size="small"
-                        href={`/club/introduce/${_intro.name}`}
+                        href={`/club/introduce/${clubType}/${_intro.name}`}
                         src={
                           _intro.logoName ?
                             `${process.env.NEXT_PUBLIC_API}/introduce/club/image/${_intro.logoName}`
