@@ -1,15 +1,13 @@
-import Layout from '../../../components/layout'
+import Layout from '../../../../components/layout'
 import { Container, Grid, Image } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-const ClubSingIntroducePage = () => {
+const ClubTypeIndexPage = () => {
   const router = useRouter()
   const { clubType } = router.query
   const [introList, setIntroList] = useState([])
-
-  console.log(clubType)
 
   useEffect(() => {
     if (!clubType) return;
@@ -83,4 +81,4 @@ const ClubSingIntroducePage = () => {
 
 }
 
-export default ClubSingIntroducePage
+export default ClubTypeIndexPage
