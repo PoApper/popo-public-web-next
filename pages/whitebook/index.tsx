@@ -13,6 +13,12 @@ const WhiteBookIndexPage = () => {
       catch(() => console.log('생활백서를 불러오는데 실패했습니다.'))
   }, [])
 
+  function handleLinkClick(uuid: string) {
+    axios.patch(
+      `${process.env.NEXT_PUBLIC_API}/whitebook/click/${uuid}`).
+      catch(() => console.log('조회수 API 호출에 실패했습니다.'))
+  }
+
   return (
     <Layout>
       <h1>생활백서</h1>
@@ -22,11 +28,12 @@ const WhiteBookIndexPage = () => {
       </p>
       <CardDiv>
         {
-          whitebookList.map((card: any, idx) => {
+          whitebookList.map((card: any) => {
             return (
-              <Card key={idx}>
+              <Card key={card.uuid}>
                 <h2>
-                  <a target="_blank" href={card.link} rel="noreferrer">
+                  <a target="_blank" rel="noreferrer"
+                     href={card.link} onClick={() => handleLinkClick(card.uuid)}>
                     {card.title}
                   </a>
                 </h2>
