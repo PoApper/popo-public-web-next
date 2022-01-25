@@ -52,7 +52,7 @@ const NavbarDesktop = () => {
                         </Link>
                     </Menu.Item>
                     <Menu.Item>
-                        <Link href={'/white-book'}>
+                        <Link href={'/whitebook'}>
                             <Dropdown item simple text={'생활백서'}>
                                 <NavbarDropdownMenu>
                                     <Dropdown.Item text={'생활관 자치회'}
