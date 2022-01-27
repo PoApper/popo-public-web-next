@@ -3,6 +3,9 @@ import axios from "axios";
 import moment from "moment";
 import {useRouter} from "next/router";
 import {Grid} from "semantic-ui-react";
+import EquipReservationCalendar from "../../../components/equipment/equip.reservation.calendar";
+import EquipReservationTable from "../../../components/equipment/equip.reservation.table";
+import Layout from "../../../components/layout";
 
 type ObjectType = {
     [key: string]: string
@@ -36,27 +39,34 @@ const EquipAssociation: React.FunctionComponent = (props) => {
     }, [selectedDate, association])
 
     return (
-        <div>
-            <h1>{ownerName[association]} - 장비 예약하기</h1>
-            <Grid columns={2} divided stackable>
-                <Grid.Row>
-                    <Grid.Column width={6}>
-                        <p style={{ marginTop: '10px' }}>
-                            장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
-                            예약한 장비는 {ownerLocation[association]}에서 수령하실 수 있습니다. 🏢️<br/>
-                            장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨
-                        </p>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Grid>
-                            <Grid.Row>
-
-                            </Grid.Row>
-                        </Grid>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        </div>
+        <Layout>
+            <div>
+                <h1>{ownerName[association]} - 장비 예약하기</h1>
+                <Grid columns={2} divided stackable>
+                    <Grid.Row>
+                        <Grid.Column width={6}>
+                            <p style={{ marginTop: '10px' }}>
+                                장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
+                                예약한 장비는 {ownerLocation[association]}에서 수령하실 수 있습니다. 🏢️<br/>
+                                장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨
+                            </p>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Grid rows={2} divided stackable>
+                                <Grid.Column>
+                                    <Grid.Row centered style={{marginBottom: '1em'}}>
+                                        <EquipReservationCalendar selectedDate={selectedDate}/>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <EquipReservationTable />
+                                    </Grid.Row>
+                                </Grid.Column>
+                            </Grid>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </div>
+        </Layout>
     )
 }
 
