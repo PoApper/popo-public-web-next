@@ -11,10 +11,10 @@ const NavbarDesktop = () => {
                         <Link href={'/reservation'}>
                             <Dropdown item simple text={'장소/장비 예약'}>
                                 <NavbarDropdownMenu>
-                                    <Link href={'reservation/place'}>
+                                    <Link href={'/reservation/place'}>
                                         <Dropdown.Item text={'장소 예약'}/>
                                     </Link>
-                                    <Link href={'reservation/equip'}>
+                                    <Link href={'/reservation/equip'}>
                                         <Dropdown.Item text={'장비 예약'}/>
                                     </Link>
                                 </NavbarDropdownMenu>

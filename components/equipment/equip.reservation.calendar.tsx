@@ -10,22 +10,27 @@ const EquipReservationCalendar: React.FunctionComponent = (props) => {
     const owner = router.query.owner;
     const [reservations, setReservations] = useState([]);
 
-    // useEffect(() => {
-    //     axios.get( `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${owner}`).then(res => {
-    //         setReservations(res.data);
-    //     }, [selectedDate, owner])
-    // })
+    useEffect(() => {
+        axios.get( `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${owner}`).then(res => {
+            setReservations(res.data);
+        }, [selectedDate, owner])
+    })
+
+    const markedDates: Date[] = [];
 
     return (
         <>
             <DateInput
                 inline
                 name={"date"}
+                markColor={"orange"}
+                value = {selectedDate}
+                marked={markedDates}
                 dateFormat={"YYYYMMDD"}
                 onChange={(e, data) => {
                 e.preventDefault()
-
-            }} value={selectedDate} />
+                }}
+            />
             <p>날짜를 고르면, 예약 현황을 확인할 수 있습니다! 😎</p>
             <p>해당 날짜에 예약이 하나라도 존재하면, 달력에 <Label circular color={"orange"} empty/>로 표시됩니다.</p>
             <p>
