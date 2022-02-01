@@ -1,0 +1,135 @@
+import { Container, Form, Message } from 'semantic-ui-react'
+import Layout from '../../components/layout'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+
+const userTypeOptions = [
+  { key: 'STUDENT', text: '학생 (학부/대학원)', value: 'STUDENT' },
+  { key: 'STAFF', text: '교직원', value: 'FACULTY' },
+  { key: 'OTHERS', text: 'OTHERS', value: 'OTHERS' },
+]
+
+const RegisterPage = () => {
+  const router = useRouter()
+
+  const [email, setEmail] = useState('')
+  const [id, setId] = useState('')
+  const [password, setPW] = useState('')
+  const [passwordAgain, setPwAgain] = useState('')
+  const [name, setName] = useState('')
+  const [userType, setUserType] = useState('')
+
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
+      { withCredentials: true }).then(() => {
+      alert('이미 로그인 되었습니다.')
+      router.push('/')
+    }).catch(() => {})
+  }, [router])
+
+  const isValidEmail
+    = (email &&
+    !RegExp(/^(?=.*[a-zA-z])[a-zA-Z0-9]{4,20}@postech.ac.kr$/).test(email))
+  const isValidPassword
+    = (password && !RegExp(/^(\w{8,16})$/).test(password))
+  const isValidPasswordAgain
+    = (passwordAgain.length > 0) && (password !== passwordAgain)
+
+  async function handleRegister () {
+    if (!isValidEmail || !isValidPassword || !isValidPasswordAgain) {
+      alert('유효한 값을 입력해주세요! 😱');
+      return;
+    }
+
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/signIn`, {
+        email: email,
+        id: id,
+        password: password,
+        name: name,
+        userType: userType
+      }, { withCredentials: true })
+      alert("회원가입에 성공했습니다! 😁\nPOPO 가입 메일을 확인해주세요! 📧\n(1분 정도 지연 될 수 있습니다.)");
+      router.push('/login')
+    } catch (err: any) {
+      const response = err.response
+      alert(`회원가입에 실패했습니다. 😢\\n""${response.data.message}"`)
+    }
+  }
+
+  return (
+    <Layout>
+      <Container style={{
+        padding: '40px',
+        margin: '2em 0 4em',
+        backgroundColor: '#eeeeee',
+        borderRadius: '8px',
+      }}>
+        <Form autoComplete="off">
+          <Form.Input
+            required
+            label={'email'} placeholder={'POSTECH Mail만 가입 가능합니다.'}
+            onChange={e => setEmail(e.target.value)}
+            error={isValidEmail ? '유효하지 않은 이메일입니다.' : null}/>
+          <p>이 이메일로 인증메일이 발송됩니다!</p>
+
+          <Form.Input
+            required
+            label={'ID'} placeholder={'5~20자의 영문 소문자, 숫자만 사용 가능합니다.'}
+            onChange={e => setId(e.target.value)}
+          />
+
+          <Form.Group widths={'equal'}>
+            <Form.Input
+              required
+              label={'Password'} placeholder={'8자리 이상 16자리 이하'}
+              onChange={e => setPW(e.target.value)}
+              error={isValidPassword ? '비밃번호가 너무 짧습니다.' : null}/>
+            <Form.Input
+              required
+              label={'Password 확인'} placeholder={'8자리 이상 16자리 이하'}
+              onChange={e => setPwAgain(e.target.value)}
+              error={isValidPasswordAgain ? '비밀번호가 일치하지 않습니다.' : null}/>
+          </Form.Group>
+
+          <Form.Input
+            required
+            label={'이름'} placeholder={'예약에 표시될 한글 실명'}
+            onChange={e => setName(e.target.value)}/>
+
+          <Form.Select
+            required
+            label={'유저 타입'} placeholder={'유저 타입을 선택하세요.'}
+            options={userTypeOptions}
+            onChange={(_, { value }) => {
+              // @ts-ignore
+              setUserType(value)
+            }}/>
+
+          {
+            userType && userType !== 'STUDENT' ?
+              <Message color="yellow">
+                <Message.Header>적절한 유저 타입을 선택했나요?</Message.Header>
+                <p>유저 정보가 올바르지 않으면 서비스 이용에 불이익이 있을 수 있습니다.</p>
+              </Message> : null
+          }
+
+          <Form.Checkbox label={
+            <label>
+              <Link href={'other/privacy-policy'}>개인정보처리방침</Link>에 동의합니다.
+            </label>
+          }/>
+
+          <Form.Button primary onClick={handleRegister}>
+            가입하기
+          </Form.Button>
+
+        </Form>
+      </Container>
+    </Layout>
+  )
+}
+
+export default RegisterPage
