@@ -2,7 +2,6 @@ import {Container, Grid, Icon, Image, List} from "semantic-ui-react";
 import CountUp from "react-countup";
 import Link from "next/link";
 import Layout from "../../components/layout";
-import BookingImage from "../../public/booking_illustration.svg";
 
 const ReservationHome = () => {
     const generateAnimatedNumber = (number: number) => {
@@ -36,7 +35,7 @@ const ReservationHome = () => {
                             </Container>
                         </Grid.Column>
                         <Grid.Column>
-                            <Image centered src={BookingImage} size={"large"}/>
+                            <Image centered src={"/booking_illustration.svg"} size={"large"}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
