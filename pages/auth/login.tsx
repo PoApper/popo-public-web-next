@@ -24,7 +24,7 @@ const LoginPage = () => {
       await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, {
         id: id,
         password: password,
-      }, { withCredentials: true }) // `withCredentials`을 true로 설정해야 브라우저에서 JWT 쿠키를 생성할 수 있음.
+      }, { withCredentials: true })
       router.push('/');
     } catch (err: any) {
       const response = err.response
@@ -34,7 +34,7 @@ const LoginPage = () => {
 
   return (
     <Layout>
-      <Container id={'login'} style={{
+      <Container style={{
         padding: '40px',
         margin: '2em 0 4em',
         backgroundColor: '#eeeeee',
