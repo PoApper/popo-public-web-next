@@ -30,7 +30,7 @@ const MenuItemUser = () => {
 
   // TODO: refine this component, after login API sync
   return (
-    <Menu.Item item simple position={'right'}>
+    <Menu.Item position={'right'}>
       <Dropdown text={'개발중!'}>
         <Dropdown.Menu>
           <Dropdown.Item text={'로그아웃'} onClick={handleLogout}/>
