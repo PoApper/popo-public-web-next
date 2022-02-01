@@ -7,7 +7,9 @@ const RecruitingPage = () => {
     <Layout>
       <div style={{background: "#eeeeee", borderRadius: "0.4em"}}>
         <Container style={{padding: "3vh"}}>
-          <h1>POPO 개발자 모집👨‍💻</h1>
+          <h1>
+            <span style={{fontFamily: "Caveat", marginRight: 3}}>POPO</span> 개발자 모집👨‍💻
+          </h1>
           <p>
             총학생회가 POPO를 운영한다면, <strong>PoApper</strong>는 POPO 개발과 유지/보수를 맡고 있습니다. 💪
           </p>
@@ -43,7 +45,7 @@ const RecruitingPage = () => {
             <p><strong>Developed With</strong></p>
             <FrameWorkGrid>
               <Grid.Row columns={3}>
-                <Grid.Column centered>
+                <Grid.Column>
                   <FrameWorkImage src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg"/>
                   <FrameWorkName>
                     ReactJS
