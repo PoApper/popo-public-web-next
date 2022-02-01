@@ -1,8 +1,5 @@
 import {Card, Grid, Image} from "semantic-ui-react";
 import Layout from "../../../components/layout";
-import StudentHallImage from "../../../public/place/student_hall.jpg";
-import JigokImage from "../../../public/place/jigok.jpg";
-import EtcImage from "../../../public/place/dormitory_img.jpg";
 
 const PlacePage = () => {
     return (
@@ -12,7 +9,7 @@ const PlacePage = () => {
                     <Grid.Row centered columns={3}>
                         <Grid.Column>
                             <Card href={'place/student-hall'} centered>
-                                <Image src={StudentHallImage}/>
+                                <Image src={"/place/student_hall.jpg"}/>
                                 <Card.Content>
                                     <Card.Header>학생회관</Card.Header>
                                     <Card.Meta>Student Hall</Card.Meta>
@@ -21,7 +18,7 @@ const PlacePage = () => {
                         </Grid.Column>
                         <Grid.Column>
                             <Card href={'place/jigok'} centered>
-                                <Image src={JigokImage}/>
+                                <Image src={"/place/jigok.jpg"}/>
                                 <Card.Content>
                                     <Card.Header>지곡회관</Card.Header>
                                     <Card.Meta>Ji-gok Community Center</Card.Meta>
@@ -30,7 +27,7 @@ const PlacePage = () => {
                         </Grid.Column>
                         <Grid.Column>
                             <Card href={'place/others'} centered>
-                                <Image src={EtcImage}/>
+                                <Image src={"/place/dormitory_img.jpg"}/>
                                 <Card.Content>
                                     <Card.Header>생활관 외</Card.Header>
                                     <Card.Meta>Dormitory, etc.</Card.Meta>

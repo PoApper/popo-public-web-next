@@ -1,5 +1,6 @@
 import {useRouter} from "next/router";
 import Layout from "../../../../components/layout";
+import axios from "axios";
 
 type ObjectType = {
     [key: string]: string
@@ -20,6 +21,10 @@ const regionOptions: ObjectType = {
 const PlaceRegion: React.FunctionComponent = (props) => {
     const router = useRouter();
     const region = router.query.region as string;
+
+    const existPlaces = () => {
+        return axios.get(`${process.env.NEXT_PUBLIC_API}/place/region/${regionOptions[region]}\``)
+    }
 
     return (
         <Layout>
