@@ -8,8 +8,8 @@ import { useRouter } from 'next/router'
 const LoginPage = () => {
   const router = useRouter();
 
-  const [id, setId] = useState('')
-  const [password, setPW] = useState('')
+  const [id, setId] = useState<string>('')
+  const [password, setPW] = useState<string>('')
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, {withCredentials: true})
