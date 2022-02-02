@@ -21,7 +21,7 @@ const MyInfoPage = () => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/auth/myInfo`,
       { withCredentials: true }).
       then((res) => setMyInfo(res.data)).
-      catch(() => {})
+      catch(() => {}) // TODO: add alert and redirect to login
   }, [router])
 
   async function submitNewPassword () {
