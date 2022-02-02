@@ -5,10 +5,19 @@ import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 
+interface MyInformation {
+  email: string;
+  id: string;
+  name: string;
+  userType: string;
+  createdAt: Date;
+}
+
 const MyInfoPage = () => {
   const router = useRouter()
 
-  const [myInfo, setMyInfo] = useState({})
+  const [myInfo, setMyInfo] = useState<MyInformation>(
+    { email: '', id: '', name: '', userType: '', createdAt: new Date() })
   const [password, setPW] = useState('')
   const [passwordAgain, setPwAgain] = useState('')
 
