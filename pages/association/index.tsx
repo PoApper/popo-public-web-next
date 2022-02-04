@@ -4,8 +4,17 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
+interface AssociationIntroduce {
+  name: string;
+  content: string;
+  location: string;
+  representative: string;
+  contact: string;
+  logoName: string;
+}
+
 const AssociationIndexPage = () => {
-  const [introList, setIntroList] = useState([])
+  const [introList, setIntroList] = useState<AssociationIntroduce[]>([])
   const COL_NUM = 4;
 
   useEffect(() => {
@@ -23,21 +32,21 @@ const AssociationIndexPage = () => {
     <Layout>
       <Grid textAlign="center" stackable columns={COL_NUM}>
         {
-          introList.map((_intro, idx) => {
-            if (!_intro) return <Grid.Column/>
+          introList.map((intro, idx) => {
+            if (!intro) return <Grid.Column/>
             return (
               <Grid.Column key={idx} >
                 <div>
                   <Image
                     centered size="small"
-                    href={`/association/introduce/${_intro.name}`}
+                    href={`/association/introduce/${intro.name}`}
                     src={
-                      _intro.logoName ?
-                        `${process.env.NEXT_PUBLIC_API}/introduce/association/image/${_intro.logoName}`
+                      intro.logoName ?
+                        `${process.env.NEXT_PUBLIC_API}/introduce/association/image/${intro.logoName}`
                         : 'https://react.semantic-ui.com/images/wireframe/image.png'}
-                    alt={`${_intro.name}_logo`}
+                    alt={`${intro.name}_logo`}
                   />
-                  <AssociationName>{_intro.name}</AssociationName>
+                  <AssociationName>{intro.name}</AssociationName>
                 </div>
               </Grid.Column>
             )

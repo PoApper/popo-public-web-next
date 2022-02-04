@@ -4,10 +4,20 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
+interface ClubIntroduce {
+  name: string;
+  content: string;
+  short_desc: string;
+  location: string;
+  representative: string;
+  contact: string;
+  logoName: string;
+}
+
 const ClubTypeIndexPage = () => {
   const router = useRouter()
   const { clubType } = router.query
-  const [introList, setIntroList] = useState([])
+  const [introList, setIntroList] = useState<ClubIntroduce[]>([])
   const COL_NUM = 4;
 
   useEffect(() => {
@@ -27,24 +37,24 @@ const ClubTypeIndexPage = () => {
     <Layout>
       <Grid textAlign="center" stackable columns={COL_NUM}>
         {
-          introList.map((_intro, idx) => {
-            if (!_intro) return <Grid.Column/>
+          introList.map((intro, idx) => {
+            if (!intro) return <Grid.Column/>
             return (
               <Grid.Column key={idx}>
                 <div>
                   <Container style={{width: "12em", lineHeight: "12em"}}>
                     <Image
                       centered size="small"
-                      href={`/club/introduce/${clubType}/${_intro.name}`}
+                      href={`/club/introduce/${clubType}/${intro.name}`}
                       src={
-                        _intro.logoName ?
-                          `${process.env.NEXT_PUBLIC_API}/introduce/club/image/${_intro.logoName}`
+                        intro.logoName ?
+                          `${process.env.NEXT_PUBLIC_API}/introduce/club/image/${intro.logoName}`
                           : 'https://react.semantic-ui.com/images/wireframe/image.png'}
-                      alt={`${_intro.name}_logo`}
+                      alt={`${intro.name}_logo`}
                     />
                   </Container>
-                  <h4 style={{margin: "5px 0 0"}}>{_intro.name}</h4>
-                  <p style={{color: 'gray'}}>{_intro.short_desc}</p>
+                  <h4 style={{margin: "5px 0 0"}}>{intro.name}</h4>
+                  <p style={{color: 'gray'}}>{intro.short_desc}</p>
                 </div>
               </Grid.Column>
             )
