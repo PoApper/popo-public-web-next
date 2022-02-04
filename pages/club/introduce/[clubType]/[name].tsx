@@ -4,10 +4,24 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Container, Grid, Icon, Image, Popup } from 'semantic-ui-react'
 
+interface ClubIntroduce {
+  content: string;
+  location: string;
+  representative: string;
+  contact: string;
+  logoName: string;
+}
+
 const ClubSingIntroducePage = () => {
   const router = useRouter()
   const { name } = router.query
-  const [intro, setIntro]: any = useState([])
+  const [intro, setIntro]: any = useState<ClubIntroduce>({
+    content: '',
+    location: '',
+    representative: '',
+    contact: '',
+    logoName: '',
+  })
 
   useEffect(() => {
     if (!name) return;

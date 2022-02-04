@@ -4,10 +4,24 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
+interface AssociationIntroduce {
+  content: string;
+  location: string;
+  representative: string;
+  contact: string;
+  logoName: string;
+}
+
 const AssociationSingIntroducePage = () => {
   const router = useRouter()
   const { name } = router.query
-  const [intro, setIntro]: any = useState([])
+  const [intro, setIntro] = useState<AssociationIntroduce>({
+    content: '',
+    location: '',
+    representative: '',
+    contact: '',
+    logoName: '',
+  })
 
   useEffect(() => {
     axios.get(
