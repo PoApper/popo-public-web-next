@@ -2,12 +2,29 @@ import { Label, Table } from 'semantic-ui-react'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 import styled from 'styled-components'
 
+interface Equipment {
+  uuid: string;
+  name: string;
+}
+
+interface EquipReservation {
+  uuid: string;
+  title: string;
+  equipments: Equipment[];
+  userType: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  status: string;
+  created_at: Date;
+}
+
+
 const MyEquipReservationTable = () => {
-  const [reserve_list, setReserveList] = useState([])
+  const [reserve_list, setReserveList] = useState<EquipReservation[]>([])
 
   useEffect(() => {
     axios.get(

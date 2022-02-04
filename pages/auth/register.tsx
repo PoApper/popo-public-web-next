@@ -14,12 +14,12 @@ const userTypeOptions = [
 const RegisterPage = () => {
   const router = useRouter()
 
-  const [email, setEmail] = useState('')
-  const [id, setId] = useState('')
-  const [password, setPW] = useState('')
-  const [passwordAgain, setPwAgain] = useState('')
-  const [name, setName] = useState('')
-  const [userType, setUserType] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [id, setId] = useState<string>('')
+  const [password, setPW] = useState<string>('')
+  const [passwordAgain, setPwAgain] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [userType, setUserType] = useState<string>('')
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
@@ -29,12 +29,12 @@ const RegisterPage = () => {
     }).catch(() => {})
   }, [router])
 
-  const isValidEmail
-    = (email &&
+  const isValidEmail: boolean
+    = (email.length > 0 &&
     !RegExp(/^(?=.*[a-zA-z])[a-zA-Z0-9]{4,20}@postech.ac.kr$/).test(email))
-  const isValidPassword
-    = (password && !RegExp(/^(\w{8,16})$/).test(password))
-  const isValidPasswordAgain
+  const isValidPassword: boolean
+    = (password.length > 0 && !RegExp(/^(\w{8,16})$/).test(password))
+  const isValidPasswordAgain: boolean
     = (passwordAgain.length > 0) && (password !== passwordAgain)
 
   async function handleRegister () {

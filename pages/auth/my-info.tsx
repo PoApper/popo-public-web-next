@@ -5,16 +5,25 @@ import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 
+interface MyInformation {
+  email: string;
+  id: string;
+  name: string;
+  userType: string;
+  createdAt: Date;
+}
+
 const MyInfoPage = () => {
   const router = useRouter()
 
-  const [myInfo, setMyInfo] = useState({})
-  const [password, setPW] = useState('')
-  const [passwordAgain, setPwAgain] = useState('')
+  const [myInfo, setMyInfo] = useState<MyInformation>(
+    { email: '', id: '', name: '', userType: '', createdAt: new Date() })
+  const [password, setPW] = useState<string>('')
+  const [passwordAgain, setPwAgain] = useState<string>('')
 
-  const isValidPassword
-    = (password && !RegExp(/^(\w{8,16})$/).test(password))
-  const isValidPasswordAgain
+  const isValidPassword: boolean
+    = (password.length > 0 && !RegExp(/^(\w{8,16})$/).test(password))
+  const isValidPasswordAgain: boolean
     = (passwordAgain.length > 0) && (password !== passwordAgain)
 
   useEffect(() => {

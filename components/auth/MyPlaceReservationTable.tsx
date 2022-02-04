@@ -5,8 +5,25 @@ import axios from 'axios'
 
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 
+interface Place {
+  name: string;
+}
+
+interface PlaceReservation {
+  uuid: string;
+  title: string;
+  place: Place;
+  userType: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  status: string;
+  created_at: Date;
+}
+
+
 const MyPlaceReservationTable = () => {
-  const [reserve_list, setReserveList] = useState([])
+  const [reserve_list, setReserveList] = useState<PlaceReservation[]>([])
 
   useEffect(() => {
     axios.get(
