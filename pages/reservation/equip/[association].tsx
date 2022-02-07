@@ -6,6 +6,14 @@ import {Grid} from "semantic-ui-react";
 import EquipReservationCalendar from "../../../components/equipment/equip.reservation.calendar";
 import EquipReservationTable from "../../../components/equipment/equip.reservation.table";
 import Layout from "../../../components/layout";
+import EquipListTable from "../../../components/equipment/equip.list.table";
+
+type equipmentType = {
+    name: string,
+    description: string,
+    fee: number,
+    imageName: string
+};
 
 type ObjectType = {
     [key: string]: string
@@ -29,11 +37,12 @@ const EquipAssociation: React.FunctionComponent = (props) => {
     const association = router.query.association as string;
     const [selectedDate, setDate] = useState(moment(new Date()).format('YYYYMMDD'))
     const [userInfo, setUserInfo] = useState()
-    const [equipments, setEquipments] = useState([])
+    const [equipments, setEquipments] = useState<equipmentType[]>([])
 
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, { withCredentials: true }).then(res => setUserInfo(res.data)).catch(() => {})
         axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${association}`).then((res) => {
+            console.log(res.data);
             setEquipments(res.data);
         })
     }, [selectedDate, association])
@@ -45,6 +54,7 @@ const EquipAssociation: React.FunctionComponent = (props) => {
                 <Grid columns={2} divided stackable>
                     <Grid.Row>
                         <Grid.Column width={6}>
+                            <EquipListTable equipments={equipments}/>
                             <p style={{ marginTop: '10px' }}>
                                 장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
                                 예약한 장비는 {ownerLocation[association]}에서 수령하실 수 있습니다. 🏢️<br/>

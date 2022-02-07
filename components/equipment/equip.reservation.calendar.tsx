@@ -4,7 +4,7 @@ import axios from "axios";
 import {DateInput} from "semantic-ui-calendar-react";
 import {Label} from "semantic-ui-react";
 
-const EquipReservationCalendar: React.FunctionComponent = (props) => {
+const EquipReservationCalendar: React.FunctionComponent<{ selectedDate: string }> = (props) => {
     const router = useRouter();
     const selectedDate = router.query.selectedDate as string;
     const owner = router.query.owner;
