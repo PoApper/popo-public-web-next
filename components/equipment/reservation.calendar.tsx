@@ -4,19 +4,26 @@ import axios from "axios";
 import {DateInput} from "semantic-ui-calendar-react";
 import {Label} from "semantic-ui-react";
 
-const EquipReservationCalendar: React.FunctionComponent<{ selectedDate: string }> = (props) => {
+type reservationType = {
+    date: string
+}
+
+const ReservationCalendar: React.FunctionComponent<{ selectedDate: string }> = (props) => {
     const router = useRouter();
     const selectedDate = router.query.selectedDate as string;
     const owner = router.query.owner;
-    const [reservations, setReservations] = useState([]);
+    const [reservations, setReservations] = useState<reservationType[]>([]);
 
     useEffect(() => {
-        axios.get( `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${owner}`).then(res => {
+        axios.get( `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${owner}`).then((res) => {
             setReservations(res.data);
-        }, [selectedDate, owner])
-    })
+        })
+    }, [selectedDate, owner])
 
     const markedDates: Date[] = [];
+    for (const reservation of reservations) {
+        const date = reservation.date;
+    }
 
     return (
         <>
@@ -42,4 +49,4 @@ const EquipReservationCalendar: React.FunctionComponent<{ selectedDate: string }
     );
 }
 
-export default EquipReservationCalendar
+export default ReservationCalendar

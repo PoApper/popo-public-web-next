@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import {useRouter} from "next/router";
 import {Grid} from "semantic-ui-react";
-import EquipReservationCalendar from "../../../components/equipment/equip.reservation.calendar";
+import ReservationCalendar from "../../../components/equipment/reservation.calendar";
 import EquipReservationTable from "../../../components/equipment/equip.reservation.table";
 import Layout from "../../../components/layout";
 import EquipListTable from "../../../components/equipment/equip.list.table";
@@ -42,7 +42,6 @@ const EquipAssociation: React.FunctionComponent = (props) => {
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, { withCredentials: true }).then(res => setUserInfo(res.data)).catch(() => {})
         axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${association}`).then((res) => {
-            console.log(res.data);
             setEquipments(res.data);
         })
     }, [selectedDate, association])
@@ -65,7 +64,7 @@ const EquipAssociation: React.FunctionComponent = (props) => {
                             <Grid rows={2} divided stackable>
                                 <Grid.Column>
                                     <Grid.Row centered style={{marginBottom: '1em'}}>
-                                        <EquipReservationCalendar selectedDate={selectedDate}/>
+                                        <ReservationCalendar selectedDate={selectedDate}/>
                                     </Grid.Row>
                                     <Grid.Row>
                                         <EquipReservationTable />
