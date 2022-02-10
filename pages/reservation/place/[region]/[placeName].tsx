@@ -43,9 +43,19 @@ const RegionPlace: React.FunctionComponent = () => {
       `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
     ).then(res => setReservations(res.data))
 
+    // TODO: not retrieve all reservations on that place,
+    // TODO: just search for a month, and when month change search again!
     axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
-    ).then(res => setReservations(res.data))
+      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}`,
+    ).then(res => {
+      const allReservations = res.data
+      const datesArr = []
+      for (const reservation of allReservations) {
+        const date = reservation.date; // YYYYMMDD
+        datesArr.push(moment(date).toDate());
+      }
+      setMarkedDates(datesArr)
+    })
   }, [placeName, selectedDate])
 
   function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
