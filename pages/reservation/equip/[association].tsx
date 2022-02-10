@@ -3,10 +3,10 @@ import axios from "axios";
 import moment from "moment";
 import {useRouter} from "next/router";
 import {Grid} from "semantic-ui-react";
-import ReservationCalendar from "../../../components/equip/reservation.calendar";
-import EquipReservationTable from "../../../components/equip/equip.reservation.table";
+import ReservationCalendar from "../../../components/reservation/reservation.calendar";
+import EquipReservationTable from "../../../components/reservation/equip.reservation.table";
 import Layout from "../../../components/layout";
-import EquipListTable from "../../../components/equip/equip.list.table";
+import EquipListTable from "../../../components/reservation/equip.list.table";
 
 type equipmentType = {
     name: string,

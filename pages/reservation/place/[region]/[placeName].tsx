@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Card, Grid, Image, Label, Loader} from "semantic-ui-react";
+import {Card, Grid, Image, Loader} from "semantic-ui-react";
 import {useRouter} from "next/router";
-import Layout from "../../../../components/layout";
 import axios from "axios";
-import PlaceReservationTable from "../../../../components/equip/place.reservation.table";
-import ReservationCalendar from "../../../../components/equip/reservation.calendar";
 import moment from "moment";
+
+import Layout from "../../../../components/layout";
+import PlaceReservationTable from "../../../../components/reservation/place.reservation.table";
+import ReservationCalendar from "../../../../components/reservation/reservation.calendar";
 
 type bookerType = {
     name: string,
