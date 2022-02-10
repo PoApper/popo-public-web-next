@@ -1,31 +1,17 @@
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
-type reservationType = {
-  date: string
+type ReservationCalendar = {
+  selectedDate: string,
+  markedDates: Date[]
+  handleDateChange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void
 }
 
-const ReservationCalendar = () => {
-  const router = useRouter()
-  const selectedDate = router.query.selectedDate as string
-  const owner = router.query.owner
-  const [reservations, setReservations] = useState<reservationType[]>([])
-
-  useEffect(() => {
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${owner}`).
-      then((res) => {
-        setReservations(res.data)
-      })
-  }, [selectedDate, owner])
-
-  const markedDates: Date[] = []
-  for (const reservation of reservations) {
-    const date = reservation.date
-  }
-
+const ReservationCalendar = ({
+  selectedDate,
+  markedDates,
+  handleDateChange,
+}: ReservationCalendar) => {
   return (
     <DateInput
       inline
@@ -34,9 +20,8 @@ const ReservationCalendar = () => {
       value={selectedDate}
       marked={markedDates}
       dateFormat={'YYYYMMDD'}
-      onChange={(e, data) => {
-        e.preventDefault()
-      }}
+      // @ts-ignore
+      onChange={handleDateChange}
     />
   )
 }

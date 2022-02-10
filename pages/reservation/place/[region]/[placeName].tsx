@@ -28,26 +28,31 @@ type reservationType = {
   title: string
 }
 
-const handleDateChange = (e, data) => {
-  try {
-
-  } catch (error) {
-    alert('조회 실패...')
-  }
-}
-
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
   const placeName = router.query.placeName as string
 
   const [reservations, setReservations] = useState<reservationType[]>([])
-  const [selectedDate, setDate] = useState(moment().format('YYYYMMDD'))
+  const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
+  const [markedDates, setMarkedDates] = useState<Date[]>([])
 
   useEffect(() => {
+    if (!placeName) return;
+
+    axios.get(
+      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
+    ).then(res => setReservations(res.data))
+
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
     ).then(res => setReservations(res.data))
   }, [placeName, selectedDate])
+
+  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
+    e.preventDefault();
+    const date: string = data.value; // YYYYMMDD
+    setSelectedDate(date);
+  }
 
   return (
     <Layout>
@@ -62,7 +67,10 @@ const RegionPlace: React.FunctionComponent = () => {
             <Grid.Column>
 
               <Grid.Row centered style={{ marginBottom: '1em' }}>
-                <ReservationCalendar selectedDate={selectedDate}/>
+                <ReservationCalendar
+                  selectedDate={selectedDate}
+                  markedDates={markedDates}
+                  handleDateChange={handleDateChange}/>
               </Grid.Row>
 
               <Grid.Row style={{ marginBottom: '1em' }}>
