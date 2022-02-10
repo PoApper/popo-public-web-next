@@ -1,5 +1,6 @@
-import { Table } from 'semantic-ui-react'
-import { convertDate, convertTime } from '../../lib/time-date'
+import { Label, Table } from 'semantic-ui-react'
+import React from 'react'
+import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 
 type bookerType = {
   name: string,
@@ -18,11 +19,15 @@ type reservationType = {
   title: string
 }
 
-const PlaceReservationTable: React.FunctionComponent<{ reservations: reservationType[] }> = (props) => {
+type PlaceReservationTable = {
+  reservations: reservationType[]
+}
+
+const PlaceReservationTable = ({ reservations }: PlaceReservationTable) => {
   return (
     <Table>
       <Table.Header>
-        <Table.Row>
+        <Table.Row textAlign="center">
           <Table.HeaderCell>사용자</Table.HeaderCell>
           <Table.HeaderCell>예약 제목</Table.HeaderCell>
           <Table.HeaderCell>예약 기간</Table.HeaderCell>
@@ -31,26 +36,33 @@ const PlaceReservationTable: React.FunctionComponent<{ reservations: reservation
       </Table.Header>
       <Table.Body>
         {
-          props.reservations.length !== 0 ?
-            props.reservations.map((reservation) => {
+          reservations.length ?
+            reservations.map((reservation) => {
               return (
-                <Table.Row key={reservation.uuid}>
+                <Table.Row key={reservation.uuid} textAlign="center">
                   <Table.Cell>{reservation.booker.name}</Table.Cell>
                   <Table.Cell>{reservation.title}</Table.Cell>
                   <Table.Cell>
                     {convertDate(reservation.date)}<br/>
-                    {convertTime(reservation.start_time)} ~ {convertTime(
-                    reservation.end_time)}
+                    {convertTime(reservation.start_time)} ~
+                    {convertTime(reservation.end_time)}
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Label
+                      circular empty
+                      color={convertStatus(reservation.status)}/>
                   </Table.Cell>
                 </Table.Row>
               )
             })
-            : <Table.Row>
-              <Table.Cell/>
-              <Table.Cell>등록된 예약이 없습니다!</Table.Cell>
-              <Table.Cell/>
-              <Table.Cell/>
-            </Table.Row>
+            : (
+              <Table.Row>
+                <Table.Cell/>
+                <Table.Cell>등록된 예약이 없습니다!</Table.Cell>
+                <Table.Cell/>
+                <Table.Cell/>
+              </Table.Row>
+            )
         }
       </Table.Body>
     </Table>

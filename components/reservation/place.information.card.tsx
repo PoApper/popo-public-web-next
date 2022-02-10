@@ -13,7 +13,7 @@ type PlaceCardProps = {
   placeName: string;
 }
 
-const PlaceInfoCard = ({ placeName }: PlaceCardProps) => {
+const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
   const [placeInfo, setPlaceInfo] = useState<placeType>({
     name: '',
     description: '',
@@ -44,4 +44,4 @@ const PlaceInfoCard = ({ placeName }: PlaceCardProps) => {
   )
 }
 
-export default PlaceInfoCard
+export default PlaceInformationCard;
