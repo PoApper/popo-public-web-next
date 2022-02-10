@@ -53,27 +53,26 @@ const RegionPlace: React.FunctionComponent = () => {
 
   return (
     <Layout>
-      <div>
-        <Grid columns={2} divided stackable>
-          <Grid.Row>
-            <Grid.Column width={6}>
-              <PlaceInfoCard placeName={placeName}/>
-            </Grid.Column>
+      <Grid columns={2} divided stackable>
+
+        <Grid.Column width={6}>
+          <PlaceInfoCard placeName={placeName}/>
+        </Grid.Column>
+
+        <Grid.Column>
+          <Grid rows={2} divided stackable>
             <Grid.Column>
-              <Grid rows={2} divided stackable>
-                <Grid.Column>
-                  <Grid.Row centered style={{ marginBottom: '1em' }}>
-                    <ReservationCalendar selectedDate={selectedDate}/>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <PlaceReservationTable reservations={reservations}/>
-                  </Grid.Row>
-                </Grid.Column>
-              </Grid>
+              <Grid.Row centered style={{ marginBottom: '1em' }}>
+                <ReservationCalendar selectedDate={selectedDate}/>
+              </Grid.Row>
+              <Grid.Row>
+                <PlaceReservationTable reservations={reservations}/>
+              </Grid.Row>
             </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
+          </Grid>
+        </Grid.Column>
+
+      </Grid>
     </Layout>
   )
 }
