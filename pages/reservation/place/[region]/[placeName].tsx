@@ -38,16 +38,13 @@ const handleDateChange = (e, data) => {
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
   const placeName = router.query.placeName as string
-  const [selectedDate, setDate] = useState(
-    moment(new Date()).format('YYYYMMDD'))
+
   const [reservations, setReservations] = useState<reservationType[]>([])
-  const currentDate: Date = new Date()
-  const currentDateTime: number = currentDate.getFullYear() * 10000 +
-    (currentDate.getMonth() + 1) * 100 + currentDate.getDate()
+  const [selectedDate, setDate] = useState(moment().format('YYYYMMDD'))
 
   useEffect(() => {
     axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${currentDateTime}`,
+      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
     ).then(res => setReservations(res.data))
   }, [placeName, selectedDate])
 
