@@ -38,8 +38,6 @@ const EquipReservationTable = ({
 }: EquipReservationTableProps) => {
   const [reservations, setReservations] = useState<EquipReservationType[]>([])
 
-  console.log(associationName, selectedDate)
-
   useEffect(() => {
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&date=${selectedDate}`,

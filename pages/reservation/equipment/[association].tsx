@@ -11,13 +11,6 @@ import EquipReservationTable
   from '../../../components/reservation/equip.reservation.table'
 import EquipListTable from '../../../components/reservation/equip.list.table'
 
-type EquipmentType = {
-  name: string,
-  description: string,
-  fee: number,
-  imageName: string
-};
-
 type ObjectType = {
   [key: string]: string
 }
@@ -35,11 +28,10 @@ const ownerLocation: ObjectType = {
 }
 
 
-const EquipAssociation: React.FunctionComponent = () => {
+const EquipAssociationPage: React.FunctionComponent = () => {
   const router = useRouter()
   const associationName = router.query.association as string
 
-  const [reservations, setReservations] = useState<[]>([])
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
 
@@ -48,11 +40,6 @@ const EquipAssociation: React.FunctionComponent = () => {
 
   useEffect(() => {
     if (!associationName) return
-
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&date=${selectedDate}`,
-    ).then(res => setReservations(res.data))
-
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
     axios.get(
@@ -98,7 +85,9 @@ const EquipAssociation: React.FunctionComponent = () => {
                   handleDateChange={handleDateChange}/>
               </Grid.Row>
               <Grid.Row>
-                <EquipReservationTable/>
+                <EquipReservationTable
+                  associationName={associationName}
+                  selectedDate={selectedDate}/>
               </Grid.Row>
             </Grid.Column>
           </Grid>
@@ -109,4 +98,4 @@ const EquipAssociation: React.FunctionComponent = () => {
   )
 }
 
-export default EquipAssociation
+export default EquipAssociationPage
