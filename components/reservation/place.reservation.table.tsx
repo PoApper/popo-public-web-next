@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Label, Table } from 'semantic-ui-react'
 
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
+import axios from 'axios'
 
 type BookerType = {
   name: string,
@@ -21,10 +22,19 @@ type PlaceReservationType = {
 }
 
 type PlaceReservationTableProps = {
-  reservations: PlaceReservationType[]
+  placeName: string,
+  selectedDate: string,
 }
 
-const PlaceReservationTable = ({ reservations }: PlaceReservationTableProps) => {
+const PlaceReservationTable = ({ placeName, selectedDate }: PlaceReservationTableProps) => {
+  const [reservations, setReservations] = useState<PlaceReservationType[]>([])
+
+  useEffect(() => {
+    axios.get(
+      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
+    ).then(res => setReservations(res.data))
+  }, [placeName, selectedDate])
+
   return (
     <Table>
       <Table.Header>

@@ -11,37 +11,15 @@ import ReservationCalendar
   from '../../../../components/reservation/reservation.calendar'
 import PlaceInformationCard from '../../../../components/reservation/place.information.card'
 
-type bookerType = {
-  name: string,
-  userType: string
-}
-
-type reservationType = {
-  uuid: string,
-  booker: bookerType,
-  date: string,
-  description: string,
-  start_time: string,
-  end_time: string,
-  phone: string,
-  status: string,
-  title: string
-}
-
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
   const placeName = router.query.placeName as string
 
-  const [reservations, setReservations] = useState<reservationType[]>([])
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
 
   useEffect(() => {
     if (!placeName) return;
-
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
-    ).then(res => setReservations(res.data))
 
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
@@ -99,7 +77,9 @@ const RegionPlace: React.FunctionComponent = () => {
               </Grid.Row>
 
               <Grid.Row>
-                <PlaceReservationTable reservations={reservations}/>
+                <PlaceReservationTable
+                  placeName={placeName}
+                  selectedDate={selectedDate}/>
               </Grid.Row>
 
             </Grid.Column>
