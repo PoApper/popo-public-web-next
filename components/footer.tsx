@@ -28,7 +28,7 @@ const Footer = () => {
                   FAX +82-54-279-2626
                 </p>
                 <p>
-                  E-mail: stu-35@postech.ac.kr<br/>
+                  E-mail: stu-36@postech.ac.kr<br/>
                   POPO 관련 문의: jeong314@postech.ac.kr
                 </p>
               </small>
