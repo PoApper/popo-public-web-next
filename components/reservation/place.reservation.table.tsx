@@ -1,29 +1,30 @@
-import { Label, Table } from 'semantic-ui-react'
 import React from 'react'
+import { Label, Table } from 'semantic-ui-react'
+
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 
-type bookerType = {
+type BookerType = {
   name: string,
-  userType: string
+  userType: string,
 }
 
-type reservationType = {
+type PlaceReservationType = {
   uuid: string,
-  booker: bookerType,
+  booker: BookerType,
   date: string,
   description: string,
   start_time: string,
   end_time: string,
   phone: string,
   status: string,
-  title: string
+  title: string,
 }
 
-type PlaceReservationTable = {
-  reservations: reservationType[]
+type PlaceReservationTableProps = {
+  reservations: PlaceReservationType[]
 }
 
-const PlaceReservationTable = ({ reservations }: PlaceReservationTable) => {
+const PlaceReservationTable = ({ reservations }: PlaceReservationTableProps) => {
   return (
     <Table>
       <Table.Header>
