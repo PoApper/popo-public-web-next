@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
@@ -11,7 +11,7 @@ import EquipReservationTable
   from '../../../components/reservation/equip.reservation.table'
 import EquipListTable from '../../../components/reservation/equip.list.table'
 
-type equipmentType = {
+type EquipmentType = {
   name: string,
   description: string,
   fee: number,
@@ -34,14 +34,14 @@ const ownerLocation: ObjectType = {
   'saengna': '생각나눔 사무실(학생회관 108호)',
 }
 
-const EquipAssociation: React.FunctionComponent = (props) => {
+
+const EquipAssociation: React.FunctionComponent = () => {
   const router = useRouter()
   const associationName = router.query.association as string
 
-  const [selectedDate, setDate] = useState(
-    moment(new Date()).format('YYYYMMDD'))
-  const [userInfo, setUserInfo] = useState()
-  const [equipments, setEquipments] = useState<equipmentType[]>([])
+  const [reservations, setReservations] = useState<[]>([])
+  const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
+  const [markedDates, setMarkedDates] = useState<Date[]>([])
 
   const associationKorName = ownerName[associationName];
   const associationLocation = ownerLocation[associationName];
@@ -49,15 +49,30 @@ const EquipAssociation: React.FunctionComponent = (props) => {
   useEffect(() => {
     if (!associationName) return
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
-      { withCredentials: true }).
-      then(res => setUserInfo(res.data)).
-      catch(() => {})
-    axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).
-      then((res) => {
-        setEquipments(res.data)
-      })
-  }, [selectedDate, associationName])
+    axios.get(
+      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&date=${selectedDate}`,
+    ).then(res => setReservations(res.data))
+
+    // TODO: not retrieve all reservations on that place,
+    // TODO: just search for a month, and when month change search again!
+    axios.get(
+      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}`,
+    ).then(res => {
+      const allReservations = res.data
+      const datesArr = []
+      for (const reservation of allReservations) {
+        const date = reservation.date; // YYYYMMDD
+        datesArr.push(moment(date).toDate());
+      }
+      setMarkedDates(datesArr)
+    })
+  }, [associationName, selectedDate])
+
+  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
+    e.preventDefault();
+    const date: string = data.value; // YYYYMMDD
+    setSelectedDate(date);
+  }
 
   return (
     <Layout>
@@ -65,7 +80,7 @@ const EquipAssociation: React.FunctionComponent = (props) => {
       <Grid columns={2} divided stackable>
 
         <Grid.Column width={6}>
-          <EquipListTable equipments={equipments}/>
+          <EquipListTable associationName={associationName}/>
           <p style={{ marginTop: '10px' }}>
             장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
             예약한 장비는 {associationLocation}에서 수령하실 수 있습니다. 🏢️<br/>
@@ -77,7 +92,10 @@ const EquipAssociation: React.FunctionComponent = (props) => {
           <Grid rows={2} divided stackable>
             <Grid.Column>
               <Grid.Row centered style={{ marginBottom: '1em' }}>
-                <ReservationCalendar selectedDate={selectedDate}/>
+                <ReservationCalendar
+                  selectedDate={selectedDate}
+                  markedDates={markedDates}
+                  handleDateChange={handleDateChange}/>
               </Grid.Row>
               <Grid.Row>
                 <EquipReservationTable/>
