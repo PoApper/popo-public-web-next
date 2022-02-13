@@ -10,6 +10,8 @@ import ReservationCalendar
 import EquipReservationTable
   from '../../../components/reservation/equip.reservation.table'
 import EquipListTable from '../../../components/reservation/equip.list.table'
+import EquipReservationCreateModal
+  from '../../../components/reservation/equip.reservation.create.modal'
 
 type ObjectType = {
   [key: string]: string
@@ -73,6 +75,8 @@ const EquipAssociationPage: React.FunctionComponent = () => {
             예약한 장비는 {associationLocation}에서 수령하실 수 있습니다. 🏢️<br/>
             장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨
           </p>
+          <EquipReservationCreateModal
+            associationName={associationName}/>
         </Grid.Column>
 
         <Grid.Column>
