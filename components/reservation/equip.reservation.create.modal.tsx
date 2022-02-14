@@ -1,8 +1,13 @@
 import { KeyboardEvent, useEffect, useState } from 'react'
 import { Button, Divider, Form, Modal } from 'semantic-ui-react'
 import axios from 'axios'
-import { DateInput } from 'semantic-ui-calendar-react'
 import moment from 'moment'
+
+import { DateInput } from 'semantic-ui-calendar-react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
+import { roundUpByDuration } from '../../lib/time-date'
 
 type UserInfo = {
   name: string
@@ -32,7 +37,12 @@ const EquipReservationCreateModal
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-  const [date, setDate] = useState(moment())
+  const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD')) // YYYY-MM-DD
+  const [startTime, setStartTime]
+    = useState<string>(roundUpByDuration(moment(), 30).format('HHmm')) // HHmm
+  const [endTime, setEndTime]
+    = useState<string>(
+    roundUpByDuration(moment(), 30).add(30, 'minute').format('HHmm')) // HHmm
 
   useEffect(() => {
     axios.get(
@@ -45,6 +55,27 @@ const EquipReservationCreateModal
       then((res) => setEquipments(res.data))
 
   }, [associationName])
+
+  function handleSubmit () {
+    axios.post(`${process.env.NEXT_PUBLIC_API}/reservation-equip`, {
+      equipments: equipments,
+      owner: associationName,
+      phone: phone,
+      title: title,
+      description: description,
+      date: date, // YYYY-MM-DD
+      start_time: startTime, // HHmm
+      end_Time: endTime, // HHmm
+    }, { withCredentials: true })
+      .then(() => {
+        alert('예약을 생성했습니다!');
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('예약 생성에 실패했습니다.')
+    })
+  }
 
   return (
     <Modal
@@ -95,19 +126,60 @@ const EquipReservationCreateModal
                 value={date}
                 onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
                 onChange={(_, value) => {
-                  const targetDate = value.value
-                  const isToday = targetDate == moment().format('YYYY-MM-DD')
-                  setDate(moment(targetDate))
-                  if (isToday) {
-                    // startTime
-                    // endTime
+                  const targetDate: string = value.value // YYYY-MM-DD
+                  const todayDate: string = moment().format('YYYY-MM-DD')
+                  setDate(targetDate)
+                  if (targetDate === todayDate) {
+                    setStartTime(roundUpByDuration(moment(), 30).format('HHmm'))
+                    setEndTime(
+                      roundUpByDuration(moment(), 30).
+                        add(30, 'minute').
+                        format('HHmm'))
                   } else {
-                    // startTime
-                    // endTime
+                    setStartTime('0000')
+                    setEndTime('0030')
                   }
                 }}/>
             </div>
+
+            <div className={'required field'}>
+              <label>시작 시간</label>
+              <DatePicker
+                showTimeSelect showTimeSelectOnly timeIntervals={30}
+                dateFormat={'hh:mm aa'}
+                selected={moment(startTime, 'HHmm').toDate()}
+                minTime={
+                  (moment().format('YYYY-MM-DD') === date) ?
+                    moment().toDate() :
+                    moment().startOf('day').toDate()
+                }
+                maxTime={moment().endOf('day').toDate()}
+                onKeyDown={e => e.preventDefault()}
+                onChange={(startTime: Date) => {
+                  setStartTime(moment(startTime).format('HHmm'))
+                  setEndTime(moment(startTime).add(30, 'minute').format('HHmm'))
+                }}/>
+            </div>
+
+            <div className={'required field'}>
+              <label>종료 시간</label>
+              <DatePicker
+                showTimeSelect showTimeSelectOnly timeIntervals={30}
+                dateFormat={'hh:mm aa'}
+                selected={moment(endTime, 'HHmm').toDate()}
+                minTime={moment(startTime).add(30, 'minute').toDate()}
+                maxTime={moment().endOf('day').toDate()}
+                onKeyDown={e => e.preventDefault()}
+                onChange={(endTime: Date) => {
+                  setEndTime(moment(endTime).format('HHmm'))
+                }}/>
+            </div>
           </Form.Group>
+
+          <Form.Button onClick={handleSubmit}>
+            생성
+          </Form.Button>
+
         </Form>
       </Modal.Content>
     </Modal>
