@@ -1,15 +1,10 @@
 import React, { useRouter } from 'next/router'
-import Layout from '../../../../components/layout'
 import axios from 'axios'
 import { Button, Card, Icon } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 
-type PlaceType = {
-  uuid: string,
-  name: string,
-  location: string,
-  description: string
-}
+import Layout from '../../../../components/layout'
+import { IPlace } from '../../../../types/reservation.interface'
 
 type ObjectType = {
   [key: string]: string
@@ -30,7 +25,7 @@ const regionOptions: ObjectType = {
 const PlaceRegionIndexPage: React.FunctionComponent = () => {
   const router = useRouter()
   const region = router.query.region as string
-  const [places, setPlaces] = useState<PlaceType[]>([])
+  const [places, setPlaces] = useState<IPlace[]>([])
 
   useEffect(() => {
     if (!region) return

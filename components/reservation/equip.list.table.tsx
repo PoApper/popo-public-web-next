@@ -2,19 +2,14 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Image, Modal, Table } from 'semantic-ui-react'
 
-type EquipmentType = {
-  name: string,
-  description: string,
-  fee: number,
-  imageName: string
-};
+import { IEquipment } from '../../types/reservation.interface'
 
 type EquipListTableProps = {
   associationName: string
 }
 
 const EquipListTable = ({ associationName }: EquipListTableProps) => {
-  const [equipments, setEquipments] = useState<EquipmentType[]>([])
+  const [equipments, setEquipments] = useState<IEquipment[]>([])
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).

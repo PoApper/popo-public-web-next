@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
+import { IUser } from '../../types/user.interface'
 
 const MenuItemUser = () => {
   const router = useRouter()
-  const [user, setUser]: any = useState({})
+  const [user, setUser] = useState<IUser>({
+    name: '',
+  })
 
   useEffect(() => {
     axios.get(

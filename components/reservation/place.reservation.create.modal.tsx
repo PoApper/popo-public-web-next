@@ -7,39 +7,34 @@ import { DateInput } from 'semantic-ui-calendar-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
+import { IUser } from '../../types/user.interface'
+import { IPlace } from '../../types/reservation.interface'
 import { roundUpByDuration } from '../../lib/time-date'
 
-type UserInfoType = {
-  name: string
-}
-
-type PlaceInfoType = {
-  uuid: string,
-  name: string,
-  region: string
+const RegionKorNameMapping = {
+  STUDENT_HALL: '학생 회관',
+  JIGOK_CENTER: '지곡 회관',
+  OTHERS: '생활관 외',
 }
 
 type PlaceReservationCreateModalProps = {
   placeName: string,
 }
 
-const regionName = {
-  'STUDENT_HALL': '학생 회관',
-  'JIGOK_CENTER': '지곡 회관',
-  'OTHERS': '생활관 외',
-}
-
 const PlaceReservationCreateModal
   = ({ placeName }: PlaceReservationCreateModalProps) => {
   const [open, setOpen] = useState(false)
 
-  const [userInfo, setUserInfo] = useState<UserInfoType>({
+  const [userInfo, setUserInfo] = useState<IUser>({
     name: '',
   })
-  const [placeInfo, setPlaceInfo] = useState<PlaceInfoType>({
+  const [placeInfo, setPlaceInfo] = useState<IPlace>({
     uuid: '',
     name: '',
-    region: ''
+    region: '',
+    description: '',
+    location: '',
+    imageName: ''
   })
 
   const [phone, setPhone] = useState<string>('')
@@ -100,7 +95,7 @@ const PlaceReservationCreateModal
             <Form.Input
               required readOnly label={'지역'} name="region"
               // @ts-ignore
-              value={regionName[placeInfo.region]}/>
+              value={RegionKorNameMapping[placeInfo.region]}/>
             <Form.Input
               required readOnly label={'장소'} name="place"
               value={placeInfo.name}/>

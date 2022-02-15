@@ -1,21 +1,15 @@
 import { useRouter } from 'next/router'
-import Layout from '../../../../components/layout'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Container, Grid, Icon, Image, Popup } from 'semantic-ui-react'
 
-interface ClubIntroduce {
-  content: string;
-  location: string;
-  representative: string;
-  contact: string;
-  logoName: string;
-}
+import Layout from '../../../../components/layout'
+import { IClubIntroduce } from '../../../../types/introduce.interface'
 
 const ClubSingIntroducePage = () => {
   const router = useRouter()
   const { name } = router.query
-  const [intro, setIntro]: any = useState<ClubIntroduce>({
+  const [intro, setIntro]: any = useState<IClubIntroduce>({
     content: '',
     location: '',
     representative: '',

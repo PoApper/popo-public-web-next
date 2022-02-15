@@ -1,25 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Label, Table } from 'semantic-ui-react'
-
-import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 import axios from 'axios'
 
-type BookerType = {
-  name: string,
-  userType: string,
-}
-
-type PlaceReservationType = {
-  uuid: string,
-  booker: BookerType,
-  date: string,
-  description: string,
-  start_time: string,
-  end_time: string,
-  phone: string,
-  status: string,
-  title: string,
-}
+import { IPlaceReservation } from '../../types/reservation.interface'
+import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 
 type PlaceReservationTableProps = {
   placeName: string,
@@ -27,7 +11,7 @@ type PlaceReservationTableProps = {
 }
 
 const PlaceReservationTable = ({ placeName, selectedDate }: PlaceReservationTableProps) => {
-  const [reservations, setReservations] = useState<PlaceReservationType[]>([])
+  const [reservations, setReservations] = useState<IPlaceReservation[]>([])
 
   useEffect(() => {
     if (!placeName || !selectedDate) return;

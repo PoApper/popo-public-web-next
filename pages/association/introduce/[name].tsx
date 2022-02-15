@@ -1,21 +1,15 @@
-import Layout from '../../../components/layout'
 import { Container, Grid, Icon, Image, Popup } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-interface AssociationIntroduce {
-  content: string;
-  location: string;
-  representative: string;
-  contact: string;
-  logoName: string;
-}
+import Layout from '../../../components/layout'
+import { IAssociationIntroduce } from '../../../types/introduce.interface'
 
 const AssociationSingIntroducePage = () => {
   const router = useRouter()
   const { name } = router.query
-  const [intro, setIntro] = useState<AssociationIntroduce>({
+  const [intro, setIntro] = useState<IAssociationIntroduce>({
     content: '',
     location: '',
     representative: '',

@@ -1,7 +1,7 @@
 import React from 'react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
-type ReservationCalendar = {
+type ReservationCalendarProps = {
   selectedDate: string,
   markedDates: Date[]
   handleDateChange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void
@@ -11,7 +11,7 @@ const ReservationCalendar = ({
   selectedDate,
   markedDates,
   handleDateChange,
-}: ReservationCalendar) => {
+}: ReservationCalendarProps) => {
   return (
     <DateInput
       inline
