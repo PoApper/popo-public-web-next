@@ -10,6 +10,8 @@ import PlaceReservationTable
 import ReservationCalendar
   from '../../../../components/reservation/reservation.calendar'
 import PlaceInformationCard from '../../../../components/reservation/place.information.card'
+import PlaceReservationCreateModal
+  from '../../../../components/reservation/place.reservation.create.modal'
 
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
@@ -48,6 +50,7 @@ const RegionPlace: React.FunctionComponent = () => {
 
         <Grid.Column width={6}>
           <PlaceInformationCard placeName={placeName}/>
+          <PlaceReservationCreateModal placeName={placeName}/>
         </Grid.Column>
 
         <Grid.Column>
