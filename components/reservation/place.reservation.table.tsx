@@ -30,6 +30,8 @@ const PlaceReservationTable = ({ placeName, selectedDate }: PlaceReservationTabl
   const [reservations, setReservations] = useState<PlaceReservationType[]>([])
 
   useEffect(() => {
+    if (!placeName || !selectedDate) return;
+
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
     ).then(res => setReservations(res.data))

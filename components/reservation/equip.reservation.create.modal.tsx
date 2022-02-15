@@ -80,12 +80,13 @@ const EquipReservationCreateModal
   return (
     <Modal
       closeIcon
+      size={"small"}
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       trigger={<Button primary>예약 신청하기</Button>}
     >
-      <Modal.Header>예약 승인/거절</Modal.Header>
+      <Modal.Header>장비 예약 생성</Modal.Header>
       <Modal.Content>
         <Form>
           <Form.Input
