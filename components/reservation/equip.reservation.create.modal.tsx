@@ -49,7 +49,7 @@ const EquipReservationCreateModal
       `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
-      catch(() => {})
+      catch(() => {}) // TODO
 
     axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).
       then((res) => setEquipments(res.data))
@@ -105,7 +105,9 @@ const EquipReservationCreateModal
             required label={'설명'}
             placeholder={'사용처를 반드시 작성 해주세요.'}
             onChange={e => setDescription(e.target.value)}/>
+
           <Divider/>
+
           <Form.Dropdown
             required fluid multiple search selection
             label={'장비 선택'}
