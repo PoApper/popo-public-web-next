@@ -4,6 +4,12 @@
  * For other object-like or class-like stuffs, use `interface`
  */
 
+export interface IPlace {
+  uuid: string;
+  name: string;
+  region: string;
+}
+
 export interface IEquipment {
   uuid: string;
   name: string;
@@ -14,7 +20,7 @@ export interface IEquipment {
 
 export interface IBooker {
   name: string;
-  userTYpe: string;
+  userTYpe?: string;
 }
 
 export interface IPlaceReservation {
