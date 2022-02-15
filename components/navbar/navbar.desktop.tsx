@@ -29,7 +29,7 @@ const NavbarDesktop = () => {
                 <Link href={'/reservation/place'} passHref>
                   <Dropdown.Item as="a" text={'장소 예약'}/>
                 </Link>
-                <Link href={'/reservation/equip'} passHref>
+                <Link href={'/reservation/equipment'} passHref>
                   <Dropdown.Item as="a" text={'장비 예약'}/>
                 </Link>
               </Dropdown.Menu>

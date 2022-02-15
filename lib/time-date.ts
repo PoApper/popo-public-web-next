@@ -10,6 +10,11 @@ export function convertTime(time: string) {
   return moment(time, "HHmm").format('HH:mm');
 }
 
+export function roundUpByDuration(date: moment.Moment, durationMinutes: number = 30) {
+  const remainder = durationMinutes - (date.minute() % durationMinutes);
+  return moment(date).add(remainder, "minutes").second(0)
+}
+
 export function convertStatus(status: string) {
   switch (status) {
     case '통과':
