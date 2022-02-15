@@ -4,26 +4,10 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
-
-interface Place {
-  name: string;
-}
-
-interface PlaceReservation {
-  uuid: string;
-  title: string;
-  place: Place;
-  userType: string;
-  date: string;
-  start_time: string;
-  end_time: string;
-  status: string;
-  created_at: Date;
-}
-
+import { IPlaceReservation } from '../../types/reservation.interface'
 
 const MyPlaceReservationTable = () => {
-  const [reserve_list, setReserveList] = useState<PlaceReservation[]>([])
+  const [reserve_list, setReserveList] = useState<IPlaceReservation[]>([])
 
   useEffect(() => {
     axios.get(

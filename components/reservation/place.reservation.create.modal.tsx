@@ -7,7 +7,8 @@ import { DateInput } from 'semantic-ui-calendar-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { IBooker, IPlace } from '../../types/reservation.interface'
+import { IUser } from '../../types/user.interface'
+import { IPlace } from '../../types/reservation.interface'
 import { RegionKorNameMapping } from '../../constants/reservation.constant'
 import { roundUpByDuration } from '../../lib/time-date'
 
@@ -19,13 +20,16 @@ const PlaceReservationCreateModal
   = ({ placeName }: PlaceReservationCreateModalProps) => {
   const [open, setOpen] = useState(false)
 
-  const [userInfo, setUserInfo] = useState<IBooker>({
+  const [userInfo, setUserInfo] = useState<IUser>({
     name: '',
   })
   const [placeInfo, setPlaceInfo] = useState<IPlace>({
     uuid: '',
     name: '',
-    region: ''
+    region: '',
+    description: '',
+    location: '',
+    imageName: ''
   })
 
   const [phone, setPhone] = useState<string>('')

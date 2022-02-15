@@ -3,40 +3,18 @@ import { Label, Table } from 'semantic-ui-react'
 import axios from 'axios'
 
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
+import { IEquipReservation } from '../../types/reservation.interface'
 
 type EquipReservationTableProps = {
   associationName: string,
   selectedDate: string,
 }
 
-type BookerType = {
-  name: string,
-  userType: string,
-}
-
-type EquipmentType = {
-  uuid: string,
-  name: string,
-}
-
-type EquipReservationType = {
-  uuid: string,
-  booker: BookerType,
-  equipments: EquipmentType[],
-  date: string,
-  description: string,
-  start_time: string,
-  end_time: string,
-  phone: string,
-  status: string,
-  title: string,
-}
-
 const EquipReservationTable = ({
   associationName,
   selectedDate,
 }: EquipReservationTableProps) => {
-  const [reservations, setReservations] = useState<EquipReservationType[]>([])
+  const [reservations, setReservations] = useState<IEquipReservation[]>([])
 
   useEffect(() => {
     if (!associationName || !selectedDate) return;

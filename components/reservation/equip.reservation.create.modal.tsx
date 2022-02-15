@@ -8,18 +8,8 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { roundUpByDuration } from '../../lib/time-date'
-
-type UserInfo = {
-  name: string
-}
-
-type EquipmentType = {
-  uuid: string,
-  name: string,
-  description: string,
-  fee: number,
-  imageName: string
-};
+import { IEquipment } from '../../types/reservation.interface'
+import { IUser } from '../../types/user.interface'
 
 type EquipReservationCreateModalProps = {
   associationName: string,
@@ -29,10 +19,10 @@ const EquipReservationCreateModal
   = ({ associationName }: EquipReservationCreateModalProps) => {
   const [open, setOpen] = useState(false)
 
-  const [userInfo, setUserInfo] = useState<UserInfo>({
+  const [userInfo, setUserInfo] = useState<IUser>({
     name: '',
   })
-  const [equipments, setEquipments] = useState<EquipmentType[]>([])
+  const [equipments, setEquipments] = useState<IEquipment[]>([])
 
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')

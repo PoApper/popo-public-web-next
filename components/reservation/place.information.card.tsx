@@ -2,20 +2,17 @@ import { Card, Image } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-type placeType = {
-  name: string,
-  description: string,
-  location: string,
-  imageName: string
-}
+import { IPlace } from '../../types/reservation.interface'
 
 type PlaceCardProps = {
   placeName: string;
 }
 
 const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
-  const [placeInfo, setPlaceInfo] = useState<placeType>({
+  const [placeInfo, setPlaceInfo] = useState<IPlace>({
+    uuid: '',
     name: '',
+    region: '',
     description: '',
     location: '',
     imageName: ''
