@@ -9,8 +9,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import { IUser } from '../../types/user.interface'
 import { IPlace } from '../../types/reservation.interface'
-import { RegionKorNameMapping } from '../../constants/reservation.constant'
 import { roundUpByDuration } from '../../lib/time-date'
+
+const RegionKorNameMapping = {
+  STUDENT_HALL: '학생 회관',
+  JIGOK_CENTER: '지곡 회관',
+  OTHERS: '생활관 외',
+}
 
 type PlaceReservationCreateModalProps = {
   placeName: string,
