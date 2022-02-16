@@ -17,7 +17,7 @@ const EquipmentIndexPage = () => {
             </Card>
           </Grid.Column>
           <Grid.Column>
-            <Card href={'/reservation/equipment/dorm-union'} centered>
+            <Card href={'/reservation/equipment/dormunion'} centered>
               <LogoImage src={'/reservation/dormUnion.png'} alt={'dormUnion'}/>
               <Card.Content>
                 <Card.Header>생활관자치회</Card.Header>
@@ -26,7 +26,7 @@ const EquipmentIndexPage = () => {
             </Card>
           </Grid.Column>
           <Grid.Column>
-            <Card href={'reservation/equipment/saengna'} centered>
+            <Card href={'/reservation/equipment/saengna'} centered>
               <LogoImage src={'/reservation/saengna.jpg'} alt={'saengna'}/>
               <Card.Content>
                 <Card.Header>생각나눔</Card.Header>

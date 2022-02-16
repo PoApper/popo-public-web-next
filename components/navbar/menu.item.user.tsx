@@ -23,7 +23,7 @@ const MenuItemUser = () => {
       await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/logout`, {
         withCredentials: true,
       })
-      await router.push('/')
+      router.push('/')
     } catch (err) {
       alert('로그아웃에 실패했습니다.')
       console.log(err)

@@ -16,7 +16,7 @@ const EquipListTable = ({ associationName }: EquipListTableProps) => {
 
     axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).
       then((res) => setEquipments(res.data))
-  })
+  }, [associationName])
 
   return (
     <Table>
