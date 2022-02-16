@@ -11,7 +11,7 @@ const MyEquipReservationTable = () => {
 
   useEffect(() => {
     axios.get(
-      `${process.env.REACT_APP_API_URL}/reservation-equip/user`,
+      `${process.env.NEXT_PUBLIC_API}/reservation-equip/user`,
       { withCredentials: true }).
       then((res) => setReserveList(res.data)).
       catch(err => {

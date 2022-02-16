@@ -11,7 +11,7 @@ const MyPlaceReservationTable = () => {
 
   useEffect(() => {
     axios.get(
-      `${process.env.REACT_APP_API_URL}/reservation-place/user`,
+      `${process.env.NEXT_PUBLIC_API}/reservation-place/user`,
       { withCredentials: true }).
       then((res) => setReserveList(res.data)).
       catch(err => {
