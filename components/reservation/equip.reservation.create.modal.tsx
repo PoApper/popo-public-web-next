@@ -1,4 +1,5 @@
 import { KeyboardEvent, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Button, Divider, Form, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
@@ -17,13 +18,15 @@ type EquipReservationCreateModalProps = {
 
 const EquipReservationCreateModal
   = ({ associationName }: EquipReservationCreateModalProps) => {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
 
-  const [userInfo, setUserInfo] = useState<IUser>({
+  const [userInfo, setUserInfo] = useState<IUser | null>({
     name: '',
   })
   const [equipments, setEquipments] = useState<IEquipment[]>([])
 
+  const [reservedEquips, setReservedEquips] = useState<string[]>([])
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
@@ -35,27 +38,29 @@ const EquipReservationCreateModal
     roundUpByDuration(moment(), 30).add(30, 'minute').format('HHmm')) // HHmm
 
   useEffect(() => {
+    if (!associationName) return;
+
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
-      catch(() => {}) // TODO
+      catch(() => setUserInfo(null))
 
     axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).
       then((res) => setEquipments(res.data))
 
-  }, [associationName])
+  }, [associationName, router])
 
   function handleSubmit () {
     axios.post(`${process.env.NEXT_PUBLIC_API}/reservation-equip`, {
-      equipments: equipments,
+      equipments: reservedEquips,
       owner: associationName,
       phone: phone,
       title: title,
       description: description,
-      date: date, // YYYY-MM-DD
+      date: moment(date).format('YYYYMMDD'), // YYYYMMDD
       start_time: startTime, // HHmm
-      end_Time: endTime, // HHmm
+      end_time: endTime, // HHmm
     }, { withCredentials: true })
       .then(() => {
         alert('예약을 생성했습니다!');
@@ -73,7 +78,14 @@ const EquipReservationCreateModal
       size={"small"}
       open={open}
       onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onOpen={() => {
+        if (userInfo) {
+          setOpen(true)
+        } else {
+          alert('로그인 후 예약할 수 있습니다.')
+          router.push('/auth/login')
+        }
+      }}
       trigger={<Button primary>예약 신청하기</Button>}
     >
       <Modal.Header>장비 예약 생성</Modal.Header>
@@ -81,7 +93,7 @@ const EquipReservationCreateModal
         <Form>
           <Form.Input
             required readOnly label={'사용자'}
-            value={userInfo.name}/>
+            value={userInfo ? userInfo.name : ''}/>
 
           <Form.Input
             required label={'전화번호'}
@@ -108,7 +120,10 @@ const EquipReservationCreateModal
               value: equip.uuid,
             }))}
             onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
+            // @ts-ignore
+            onChange={(e, {value}) => setReservedEquips(value)}
           />
+
           <Form.Group>
             <div className={'required field'}>
               <label>날짜</label>

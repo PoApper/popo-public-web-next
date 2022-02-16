@@ -33,7 +33,6 @@ const PlaceRegionIndexPage: React.FunctionComponent = () => {
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/place/region/${regionOptions[region]}`).
       then((res) => {
-        console.log(res.data)
         setPlaces(res.data)
       })
   }, [region])

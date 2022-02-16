@@ -20,6 +20,8 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
   const isPlaceImgExist = (placeInfo && placeInfo.imageName)
 
   useEffect(() => {
+    if (!placeName) return;
+
     axios.get(`${process.env.NEXT_PUBLIC_API}/place/name/${placeName}`).
       then(res => setPlaceInfo(res.data))
   }, [placeName])
