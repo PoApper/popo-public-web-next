@@ -35,10 +35,11 @@ const LoginPage = () => {
   return (
     <Layout>
       <Container style={{
-        padding: '40px',
-        margin: '2em 0 4em',
+        width: 640,
+        padding: 24,
+        margin: '2em 0 0',
         backgroundColor: '#eeeeee',
-        borderRadius: '8px'
+        borderRadius: 8,
       }}>
         <Form>
           <Form.Input
@@ -56,6 +57,9 @@ const LoginPage = () => {
             <List.Item as="a" content={'회원가입'}/>
           </Link>
         </List>
+        <p>
+          로그인/회원가입에 문제를 겪고 있다면, 하단의 POPO 관리자 메일로 연락 바랍니다.
+        </p>
       </Container>
     </Layout>
   )
