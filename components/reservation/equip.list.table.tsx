@@ -12,9 +12,11 @@ const EquipListTable = ({ associationName }: EquipListTableProps) => {
   const [equipments, setEquipments] = useState<IEquipment[]>([])
 
   useEffect(() => {
+    if (!associationName) return;
+
     axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).
       then((res) => setEquipments(res.data))
-  })
+  }, [associationName])
 
   return (
     <Table>

@@ -29,17 +29,18 @@ const RegisterPage = () => {
     }).catch(() => {})
   }, [router])
 
-  const isValidEmail: boolean
+  const isNotValidEmail: boolean
     = (email.length > 0 &&
     !RegExp(/^(?=.*[a-zA-z])[a-zA-Z0-9]{4,20}@postech.ac.kr$/).test(email))
-  const isValidPassword: boolean
+  const isNotValidPassword: boolean
     = (password.length > 0 && !RegExp(/^(\w{8,16})$/).test(password))
-  const isValidPasswordAgain: boolean
+  const isNotValidPasswordAgain: boolean
     = (passwordAgain.length > 0) && (password !== passwordAgain)
 
   async function handleRegister () {
-    if (!isValidEmail || !isValidPassword || !isValidPasswordAgain) {
+    if (isNotValidEmail || isNotValidPassword || isNotValidPasswordAgain) {
       alert('유효한 값을 입력해주세요! 😱');
+      console.log(isNotValidEmail, isNotValidPassword, isNotValidPasswordAgain)
       return;
     }
 
@@ -52,7 +53,7 @@ const RegisterPage = () => {
         userType: userType
       }, { withCredentials: true })
       alert("회원가입에 성공했습니다! 😁\nPOPO 가입 메일을 확인해주세요! 📧\n(1분 정도 지연 될 수 있습니다.)");
-      router.push('/login')
+      router.push('/auth/login')
     } catch (err: any) {
       const response = err.response
       alert(`회원가입에 실패했습니다. 😢\\n""${response.data.message}"`)
@@ -72,7 +73,7 @@ const RegisterPage = () => {
             required
             label={'email'} placeholder={'POSTECH Mail만 가입 가능합니다.'}
             onChange={e => setEmail(e.target.value)}
-            error={isValidEmail ? '유효하지 않은 이메일입니다.' : null}/>
+            error={isNotValidEmail ? '유효하지 않은 이메일입니다.' : null}/>
           <p>이 이메일로 인증메일이 발송됩니다!</p>
 
           <Form.Input
@@ -86,12 +87,12 @@ const RegisterPage = () => {
               required
               label={'Password'} placeholder={'8자리 이상 16자리 이하'}
               onChange={e => setPW(e.target.value)}
-              error={isValidPassword ? '비밃번호가 너무 짧습니다.' : null}/>
+              error={isNotValidPassword ? '비밃번호가 너무 짧습니다.' : null}/>
             <Form.Input
               required
               label={'Password 확인'} placeholder={'8자리 이상 16자리 이하'}
               onChange={e => setPwAgain(e.target.value)}
-              error={isValidPasswordAgain ? '비밀번호가 일치하지 않습니다.' : null}/>
+              error={isNotValidPasswordAgain ? '비밀번호가 일치하지 않습니다.' : null}/>
           </Form.Group>
 
           <Form.Input
@@ -118,7 +119,7 @@ const RegisterPage = () => {
 
           <Form.Checkbox label={
             <label>
-              <Link href={'other/privacy-policy'}>개인정보처리방침</Link>에 동의합니다.
+              <Link href={'/other/privacy-policy'}>개인정보처리방침</Link>에 동의합니다.
             </label>
           }/>
 

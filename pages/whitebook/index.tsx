@@ -9,7 +9,7 @@ const WhiteBookIndexPage = () => {
 
   useEffect(() => {
     axios.get(
-      `${process.env.NEXT_PUBLIC_API}/whitebook`).
+      `${process.env.NEXT_PUBLIC_API}/whitebook?orderBy=click_count`).
       then(res => setWhitebookList(res.data)).
       catch(() => console.log('생활백서를 불러오는데 실패했습니다.'))
   }, [])

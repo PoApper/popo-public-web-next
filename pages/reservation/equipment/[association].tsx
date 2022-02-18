@@ -19,13 +19,13 @@ type ObjectType = {
 
 const ownerName: ObjectType = {
   'dongyeon': '동아리연합회',
-  'dorm-union': '생활관자치회',
+  'dormunion': '생활관자치회',
   'saengna': '생각나눔',
 }
 
 const ownerLocation: ObjectType = {
   'dongyeon': '동아리연합회 사무실(학생회관 301호)',
-  'dorm-union': '생활관자치회 사무실(생활관 4동)',
+  'dormunion': '생활관자치회 사무실(생활관 4동)',
   'saengna': '생각나눔 사무실(학생회관 108호)',
 }
 

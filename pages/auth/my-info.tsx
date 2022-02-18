@@ -30,7 +30,10 @@ const MyInfoPage = () => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/auth/myInfo`,
       { withCredentials: true }).
       then((res) => setMyInfo(res.data)).
-      catch(() => {}) // TODO: add alert and redirect to login
+      catch(() => {
+        alert('로그인 후 조회할 수 있습니다.');
+        router.push('/auth/login')
+      })
   }, [router])
 
   async function submitNewPassword () {

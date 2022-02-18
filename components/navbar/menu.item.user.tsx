@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Dropdown, Menu } from 'semantic-ui-react'
+import { Button, Dropdown, Menu } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import { IUser } from '../../types/user.interface'
 
 const MenuItemUser = () => {
   const router = useRouter()
-  const [user, setUser] = useState<IUser>({
+  const [user, setUser] = useState<IUser | null>({
     name: '',
   })
 
@@ -15,8 +15,7 @@ const MenuItemUser = () => {
       `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, {
         withCredentials: true,
       }).then((res) => setUser(res.data))
-      // .catch(() => router.push('/'))
-      .catch(() => console.log('TODO: 로그인 연동 이후 추가 개발'))
+      .catch(() => setUser(null)) // Do noting!
   }, [])
 
   const handleLogout = async () => {
@@ -24,21 +23,31 @@ const MenuItemUser = () => {
       await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/logout`, {
         withCredentials: true,
       })
-      await router.push('/login')
+      router.push('/')
     } catch (err) {
       alert('로그아웃에 실패했습니다.')
       console.log(err)
     }
   }
 
-  // TODO: refine this component, after login API sync
   return (
     <Menu.Item position={'right'}>
-      <Dropdown text={'개발중!'}>
-        <Dropdown.Menu>
-          <Dropdown.Item text={'로그아웃'} onClick={handleLogout}/>
-        </Dropdown.Menu>
-      </Dropdown>
+      {
+        user ? (
+          <Dropdown text={user.name}>
+            <Dropdown.Menu>
+              <Dropdown.Item text={'내 정보'} href={'/auth/my-info'}/>
+              <Dropdown.Item text={'내 예약'} href={'/auth/my-reservation'}/>
+              <Dropdown.Item text={'로그아웃'} onClick={handleLogout}/>
+            </Dropdown.Menu>
+          </Dropdown> ) : (
+           <Button
+             href={'/auth/login'}
+             style={{ border: 'none', background: 'none' }}>
+             로그인
+           </Button> 
+          )
+      }
     </Menu.Item>
   )
 }

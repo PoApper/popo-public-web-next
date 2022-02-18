@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "popo-public-web-next",
+      "script": "npm",
+      "args": "run start"
+    }
+  ]
+}

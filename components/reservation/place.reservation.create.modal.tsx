@@ -1,4 +1,5 @@
 import { KeyboardEvent, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Button, Divider, Form, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
@@ -23,9 +24,10 @@ type PlaceReservationCreateModalProps = {
 
 const PlaceReservationCreateModal
   = ({ placeName }: PlaceReservationCreateModalProps) => {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
 
-  const [userInfo, setUserInfo] = useState<IUser>({
+  const [userInfo, setUserInfo] = useState<IUser | null>({
     name: '',
   })
   const [placeInfo, setPlaceInfo] = useState<IPlace>({
@@ -54,12 +56,12 @@ const PlaceReservationCreateModal
       `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
-      catch(() => {}) // TODO
+      catch(() => setUserInfo(null))
 
     axios.get(`${process.env.NEXT_PUBLIC_API}/place/name/${placeName}`).
       then((res) => setPlaceInfo(res.data))
 
-  }, [placeName])
+  }, [placeName, router])
 
   function handleSubmit () {
     axios.post(`${process.env.NEXT_PUBLIC_API}/reservation-place`, {
@@ -67,9 +69,9 @@ const PlaceReservationCreateModal
       phone: phone,
       title: title,
       description: description,
-      date: date, // YYYY-MM-DD
+      date: moment(date).format('YYYYMMDD'), // YYYYMMDD
       start_time: startTime, // HHmm
-      end_Time: endTime, // HHmm
+      end_time: endTime, // HHmm
     }, { withCredentials: true }).then(() => {
       alert('예약을 생성했습니다!')
       window.location.reload()
@@ -85,7 +87,14 @@ const PlaceReservationCreateModal
       size={'small'}
       open={open}
       onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onOpen={() => {
+        if (userInfo) {
+          setOpen(true)
+        } else {
+          alert('로그인 후 예약할 수 있습니다.')
+          router.push('/auth/login')
+        }
+      }}
       trigger={<Button primary>예약 신청하기</Button>}
     >
       <Modal.Header>장소 예약 생성</Modal.Header>
@@ -103,7 +112,7 @@ const PlaceReservationCreateModal
 
           <Form.Input
             required readOnly label={'사용자'}
-            value={userInfo.name}/>
+            value={userInfo ? userInfo.name : ''}/>
 
           <Form.Input
             required label={'전화번호'}

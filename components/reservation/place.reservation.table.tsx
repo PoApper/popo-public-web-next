@@ -25,10 +25,10 @@ const PlaceReservationTable = ({ placeName, selectedDate }: PlaceReservationTabl
     <Table>
       <Table.Header>
         <Table.Row textAlign="center">
-          <Table.HeaderCell>사용자</Table.HeaderCell>
-          <Table.HeaderCell>예약 제목</Table.HeaderCell>
-          <Table.HeaderCell>예약 기간</Table.HeaderCell>
-          <Table.HeaderCell>상태</Table.HeaderCell>
+          <Table.HeaderCell width={2}>사용자</Table.HeaderCell>
+          <Table.HeaderCell width={7}>예약 제목</Table.HeaderCell>
+          <Table.HeaderCell width={5}>예약 기간</Table.HeaderCell>
+          <Table.HeaderCell width={2}>상태</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>

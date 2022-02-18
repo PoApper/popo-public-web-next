@@ -29,10 +29,10 @@ const EquipReservationTable = ({
       <Table compact>
         <Table.Header>
           <Table.Row textAlign={'center'}>
-            <Table.HeaderCell>사용자</Table.HeaderCell>
-            <Table.HeaderCell>장비명</Table.HeaderCell>
-            <Table.HeaderCell>예약 기간</Table.HeaderCell>
-            <Table.HeaderCell>상태</Table.HeaderCell>
+            <Table.HeaderCell width={2}>사용자</Table.HeaderCell>
+            <Table.HeaderCell width={7}>장비 목록</Table.HeaderCell>
+            <Table.HeaderCell width={5}>예약 기간</Table.HeaderCell>
+            <Table.HeaderCell width={2}>상태</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -46,7 +46,11 @@ const EquipReservationTable = ({
                       {
                         reservation.equipments ?
                           reservation.equipments.map(equip => {
-                            return <Label key={equip.uuid}>{equip.name}</Label>
+                            return (
+                              <Label key={equip.uuid} style={{margin: 2}}>
+                                {equip.name}
+                              </Label>
+                            )
                           }) : null
                       }
                     </Table.Cell>
