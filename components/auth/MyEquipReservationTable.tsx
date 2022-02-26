@@ -18,7 +18,7 @@ const MyEquipReservationTable = () => {
         alert('내 장비 예약 목록을 불러오는데 실패했습니다.')
         console.log(err)
       })
-  })
+  }, [])
 
   return (
     <Table compact>
