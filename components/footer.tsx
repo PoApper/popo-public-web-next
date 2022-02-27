@@ -37,7 +37,7 @@ const Footer = () => {
               <Header as="h4" content="Developed by"/>
               <Image centered size={'small'}
                      src={'/PoApper_logo.svg'} alt={'poapper-logo'}
-                     href={'https://club.poapper.com/'} target="_blank"/>
+                     href={'https://poapper.club/'} target="_blank"/>
               <List link>
                 <List.Item as="a" href="/other/recruiting">
                   개발자 모집
