@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Divider, Form, Modal } from 'semantic-ui-react'
+import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -36,6 +36,7 @@ const EquipReservationCreateModal
   const [endTime, setEndTime]
     = useState<string>(
     roundUpByDuration(moment(), 30).add(30, 'minute').format('HHmm')) // HHmm
+  const [feeSum, setFeeSum] = useState(0)
 
   useEffect(() => {
     if (!associationName) return;
@@ -120,8 +121,22 @@ const EquipReservationCreateModal
               value: equip.uuid,
             }))}
             onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
-            // @ts-ignore
-            onChange={(e, {value}) => setReservedEquips(value)}
+            onChange={(e, {value}) => {
+              let feeSum = 0;
+
+              // @ts-ignore
+              for (const uuid of value) {
+                for (const equip of equipments) {
+                  if (equip.uuid === uuid) {
+                    feeSum += equip.fee
+                  }
+                }
+              }
+              setFeeSum(feeSum)
+
+              // @ts-ignore
+              setReservedEquips(value)
+            }}
           />
 
           <Form.Group>
@@ -183,6 +198,13 @@ const EquipReservationCreateModal
                 }}/>
             </div>
           </Form.Group>
+
+          <Message>
+            <Message.Header>예약을 진행하기 전, 예약한 장비의 예약비를 꼭 확인해주세요!</Message.Header>
+            <p>
+              예약한 장비의 총 예약비는 {Number(feeSum).toLocaleString()}원 입니다.
+            </p>
+          </Message>
 
           <Form.Button onClick={handleSubmit}>
             생성
