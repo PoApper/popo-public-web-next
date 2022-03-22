@@ -73,8 +73,13 @@ const EquipAssociationPage: React.FunctionComponent = () => {
           <p style={{ marginTop: '10px' }}>
             장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
             예약한 장비는 {associationLocation}에서 수령하실 수 있습니다. 🏢️<br/>
-            장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨
+            장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨<br/>
           </p>
+          {
+            associationName == "dongyeon"
+              ? <p>{process.env.NEXT_PUBLIC_BANK_NAME} {process.env.NEXT_PUBLIC_ACCOUNT_NUMBER}({process.env.NEXT_PUBLIC_ACCOUNT_OWNER})</p>
+                : <p></p>
+          }
           <EquipReservationCreateModal
             associationName={associationName}/>
         </Grid.Column>
