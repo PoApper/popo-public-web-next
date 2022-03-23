@@ -4,7 +4,7 @@ import Layout from '../../../components/layout'
 const PlaceIndexPage = () => {
   return (
     <Layout>
-      <Grid stackable centered columns={3}>
+      <Grid stackable centered columns={4}>
         <Grid.Column>
           <Card href={'/reservation/place/student-hall'} centered>
             <Image src={'/reservation/student_hall.jpg'} alt={'student_hall'}/>
@@ -20,6 +20,15 @@ const PlaceIndexPage = () => {
             <Card.Content>
               <Card.Header>지곡회관</Card.Header>
               <Card.Meta>Ji-gok Community Center</Card.Meta>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href={'/reservation/place/community-center'} centered>
+            <Image src={'/reservation/community_center.jpg'} alt={'community_center'}/>
+            <Card.Content>
+              <Card.Header>커뮤니티 센터</Card.Header>
+              <Card.Meta>Community Center</Card.Meta>
             </Card.Content>
           </Card>
         </Grid.Column>
