@@ -77,7 +77,10 @@ const EquipAssociationPage: React.FunctionComponent = () => {
           </p>
           {
             associationName == "dongyeon"
-              ? <p>{process.env.NEXT_PUBLIC_BANK_NAME} {process.env.NEXT_PUBLIC_ACCOUNT_NUMBER}({process.env.NEXT_PUBLIC_ACCOUNT_OWNER})</p>
+              ? <p>
+                  예약비는 {process.env.NEXT_PUBLIC_BANK_NAME} {process.env.NEXT_PUBLIC_ACCOUNT_NUMBER}
+                  ({process.env.NEXT_PUBLIC_ACCOUNT_OWNER}) 계좌로 입금 바랍니다. 💰
+                </p>
                 : <p></p>
           }
           <EquipReservationCreateModal
