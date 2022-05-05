@@ -3,8 +3,10 @@ import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
-import styled from 'styled-components'
 import { IEquipReservation } from '../../types/reservation.interface'
+import styled from 'styled-components'
+import EquipReservationDetailModal
+  from '../reservation/equip.reservation.detail.modal'
 
 const MyEquipReservationTable = () => {
   const [reserve_list, setReserveList] = useState<IEquipReservation[]>([])
@@ -36,32 +38,38 @@ const MyEquipReservationTable = () => {
         {
           reserve_list.map((reservation, idx) => {
             return (
-              <Table.Row textAlign="center" key={reservation.uuid}>
-                <Table.Cell>{idx + 1}</Table.Cell>
-                <Table.Cell>{reservation.title}</Table.Cell>
-                <Table.Cell>
-                  {
-                    reservation.equipments.map(equipment => {
-                      return (
-                        <EquipmentName key={equipment.uuid}>
-                          {equipment.name}
-                        </EquipmentName>
-                      )
-                    })
-                  }
-                </Table.Cell>
-                <Table.Cell>
-                  {convertDate(reservation.date)}<br/>
-                  {convertTime(reservation.start_time)} ~
-                  {convertTime(reservation.end_time)}
-                </Table.Cell>
-                <Table.Cell>
-                  <Label circular empty
-                         color={convertStatus(reservation.status)}/>
-                </Table.Cell>
-                <Table.Cell>{moment(new Date(reservation.created_at)).
-                  format('YYYY.MM.DD')}</Table.Cell>
-              </Table.Row>
+              <EquipReservationDetailModal
+                key={reservation.uuid}
+                reservation={reservation}
+                trigger={
+                  <Table.Row textAlign="center" key={reservation.uuid}>
+                    <Table.Cell>{idx + 1}</Table.Cell>
+                    <Table.Cell>{reservation.title}</Table.Cell>
+                    <Table.Cell>
+                      {
+                        reservation.equipments.map(equipment => {
+                          return (
+                            <EquipmentName key={equipment.uuid}>
+                              {equipment.name}
+                            </EquipmentName>
+                          )
+                        })
+                      }
+                    </Table.Cell>
+                    <Table.Cell>
+                      {convertDate(reservation.date)}<br/>
+                      {convertTime(reservation.start_time)} ~
+                      {convertTime(reservation.end_time)}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Label circular empty
+                             color={convertStatus(reservation.status)}/>
+                    </Table.Cell>
+                    <Table.Cell>{moment(new Date(reservation.created_at)).
+                      format('YYYY.MM.DD')}</Table.Cell>
+                  </Table.Row>
+                }
+              />
             )
           })
         }

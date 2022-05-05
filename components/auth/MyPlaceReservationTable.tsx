@@ -5,6 +5,8 @@ import axios from 'axios'
 
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 import { IPlaceReservation } from '../../types/reservation.interface'
+import PlaceReservationDetailModal
+  from '../reservation/place.reservation.detail.modal'
 
 const MyPlaceReservationTable = () => {
   const [reserve_list, setReserveList] = useState<IPlaceReservation[]>([])
@@ -36,22 +38,28 @@ const MyPlaceReservationTable = () => {
         {
           reserve_list.map((reservation, idx) => {
             return (
-              <Table.Row textAlign="center" key={reservation.uuid}>
-                <Table.Cell>{idx + 1}</Table.Cell>
-                <Table.Cell>{reservation.title}</Table.Cell>
-                <Table.Cell>{reservation.place.name}</Table.Cell>
-                <Table.Cell>
-                  {convertDate(reservation.date)}<br/>
-                  {convertTime(reservation.start_time)} ~
-                  {convertTime(reservation.end_time)}
-                </Table.Cell>
-                <Table.Cell>
-                  <Label circular empty
-                         color={convertStatus(reservation.status)}/>
-                </Table.Cell>
-                <Table.Cell>{moment(new Date(reservation.created_at)).
-                  format('YYYY.MM.DD')}</Table.Cell>
-              </Table.Row>
+              <PlaceReservationDetailModal
+                key={reservation.uuid}
+                reservation={reservation}
+                trigger={
+                  <Table.Row textAlign="center" key={reservation.uuid}>
+                    <Table.Cell>{idx + 1}</Table.Cell>
+                    <Table.Cell>{reservation.title}</Table.Cell>
+                    <Table.Cell>{reservation.place.name}</Table.Cell>
+                    <Table.Cell>
+                      {convertDate(reservation.date)}<br/>
+                      {convertTime(reservation.start_time)} ~
+                      {convertTime(reservation.end_time)}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Label circular empty
+                             color={convertStatus(reservation.status)}/>
+                    </Table.Cell>
+                    <Table.Cell>{moment(new Date(reservation.created_at)).
+                      format('YYYY.MM.DD')}</Table.Cell>
+                  </Table.Row>
+                }
+              />
             )
           })
         }
