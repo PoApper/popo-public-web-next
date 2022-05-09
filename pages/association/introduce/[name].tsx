@@ -18,6 +18,7 @@ const AssociationSingIntroducePage = () => {
   })
 
   useEffect(() => {
+    if (!name) return;
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/introduce/association/name/${name}`).
       then(res => setIntro(res.data)).
