@@ -36,6 +36,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
 
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
+  const [dongyeonBank, setDongyeonBank] = useState('')
 
   const associationKorName = ownerName[associationName];
   const associationLocation = ownerLocation[associationName];
@@ -55,6 +56,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
       }
       setMarkedDates(datesArr)
     })
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
+         .then(res => setDongyeonBank(res.data.dongyeon_bank))
   }, [associationName, selectedDate])
 
   function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
@@ -78,10 +82,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
           {
             associationName == "dongyeon"
               ? <p>
-                  예약비는 {process.env.NEXT_PUBLIC_BANK_NAME} {process.env.NEXT_PUBLIC_ACCOUNT_NUMBER}
-                  ({process.env.NEXT_PUBLIC_ACCOUNT_OWNER}) 계좌로 입금 바랍니다. 💰
+                  예약비는 {dongyeonBank} 계좌로 입금 바랍니다. 💰
                 </p>
-                : <p></p>
+                : null
           }
           <EquipReservationCreateModal
             associationName={associationName}/>
