@@ -68,8 +68,7 @@ const EquipReservationCreateModal
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-        alert('예약 생성에 실패했습니다.')
+        alert(`예약 생성에 실패했습니다: ${error.response.data.message}`)
     })
   }
 
