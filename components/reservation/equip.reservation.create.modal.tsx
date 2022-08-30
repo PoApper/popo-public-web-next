@@ -8,7 +8,7 @@ import { DateInput } from 'semantic-ui-calendar-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { roundUpByDuration } from '../../lib/time-date'
+import { hourDiff, roundUpByDuration } from '../../lib/time-date'
 import { IEquipment } from '../../types/reservation.interface'
 import { IUser } from '../../types/user.interface'
 
@@ -199,9 +199,9 @@ const EquipReservationCreateModal
           </Form.Group>
 
           <Message>
-            <Message.Header>예약을 진행하기 전, 예약한 장비의 예약비를 꼭 확인해주세요!</Message.Header>
+            <Message.Header>예약한 장비의 예약비를 꼭 확인해주세요!</Message.Header>
             <p>
-              예약한 장비의 총 예약비는 {Number(feeSum).toLocaleString()}원 입니다.
+              {reservedEquips.length}개 장비, {hourDiff(startTime, endTime)}시간 예약, 총 예약비는 {Number(feeSum).toLocaleString()}원 입니다.
             </p>
           </Message>
 

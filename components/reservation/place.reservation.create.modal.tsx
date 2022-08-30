@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Divider, Form, Modal } from 'semantic-ui-react'
+import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -10,7 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import { IUser } from '../../types/user.interface'
 import { IPlace } from '../../types/reservation.interface'
-import { roundUpByDuration } from '../../lib/time-date'
+import { hourDiff, roundUpByDuration } from '../../lib/time-date'
 
 const RegionKorNameMapping = {
   STUDENT_HALL: '학생 회관',
@@ -188,6 +188,16 @@ const PlaceReservationCreateModal
                 }}/>
             </div>
           </Form.Group>
+
+          <Message>
+            <Message.Header>예약 장소와 예약 시간을 꼭 확인해주세요!</Message.Header>
+            <p>
+              {
+                // @ts-ignore
+                RegionKorNameMapping[placeInfo.region]
+              } {placeInfo.name}, {hourDiff(startTime, endTime)}시간 예약입니다.
+            </p>
+          </Message>
 
           <Form.Button onClick={handleSubmit}>
             생성
