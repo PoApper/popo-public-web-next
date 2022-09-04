@@ -10,6 +10,9 @@ export interface IClubIntroduce {
   representative: string;
   contact: string;
   logoName: string;
+  homepage_url?: string;
+  facebook_url?: string;
+  instagram_url?: string;
 }
 
 export interface IAssociationIntroduce {
@@ -18,4 +21,7 @@ export interface IAssociationIntroduce {
   representative: string;
   contact: string;
   logoName: string;
+  homepage_url?: string;
+  facebook_url?: string;
+  instagram_url?: string;
 }
