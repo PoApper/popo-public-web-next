@@ -38,13 +38,16 @@ const ClubSingIntroducePage = () => {
 
             <Container style={{fontSize: 18, display: 'inline-flex', gap: 2}}>
               <IconLink link={intro.homepage_url}>
-                <img src={'https://img.shields.io/badge/website-000000?style=for-the-badge'}/>
+                <img src={'https://img.shields.io/badge/website-000000?style=for-the-badge'}
+                     alt={'homepage'}/>
               </IconLink>
               <IconLink link={intro.facebook_url}>
-                <img src={'https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white'}/>
+                <img src={'https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white'}
+                     alt={'facebook'}/>
               </IconLink>
               <IconLink link={intro.instagram_url}>
-                <img src={'https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white'}/>
+                <img src={'https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white'}
+                     alt={'instagram'}/>
               </IconLink>
             </Container>
 
