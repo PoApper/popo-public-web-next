@@ -43,7 +43,11 @@ const PlaceReservationCreateModal
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-  const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD')) // YYYY-MM-DD
+
+  const now: moment.Moment = roundUpByDuration(moment(), 30);
+  const nowNext30Min: moment.Moment = moment(now).add(30, 'minute');
+
+  const [date, setDate] = useState<moment.Moment>(now) // YYYY-MM-DD
   const [startTime, setStartTime]
     = useState<string>(roundUpByDuration(moment(), 30).format('HHmm')) // HHmm
   const [endTime, setEndTime]
@@ -91,8 +95,9 @@ const PlaceReservationCreateModal
         if (userInfo) {
           setOpen(true)
         } else {
-          alert('로그인 후 예약할 수 있습니다.')
-          router.push('/auth/login')
+          setOpen(true)
+          // alert('로그인 후 예약할 수 있습니다.')
+          // router.push('/auth/login')
         }
       }}
       trigger={<Button primary>예약 신청하기</Button>}
@@ -136,18 +141,15 @@ const PlaceReservationCreateModal
                 dateFormat={'yyyy-MM-DD'}
                 minDate={moment()} maxDate={moment().add(30, 'day')}
                 // @ts-ignore
-                value={date}
+                value={date.format('YYYY-MM-DD')}
                 onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
                 onChange={(_, value) => {
                   const targetDate: string = value.value // YYYY-MM-DD
-                  const todayDate: string = moment().format('YYYY-MM-DD')
-                  setDate(targetDate)
-                  if (targetDate === todayDate) {
-                    setStartTime(roundUpByDuration(moment(), 30).format('HHmm'))
-                    setEndTime(
-                      roundUpByDuration(moment(), 30).
-                        add(30, 'minute').
-                        format('HHmm'))
+                  setDate(moment(targetDate));
+
+                  if (targetDate === now.format('YYYY-MM-DD')) {
+                    setStartTime(now.format('HHmm'))
+                    setEndTime(nowNext30Min.format('HHmm'))
                   } else {
                     setStartTime('0000')
                     setEndTime('0030')
@@ -162,7 +164,7 @@ const PlaceReservationCreateModal
                 dateFormat={'hh:mm aa'}
                 selected={moment(startTime, 'HHmm').toDate()}
                 minTime={
-                  (moment().format('YYYY-MM-DD') === date) ?
+                  (moment().format('YYYY-MM-DD') === date.format('YYYY-MM-DD')) ?
                     moment().toDate() :
                     moment().startOf('day').toDate()
                 }
