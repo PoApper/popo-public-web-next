@@ -74,17 +74,23 @@ const EquipAssociationPage: React.FunctionComponent = () => {
 
         <Grid.Column width={6}>
           <EquipListTable associationName={associationName}/>
-          <p style={{ marginTop: '10px' }}>
-            장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
-            예약한 장비는 {associationLocation}에서 수령하실 수 있습니다. 🏢️<br/>
-            장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨<br/>
-          </p>
           {
             associationName == "dongyeon"
               ? <p>
-                  예약비는 {dongyeonBank} 계좌로 입금 바랍니다. 💰
+                  1. 물품 대여는 예약 신청 - 입금 - 입금 확인 후 가능합니다. <br/>
+                  2. 예약금은 최소한 대여일 전날 입금 바랍니다. <br/>
+                  3. 예약비는 {dongyeonBank} 계좌로 입금 바랍니다. <br/>
+                  4. 입금자명은 예약자명과 같게 해주세요. <br/>
+                  5. 장비 분실 및 예약 시간을 어길시 책임을 물을 수 있습니다. <br/>
+                  6. 대여시간은 학기중 평일 12:30 ~ 13:30 입니다. 그 외 시간의 대여와 반납은 어렵습니다. <br/>
+                  7. 예약한 장비는 동아리 연합회 사무실(학생회관 301호)에서 수령할 수 있습니다. <br/>
+                  8. 기타 문의는 (운영관리부) 010-5314-6211 연락주세요. <br/>
                 </p>
-                : null
+                : <p style={{ marginTop: '10px' }}>
+                  장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
+                  예약한 장비는 {associationLocation}에서 수령하실 수 있습니다. 🏢️<br/>
+                  장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨<br/>
+                </p>
           }
           <EquipReservationCreateModal
             associationName={associationName}/>
