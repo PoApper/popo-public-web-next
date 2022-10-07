@@ -10,7 +10,10 @@ export function convertTime(time: string) {
   return moment(time, "HHmm").format('HH:mm');
 }
 
-export function hourDiff(startTime: string, endTime: string): number {
+export function hourDiff(
+  startTime: string | moment.Moment,
+  endTime: string | moment.Moment
+): number {
   const startMoment = moment(startTime, "HHmm");
   const endMoment = moment(endTime, "HHmm");
   const duration = moment.duration(endMoment.diff(startMoment));

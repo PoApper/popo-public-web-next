@@ -92,9 +92,8 @@ const PlaceReservationCreateModal
         if (userInfo) {
           setOpen(true)
         } else {
-          setOpen(true)
-          // alert('로그인 후 예약할 수 있습니다.')
-          // router.push('/auth/login')
+          alert('로그인 후 예약할 수 있습니다.')
+          router.push('/auth/login')
         }
       }}
       trigger={<Button primary>예약 신청하기</Button>}
