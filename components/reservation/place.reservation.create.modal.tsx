@@ -43,12 +43,13 @@ const PlaceReservationCreateModal
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-  const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD')) // YYYY-MM-DD
-  const [startTime, setStartTime]
-    = useState<string>(roundUpByDuration(moment(), 30).format('HHmm')) // HHmm
-  const [endTime, setEndTime]
-    = useState<string>(
-    roundUpByDuration(moment(), 30).add(30, 'minute').format('HHmm')) // HHmm
+
+  const now: moment.Moment = roundUpByDuration(moment(), 30);
+  const nowNext30Min: moment.Moment = moment(now).add(30, 'minute');
+
+  const [date, setDate] = useState<moment.Moment>(now) // YYYY-MM-DD
+  const [startTime, setStartTime] = useState<moment.Moment>(now) // HHmm
+  const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
 
   useEffect(() => {
     if (!placeName) return
@@ -70,9 +71,9 @@ const PlaceReservationCreateModal
       phone: phone,
       title: title,
       description: description,
-      date: moment(date).format('YYYYMMDD'), // YYYYMMDD
-      start_time: startTime, // HHmm
-      end_time: endTime, // HHmm
+      date: date.format('YYYYMMDD'), // YYYYMMDD
+      start_time: startTime.format('HHmm'), // HHmm
+      end_time: endTime.format('HHmm'), // HHmm
     }, { withCredentials: true }).then(() => {
       alert('예약을 생성했습니다!')
       window.location.reload()
@@ -135,22 +136,18 @@ const PlaceReservationCreateModal
               <DateInput
                 dateFormat={'yyyy-MM-DD'}
                 minDate={moment()} maxDate={moment().add(30, 'day')}
-                // @ts-ignore
-                value={date}
+                value={date.format('YYYY-MM-DD')}
                 onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
                 onChange={(_, value) => {
                   const targetDate: string = value.value // YYYY-MM-DD
-                  const todayDate: string = moment().format('YYYY-MM-DD')
-                  setDate(targetDate)
-                  if (targetDate === todayDate) {
-                    setStartTime(roundUpByDuration(moment(), 30).format('HHmm'))
-                    setEndTime(
-                      roundUpByDuration(moment(), 30).
-                        add(30, 'minute').
-                        format('HHmm'))
+                  if (targetDate === now.format('YYYY-MM-DD')) {
+                    setDate(now);
+                    setStartTime(now);
+                    setEndTime(nowNext30Min);
                   } else {
-                    setStartTime('0000')
-                    setEndTime('0030')
+                    setDate(moment(targetDate + 'T00:00'));
+                    setStartTime(moment(targetDate + 'T00:00'));
+                    setEndTime(moment(targetDate + 'T00:30'));
                   }
                 }}/>
             </div>
@@ -159,18 +156,16 @@ const PlaceReservationCreateModal
               <label>시작 시간</label>
               <DatePicker
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
-                dateFormat={'hh:mm aa'}
-                selected={moment(startTime, 'HHmm').toDate()}
-                minTime={
-                  (moment().format('YYYY-MM-DD') === date) ?
-                    moment().toDate() :
-                    moment().startOf('day').toDate()
-                }
-                maxTime={moment().endOf('day').toDate()}
                 onKeyDown={e => e.preventDefault()}
+                dateFormat={'hh:mm aa'}
+                selected={startTime.toDate()}
+                minTime={date.toDate()}
+                maxTime={moment(date.format('YYYY-MM-DD') + 'T23:59').toDate()}
                 onChange={(startTime: Date) => {
-                  setStartTime(moment(startTime).format('HHmm'))
-                  setEndTime(moment(startTime).add(30, 'minute').format('HHmm'))
+                  const newStartTime = moment(startTime);
+                  const newStartTimeNext30Min = moment(newStartTime).add(30, 'minute');
+                  setStartTime(newStartTime);
+                  setEndTime(newStartTimeNext30Min);
                 }}/>
             </div>
 
@@ -178,14 +173,18 @@ const PlaceReservationCreateModal
               <label>종료 시간</label>
               <DatePicker
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
-                dateFormat={'hh:mm aa'}
-                selected={moment(endTime, 'HHmm').toDate()}
-                minTime={moment(startTime).add(30, 'minute').toDate()}
-                maxTime={moment().endOf('day').toDate()}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(endTime: Date) => {
-                  setEndTime(moment(endTime).format('HHmm'))
-                }}/>
+                dateFormat={'hh:mm aa'}
+                selected={endTime.toDate()}
+                minTime={
+                  moment(startTime).add(30, 'minute').toDate()
+                }
+                maxTime={
+                  (endTime.format('HHmm') === '0000') ?
+                    moment(date.format('YYYY-MM-DD') + 'T00:00').toDate() // edge-case
+                    : moment(date.format('YYYY-MM-DD') + 'T23:59').toDate()
+                }
+                onChange={(endTime: Date) => {setEndTime(moment(endTime))}}/>
             </div>
           </Form.Group>
 
