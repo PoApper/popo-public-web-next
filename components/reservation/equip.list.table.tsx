@@ -46,9 +46,9 @@ const EquipListTable = ({ associationName }: EquipListTableProps) => {
                   `${process.env.NEXT_PUBLIC_API}/equip/image/${equipment.imageName}`
                   : 'https://via.placeholder.com/200?text=NoImage'}
                   alt={`${equipment.name}_logo`}/>
-                  <p>
+                  <pre style={{whiteSpace: "pre-wrap"}}>
                     {equipment.description}
-                  </p>
+                  </pre>
               </Modal.Content>
             </Modal>,
           )
