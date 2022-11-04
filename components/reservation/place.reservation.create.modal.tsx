@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useState } from 'react'
+import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import axios from 'axios'
@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { IUser } from '../../types/user.interface'
 import { IPlace } from '../../types/reservation.interface'
 import { hourDiff, roundUpByDuration } from '../../lib/time-date'
+import OpeningHoursList from './opening_hours.list'
 
 const RegionKorNameMapping = {
   STUDENT_HALL: '학생 회관',
@@ -37,7 +38,8 @@ const PlaceReservationCreateModal
     region: '',
     description: '',
     location: '',
-    imageName: ''
+    imageName: '',
+    opening_hours: '{"Everyday": "00:00-24:00"}'
   })
 
   const [phone, setPhone] = useState<string>('')
@@ -187,6 +189,13 @@ const PlaceReservationCreateModal
                 onChange={(endTime: Date) => {setEndTime(moment(endTime))}}/>
             </div>
           </Form.Group>
+
+          <div className={'field'} style={{maxWidth: 240}}>
+            <label>예약 가능 시간</label>
+            <div style={{color: 'gray'}}>
+              <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
+            </div>
+          </div>
 
           <Message>
             <Message.Header>예약 장소와 예약 시간을 꼭 확인해주세요!</Message.Header>
