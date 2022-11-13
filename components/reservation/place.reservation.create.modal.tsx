@@ -54,6 +54,13 @@ const PlaceReservationCreateModal
   const [startTime, setStartTime] = useState<moment.Moment>(now) // HHmm
   const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
 
+  const isPossible = isOnOpeningHours(
+    placeInfo.opening_hours,
+    date.format('dddd'), // Monday
+    startTime.format('HH:mm'),
+    endTime.format('HH:mm')
+  );
+
   useEffect(() => {
     if (!placeName) return
 
@@ -69,12 +76,6 @@ const PlaceReservationCreateModal
   }, [placeName, router])
 
   function handleSubmit () {
-    const isPossible = isOnOpeningHours(
-      placeInfo.opening_hours,
-      date.format('YYYYMMDD'),
-      startTime.format('HHmm'),
-      endTime.format('HHmm')
-    );
     if (!isPossible) {
       alert(`예약이 불가능한 시간대입니다. ${placeName}의 예약 가능 시간을 확인해주세요.`);
       return;
@@ -202,6 +203,14 @@ const PlaceReservationCreateModal
             </div>
           </Form.Group>
 
+          {
+            isPossible ? null : (
+              <Message negative>
+                예약이 불가능한 시간대입니다. {placeName}의 예약 가능 시간을 확인해주세요.
+              </Message>
+            )
+          }
+
           <div className={'field'} style={{maxWidth: 240}}>
             <label>예약 가능 시간</label>
             <div style={{color: 'gray'}}>
@@ -219,7 +228,7 @@ const PlaceReservationCreateModal
             </p>
           </Message>
 
-          <Form.Button onClick={handleSubmit}>
+          <Form.Button onClick={handleSubmit} disabled={!isPossible}>
             생성
           </Form.Button>
 

@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 export const KoreanWeekday: any = {
   'Monday': '월',
   'Tuesday': '화',
@@ -13,13 +11,12 @@ export const KoreanWeekday: any = {
 
 export function isOnOpeningHours (
   opening_hours: string,
-  date: string,
-  start_time: string,
-  end_time: string,
+  weekday: string, // Monday
+  start_time: string, // hh:mm
+  end_time: string, // hh:mm
 ) {
   const openingHour = JSON.parse(opening_hours);
 
-  let weekday = moment(date).format('dddd'); // Monday
   if (openingHour['Everyday']) {
     weekday = 'Everyday';
   }
