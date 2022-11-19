@@ -74,7 +74,7 @@ const PlaceReservationCreateModal
 
   function handleSubmit () {
     if (!isPossible) {
-      alert(`예약이 불가능한 시간대입니다. ${placeName}의 예약 가능 시간을 확인해주세요.`);
+      alert(`예약이 불가능한 시간대입니다. ${placeName}의 사용 가능 시간을 확인해주세요.`);
       return;
     }
 
@@ -152,13 +152,13 @@ const PlaceReservationCreateModal
           {
             isPossible ? null : (
               <Message negative>
-                예약이 불가능한 시간대입니다. {placeName}의 예약 가능 시간을 확인해주세요.
+                예약이 불가능한 시간대입니다. {placeName}의 사용 가능 시간을 확인해주세요.
               </Message>
             )
           }
 
           <div className={'field'} style={{maxWidth: 240}}>
-            <label>예약 가능 시간</label>
+            <label>사용 가능 시간</label>
             <div style={{color: 'gray'}}>
               <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
             </div>
