@@ -97,9 +97,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
         </Grid.Column>
 
         <Grid.Column>
-          <Grid rows={2} divided stackable>
+          <Grid rows={2} divided stackable style={{ padding: '1rem' }}>
             <Grid.Column>
-              <Grid.Row centered style={{ marginBottom: '1em' }}>
+              <Grid.Row centered style={{ margin: '0 0 1rem' }}>
                 <ReservationCalendar
                   selectedDate={selectedDate}
                   markedDates={markedDates}
