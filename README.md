@@ -40,12 +40,8 @@ $ npm start
 
 ```bash
 $ docker build . -t popo-public-web
-$ docker run -d -p 3000:3000 popo-public-web
-```
-
-```bash
-$ docker build . -t popo-public-web
-$ docker-compose up -d
+# fill .env.development file
+$ docker-compose -f ./docker-compose.dev.yaml up -d --build
 ```
 
 #### With AWS ECR
@@ -67,7 +63,7 @@ On AWS EC2 instance,
 $ docker pull 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:latest
 $ docker stop popo-public-web
 $ docker rm popo-public-web
-$ docker run -d -p 3000:3000 --name popo-public-web 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:latest
+$ docker-compose -f ./docker-compose.prod.yaml up -d
 
 # 옛날 이미지를 주기적으로 삭제해줘야 한다.
 $ docker container prune # 중지된 모든 컨테이너 삭제
