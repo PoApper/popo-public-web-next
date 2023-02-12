@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { IPlace } from '../../types/reservation.interface'
+import OpeningHoursList from './opening_hours.list'
 
 type PlaceCardProps = {
   placeName: string;
@@ -15,7 +16,8 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
     region: '',
     description: '',
     location: '',
-    imageName: ''
+    imageName: '',
+    opening_hours: '{"Everyday": "00:00-24:00"}'
   })
   const isPlaceImgExist = (placeInfo && placeInfo.imageName)
 
@@ -38,6 +40,9 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
         <Card.Header>{placeInfo.name}</Card.Header>
         <Card.Meta>{placeInfo.location}</Card.Meta>
         <Card.Description>{placeInfo.description}</Card.Description>
+        <Card.Meta style={{marginTop: 8}}>
+          <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
+        </Card.Meta>
       </Card.Content>
     </Card>
   )

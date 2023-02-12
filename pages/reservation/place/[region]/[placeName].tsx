@@ -50,14 +50,22 @@ const RegionPlace: React.FunctionComponent = () => {
 
         <Grid.Column width={6}>
           <PlaceInformationCard placeName={placeName}/>
+          {
+            placeName == "음악감상실"
+              ? <p>
+                  음감실 예약 후 키 대여 및 반납 시간은 12:30 ~ 13:30 입니다. <br/>
+                  꼭, 시간에 맞게 대여 및 반납 해주시기 바랍니다. <br/>
+                </p>
+              : null
+          }
           <PlaceReservationCreateModal placeName={placeName}/>
         </Grid.Column>
 
         <Grid.Column>
-          <Grid rows={2} divided stackable>
+          <Grid rows={2} divided stackable style={{ padding: '1rem' }}>
             <Grid.Column>
 
-              <Grid.Row centered style={{ marginBottom: '1em' }}>
+              <Grid.Row centered style={{ margin: '0 0 1rem' }}>
                 <ReservationCalendar
                   selectedDate={selectedDate}
                   markedDates={markedDates}

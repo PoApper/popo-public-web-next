@@ -14,12 +14,14 @@ const regionName: ObjectType = {
   'student-hall': '학생 회관',
   'jigok': '지곡 회관',
   'others': '생활관 외',
+  'community-center': '커뮤니티 센터',
 }
 
 const regionOptions: ObjectType = {
   'student-hall': 'STUDENT_HALL',
   'jigok': 'JIGOK_CENTER',
   'others': 'OTHERS',
+  'community-center': 'COMMUNITY_CENTER',
 }
 
 const PlaceRegionIndexPage: React.FunctionComponent = () => {

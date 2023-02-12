@@ -1,21 +1,21 @@
-import { KeyboardEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Divider, Form, Modal } from 'semantic-ui-react'
+import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 
-import { DateInput } from 'semantic-ui-calendar-react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-
 import { IUser } from '../../types/user.interface'
 import { IPlace } from '../../types/reservation.interface'
-import { roundUpByDuration } from '../../lib/time-date'
+import { hourDiff, roundUpByDuration } from '../../lib/time-date'
+import OpeningHoursList from './opening_hours.list'
+import { isOnOpeningHours } from '../../lib/opening_hours'
+import ReservationDatetimePicker from './reservation.datetime.picker'
 
 const RegionKorNameMapping = {
   STUDENT_HALL: '학생 회관',
   JIGOK_CENTER: '지곡 회관',
   OTHERS: '생활관 외',
+  COMMUNITY_CENTER : '커뮤니티 센터',
 }
 
 type PlaceReservationCreateModalProps = {
@@ -36,18 +36,27 @@ const PlaceReservationCreateModal
     region: '',
     description: '',
     location: '',
-    imageName: ''
+    imageName: '',
+    opening_hours: '{"Everyday": "00:00-24:00"}'
   })
 
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-  const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD')) // YYYY-MM-DD
-  const [startTime, setStartTime]
-    = useState<string>(roundUpByDuration(moment(), 30).format('HHmm')) // HHmm
-  const [endTime, setEndTime]
-    = useState<string>(
-    roundUpByDuration(moment(), 30).add(30, 'minute').format('HHmm')) // HHmm
+
+  const now: moment.Moment = roundUpByDuration(moment(), 30);
+  const nowNext30Min: moment.Moment = moment(now).add(30, 'minute');
+
+  const [date, setDate] = useState<moment.Moment>(now) // YYYY-MM-DD
+  const [startTime, setStartTime] = useState<moment.Moment>(now) // HHmm
+  const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
+
+  const isPossible = isOnOpeningHours(
+    placeInfo.opening_hours,
+    date.format('dddd'), // Monday
+    startTime.format('HH:mm'),
+    endTime.format('HH:mm')
+  );
 
   useEffect(() => {
     if (!placeName) return
@@ -64,20 +73,24 @@ const PlaceReservationCreateModal
   }, [placeName, router])
 
   function handleSubmit () {
+    if (!isPossible) {
+      alert(`예약이 불가능한 시간대입니다. ${placeName}의 사용 가능 시간을 확인해주세요.`);
+      return;
+    }
+
     axios.post(`${process.env.NEXT_PUBLIC_API}/reservation-place`, {
       place_id: placeInfo.uuid,
       phone: phone,
       title: title,
       description: description,
-      date: moment(date).format('YYYYMMDD'), // YYYYMMDD
-      start_time: startTime, // HHmm
-      end_time: endTime, // HHmm
+      date: date.format('YYYYMMDD'), // YYYYMMDD
+      start_time: startTime.format('HHmm'), // HHmm
+      end_time: endTime.format('HHmm'), // HHmm
     }, { withCredentials: true }).then(() => {
       alert('예약을 생성했습니다!')
       window.location.reload()
     }).catch((error) => {
-      console.log(error)
-      alert('예약 생성에 실패했습니다.')
+      alert(`예약 생성에 실패했습니다: ${error.response.data.message}`)
     })
   }
 
@@ -130,66 +143,38 @@ const PlaceReservationCreateModal
           <Divider/>
 
           <Form.Group>
-            <div className={'required field'}>
-              <label>날짜</label>
-              <DateInput
-                dateFormat={'yyyy-MM-DD'}
-                minDate={moment()} maxDate={moment().add(30, 'day')}
-                // @ts-ignore
-                value={date}
-                onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
-                onChange={(_, value) => {
-                  const targetDate: string = value.value // YYYY-MM-DD
-                  const todayDate: string = moment().format('YYYY-MM-DD')
-                  setDate(targetDate)
-                  if (targetDate === todayDate) {
-                    setStartTime(roundUpByDuration(moment(), 30).format('HHmm'))
-                    setEndTime(
-                      roundUpByDuration(moment(), 30).
-                        add(30, 'minute').
-                        format('HHmm'))
-                  } else {
-                    setStartTime('0000')
-                    setEndTime('0030')
-                  }
-                }}/>
-            </div>
-
-            <div className={'required field'}>
-              <label>시작 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                dateFormat={'hh:mm aa'}
-                selected={moment(startTime, 'HHmm').toDate()}
-                minTime={
-                  (moment().format('YYYY-MM-DD') === date) ?
-                    moment().toDate() :
-                    moment().startOf('day').toDate()
-                }
-                maxTime={moment().endOf('day').toDate()}
-                onKeyDown={e => e.preventDefault()}
-                onChange={(startTime: Date) => {
-                  setStartTime(moment(startTime).format('HHmm'))
-                  setEndTime(moment(startTime).add(30, 'minute').format('HHmm'))
-                }}/>
-            </div>
-
-            <div className={'required field'}>
-              <label>종료 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                dateFormat={'hh:mm aa'}
-                selected={moment(endTime, 'HHmm').toDate()}
-                minTime={moment(startTime).add(30, 'minute').toDate()}
-                maxTime={moment().endOf('day').toDate()}
-                onKeyDown={e => e.preventDefault()}
-                onChange={(endTime: Date) => {
-                  setEndTime(moment(endTime).format('HHmm'))
-                }}/>
-            </div>
+            <ReservationDatetimePicker
+              date={date} startTime={startTime} endTime={endTime}
+              setDate={setDate} setStartTime={setStartTime} setEndTime={setEndTime}
+            />
           </Form.Group>
 
-          <Form.Button onClick={handleSubmit}>
+          {
+            isPossible ? null : (
+              <Message negative>
+                예약이 불가능한 시간대입니다. {placeName}의 사용 가능 시간을 확인해주세요.
+              </Message>
+            )
+          }
+
+          <div className={'field'} style={{maxWidth: 240}}>
+            <label>사용 가능 시간</label>
+            <div style={{color: 'gray'}}>
+              <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
+            </div>
+          </div>
+
+          <Message>
+            <Message.Header>예약 장소와 예약 시간을 꼭 확인해주세요!</Message.Header>
+            <p>
+              {
+                // @ts-ignore
+                RegionKorNameMapping[placeInfo.region]
+              } {placeInfo.name}, {hourDiff(startTime, endTime)}시간 예약입니다.
+            </p>
+          </Message>
+
+          <Form.Button onClick={handleSubmit} disabled={!isPossible}>
             생성
           </Form.Button>
 

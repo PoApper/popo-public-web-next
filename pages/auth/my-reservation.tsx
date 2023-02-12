@@ -19,7 +19,7 @@ const MyInfoPage = () => {
         alert('로그인 후 조회할 수 있습니다.');
         router.push('/auth/login')
       })
-  }, [router])
+  }, [])
 
   return (
     <Layout>
@@ -30,8 +30,11 @@ const MyInfoPage = () => {
         borderRadius: '8px',
       }}>
         <h2>내 예약</h2>
+        <p>예약 제목을 클릭하면 자세한 예약 정보를 볼 수 있습니다.</p>
+
         <h3>장소 예약</h3>
         <MyPlaceReservationTable/>
+
         <h3>장비 예약</h3>
         <MyEquipReservationTable/>
       </Container>

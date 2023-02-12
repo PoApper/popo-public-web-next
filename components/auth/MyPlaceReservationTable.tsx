@@ -1,10 +1,12 @@
-import { Label, Table } from 'semantic-ui-react'
-import moment from 'moment'
+import { Button, Icon, Label, Table } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
 import { IPlaceReservation } from '../../types/reservation.interface'
+import PlaceReservationDetailModal
+  from '../reservation/place.reservation.detail.modal'
+import DeleteConfirmModal from '../common/delete.confirm.modal'
 
 const MyPlaceReservationTable = () => {
   const [reserve_list, setReserveList] = useState<IPlaceReservation[]>([])
@@ -18,18 +20,18 @@ const MyPlaceReservationTable = () => {
         alert('내 장소 예약 목록을 불러오는데 실패했습니다.')
         console.log(err)
       })
-  })
+  }, [])
 
   return (
     <Table compact>
       <Table.Header>
         <Table.Row textAlign="center">
-          <Table.HeaderCell width={1}>idx.</Table.HeaderCell>
-          <Table.HeaderCell>예약 제목</Table.HeaderCell>
-          <Table.HeaderCell>예약 장소</Table.HeaderCell>
+          <Table.HeaderCell width={1}>#</Table.HeaderCell>
+          <Table.HeaderCell width={5}>예약 제목</Table.HeaderCell>
+          <Table.HeaderCell width={4}>예약 장소</Table.HeaderCell>
           <Table.HeaderCell width={3}>예약 기간</Table.HeaderCell>
           <Table.HeaderCell width={1}>상태</Table.HeaderCell>
-          <Table.HeaderCell width={3}>생성일</Table.HeaderCell>
+          <Table.HeaderCell width={1}/>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -38,19 +40,42 @@ const MyPlaceReservationTable = () => {
             return (
               <Table.Row textAlign="center" key={reservation.uuid}>
                 <Table.Cell>{idx + 1}</Table.Cell>
-                <Table.Cell>{reservation.title}</Table.Cell>
+
+                <PlaceReservationDetailModal
+                  key={reservation.uuid}
+                  reservation={reservation}
+                  trigger={
+                    <Table.Cell style={{cursor: 'pointer'}}>
+                      {reservation.title}
+                    </Table.Cell>
+                  }
+                />
+
                 <Table.Cell>{reservation.place.name}</Table.Cell>
+
                 <Table.Cell>
                   {convertDate(reservation.date)}<br/>
                   {convertTime(reservation.start_time)} ~
                   {convertTime(reservation.end_time)}
                 </Table.Cell>
+
                 <Table.Cell>
                   <Label circular empty
                          color={convertStatus(reservation.status)}/>
                 </Table.Cell>
-                <Table.Cell>{moment(new Date(reservation.created_at)).
-                  format('YYYY.MM.DD')}</Table.Cell>
+
+                <Table.Cell>
+                  <DeleteConfirmModal
+                    target={reservation.title}
+                    deleteURI={`reservation-place/${reservation.uuid}`}
+                    trigger={
+                      <Button negative size={'tiny'}>
+                        <Icon name={'trash'}/>
+                      </Button>
+                    }
+                  />
+                </Table.Cell>
+
               </Table.Row>
             )
           })

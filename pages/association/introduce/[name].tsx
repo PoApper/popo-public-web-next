@@ -1,10 +1,11 @@
-import { Container, Grid, Icon, Image, Popup } from 'semantic-ui-react'
+import { Container, Grid, Image } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
 import Layout from '../../../components/layout'
-import { IAssociationIntroduce } from '../../../types/introduce.interface'
+import { IAssociationIntroduce, } from '../../../types/introduce.interface'
+import IconLink from '../../../components/common/icon.link'
 
 const AssociationSingIntroducePage = () => {
   const router = useRouter()
@@ -18,6 +19,7 @@ const AssociationSingIntroducePage = () => {
   })
 
   useEffect(() => {
+    if (!name) return;
     axios.get(
       `${process.env.NEXT_PUBLIC_API}/introduce/association/name/${name}`).
       then(res => setIntro(res.data)).
@@ -29,8 +31,26 @@ const AssociationSingIntroducePage = () => {
       <Grid>
         <Grid.Row columns={2}>
           <Grid.Column width={10}>
-            <h1>{name}</h1>
-            <Container>
+            <h1 style={{marginBottom: 8}}>
+              {name}
+            </h1>
+
+            <Container style={{fontSize: 18, display: 'inline-flex', gap: 2}}>
+              <IconLink link={intro.homepage_url}>
+                <img src={'https://img.shields.io/badge/website-000000?style=for-the-badge'}
+                     alt={'homepage'}/>
+              </IconLink>
+              <IconLink link={intro.facebook_url}>
+                <img src={'https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white'}
+                     alt={'facebook'}/>
+              </IconLink>
+              <IconLink link={intro.instagram_url}>
+                <img src={'https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white'}
+                     alt={'instagram'}/>
+              </IconLink>
+            </Container>
+
+            <Container style={{fontSize: 16}}>
               {intro.content}
             </Container>
             <br/>
@@ -39,8 +59,7 @@ const AssociationSingIntroducePage = () => {
                 <b>사무실 위치</b>: {intro.location}
               </p>
               <p>
-                <b>대표자</b>: {intro.representative} &nbsp;
-                <Popup content={intro.contact} trigger={<Icon name={'mail'}/>}/>
+                <b>대표자</b>: {intro.representative}({intro.contact})
               </p>
             </Container>
           </Grid.Column>

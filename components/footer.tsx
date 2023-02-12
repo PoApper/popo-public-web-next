@@ -1,3 +1,5 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import {
   Container,
   Divider,
@@ -9,6 +11,13 @@ import {
 } from 'semantic-ui-react'
 
 const Footer = () => {
+  const [popoCRMEmail, setPOPOCRMEmail] = useState('');
+
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
+         .then(res => setPOPOCRMEmail(res.data.popo_crm_email));
+  }, [])
+
   return (
     <footer>
       <Segment vertical style={{
@@ -29,7 +38,7 @@ const Footer = () => {
                 </p>
                 <p>
                   E-mail: stu-36@postech.ac.kr<br/>
-                  POPO 관련 문의: jeong314@postech.ac.kr
+                  POPO 관련 문의: {popoCRMEmail}
                 </p>
               </small>
             </Grid.Column>
@@ -37,7 +46,7 @@ const Footer = () => {
               <Header as="h4" content="Developed by"/>
               <Image centered size={'small'}
                      src={'/PoApper_logo.svg'} alt={'poapper-logo'}
-                     href={'https://club.poapper.com/'} target="_blank"/>
+                     href={'https://poapper.club/'} target="_blank"/>
               <List link>
                 <List.Item as="a" href="/other/recruiting">
                   개발자 모집
