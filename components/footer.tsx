@@ -29,7 +29,7 @@ const Footer = () => {
           <Grid divided stackable style={{ fontSize: 'small' }}>
 
             <Grid.Column textAlign="left" width={7}>
-              <Header as="h3" content="POSTECH 총학생회 비상대책위원회"/>
+              <Header as="h3" content="POSTECH 총학생회"/>
               <small>
                 <p>77 Cheongam-Ro. Nam-Gu. Pohang. Gyeongbuk. Korea 790-784</p>
                 <p>
@@ -37,7 +37,7 @@ const Footer = () => {
                   FAX +82-54-279-2626
                 </p>
                 <p>
-                  E-mail: stu-36@postech.ac.kr<br/>
+                  E-mail: stu-37@postech.ac.kr<br/>
                   POPO 관련 문의: {popoCRMEmail}
                 </p>
               </small>
