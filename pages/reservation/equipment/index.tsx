@@ -13,6 +13,7 @@ const EquipmentIndexPage = () => {
               <Card.Content>
                 <Card.Header>동아리연합회</Card.Header>
                 <Card.Meta>Student Club Union</Card.Meta>
+                <Card.Description>마이크, 스피커, 믹서 등의 음향장비, 카메라, 빔 프로젝터 등</Card.Description>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -22,6 +23,7 @@ const EquipmentIndexPage = () => {
               <Card.Content>
                 <Card.Header>생활관자치회</Card.Header>
                 <Card.Meta>Dormitory Union</Card.Meta>
+                <Card.Description>카트, 공구류</Card.Description>
               </Card.Content>
             </Card>
           </Grid.Column>
