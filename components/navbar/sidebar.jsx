@@ -38,7 +38,6 @@ const SideBar = ({ visible, toggleSidebar, pushContent }) => {
               <Link href={'/association'} passHref>
                 <Menu.Item name='자치단체 소개'/>
               </Link>
-              <Menu.Item disabled name='총학생회 게시판'/>
               <Menu.Item
                 name='총학생회 기록물관리기관'
                 target="_blank"
@@ -54,7 +53,6 @@ const SideBar = ({ visible, toggleSidebar, pushContent }) => {
               <Link href={'/club'} passHref>
                 <Menu.Item name='동아리 소개'/>
               </Link>
-              <Menu.Item disabled name='동아리 게시판'/>
             </Menu.Menu>
           </MenuItem>
 
