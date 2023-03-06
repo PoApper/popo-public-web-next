@@ -1,5 +1,5 @@
 on:
-  pucsh:
+  push:
   # Github Action manual trigger
   workflow_dispatch:
 
