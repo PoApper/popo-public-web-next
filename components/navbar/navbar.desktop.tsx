@@ -40,7 +40,6 @@ const NavbarDesktop = () => {
                 <Link href={'/association'} passHref>
                   <Dropdown.Item as="a" text={'자치단체 소개'}/>
                 </Link>
-                <Dropdown.Item disabled as="a" text={'총학생회 게시판'}/>
                 <Dropdown.Item text={'총학생회 기록물관리기관'} target="_blank"
                                href={'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'}/>
               </Dropdown.Menu>
@@ -51,7 +50,6 @@ const NavbarDesktop = () => {
                 <Link href={'/club'} passHref>
                   <Dropdown.Item as="a" text={'동아리 소개'}/>
                 </Link>
-                <Dropdown.Item disabled as="a" text={'동아리 게시판'}/>
               </Dropdown.Menu>
             </Dropdown>
 
