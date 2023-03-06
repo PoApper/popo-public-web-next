@@ -1,4 +1,5 @@
 on:
+  pucsh:
   # Github Action manual trigger
   workflow_dispatch:
 
