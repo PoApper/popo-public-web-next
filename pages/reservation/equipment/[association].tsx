@@ -37,6 +37,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const [dongyeonBank, setDongyeonBank] = useState('')
+  const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
   const associationKorName = ownerName[associationName];
   const associationLocation = ownerLocation[associationName];
@@ -46,7 +47,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
     axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}`,
+      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []
@@ -59,7 +60,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
 
     axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
          .then(res => setDongyeonBank(res.data.dongyeon_bank))
-  }, [associationName, selectedDate])
+  }, [startDate, associationName, selectedDate])
 
   function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
     e.preventDefault();
