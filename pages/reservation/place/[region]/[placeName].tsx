@@ -39,16 +39,9 @@ const RegionPlace: React.FunctionComponent = () => {
     })
   }, [startDate, placeName, selectedDate])
 
-  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
-    e.preventDefault();
-    const date: string = data.value; // YYYYMMDD
-    setSelectedDate(date);
-  }
-
   return (
     <Layout>
       <Grid columns={2} divided stackable>
-
         <Grid.Column width={6}>
           <PlaceInformationCard placeName={placeName}/>
           {
@@ -62,15 +55,15 @@ const RegionPlace: React.FunctionComponent = () => {
           <PlaceReservationCreateModal placeName={placeName}/>
         </Grid.Column>
 
-        <Grid.Column>
+        <Grid.Column width={10}>
           <Grid rows={2} divided stackable style={{ padding: '1rem' }}>
             <Grid.Column>
 
-              <Grid.Row centered style={{ margin: '0 0 1rem' }}>
+              <Grid.Row centered style={{ margin: '0 0 1rem', width: '100%' }}>
                 <ReservationCalendar
                   selectedDate={selectedDate}
                   markedDates={markedDates}
-                  handleDateChange={handleDateChange}/>
+                  setSelectedDate={setSelectedDate}/>
               </Grid.Row>
 
               <Grid.Row style={{ marginBottom: '1em' }}>
