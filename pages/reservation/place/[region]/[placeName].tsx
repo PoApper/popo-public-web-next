@@ -61,8 +61,8 @@ const RegionPlace: React.FunctionComponent = () => {
 
               <Grid.Row centered style={{ margin: '0 0 1rem', width: '100%' }}>
                 <ReservationCalendar
-                  selectedDate={selectedDate}
                   markedDates={markedDates}
+                  selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}/>
               </Grid.Row>
 
