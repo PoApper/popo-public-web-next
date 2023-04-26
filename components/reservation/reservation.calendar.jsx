@@ -11,12 +11,12 @@ const ReservationCalendar = ({
   return (
     <StyledCalendar
       formatDay={(_, date) => moment(date).format('DD')}
-      onChange={(value, evt) => setSelectedDate(moment(value).format('YYYYMMDD'))}
-      value={moment(selectedDate).format('YYYY-MM-DD')}
+      onChange={(value, _) => setSelectedDate(moment(value).format('YYYYMMDD'))}
+      value={moment(selectedDate).toDate()}
       view={"month"}
       prev2Label={null}
       next2Label={null}
-      tileContent={({ date, view }) => {
+      tileContent={({ date, _ }) => {
         let color = null;
         if (markedDates.find((x) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
           color = "#f2711c";
