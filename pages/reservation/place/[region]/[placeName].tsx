@@ -39,38 +39,23 @@ const RegionPlace: React.FunctionComponent = () => {
     })
   }, [startDate, placeName, selectedDate])
 
-  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
-    e.preventDefault();
-    const date: string = data.value; // YYYYMMDD
-    setSelectedDate(date);
-  }
-
   return (
     <Layout>
       <Grid columns={2} divided stackable>
-
         <Grid.Column width={6}>
           <PlaceInformationCard placeName={placeName}/>
-          {
-            placeName == "음악감상실"
-              ? <p>
-                  음감실 예약 후 키 대여 및 반납 시간은 12:30 ~ 13:30 입니다. <br/>
-                  꼭, 시간에 맞게 대여 및 반납 해주시기 바랍니다. <br/>
-                </p>
-              : null
-          }
           <PlaceReservationCreateModal placeName={placeName}/>
         </Grid.Column>
 
-        <Grid.Column>
+        <Grid.Column width={10}>
           <Grid rows={2} divided stackable style={{ padding: '1rem' }}>
             <Grid.Column>
 
-              <Grid.Row centered style={{ margin: '0 0 1rem' }}>
+              <Grid.Row centered style={{ margin: '0 0 1rem', width: '100%' }}>
                 <ReservationCalendar
-                  selectedDate={selectedDate}
                   markedDates={markedDates}
-                  handleDateChange={handleDateChange}/>
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}/>
               </Grid.Row>
 
               <Grid.Row style={{ marginBottom: '1em' }}>

@@ -62,12 +62,6 @@ const EquipAssociationPage: React.FunctionComponent = () => {
          .then(res => setDongyeonBank(res.data.dongyeon_bank))
   }, [startDate, associationName, selectedDate])
 
-  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
-    e.preventDefault();
-    const date: string = data.value; // YYYYMMDD
-    setSelectedDate(date);
-  }
-
   return (
     <Layout>
       <h1>{associationKorName} - 장비 예약하기</h1>
@@ -102,9 +96,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
             <Grid.Column>
               <Grid.Row centered style={{ margin: '0 0 1rem' }}>
                 <ReservationCalendar
-                  selectedDate={selectedDate}
                   markedDates={markedDates}
-                  handleDateChange={handleDateChange}/>
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}/>
               </Grid.Row>
               <Grid.Row>
                 <EquipReservationTable
