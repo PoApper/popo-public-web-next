@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { Grid } from 'semantic-ui-react'
+import { Button, Grid } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
 import ReservationCalendar
@@ -12,6 +12,7 @@ import EquipReservationTable
 import EquipListTable from '../../../components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '../../../components/reservation/equip.reservation.create.modal'
+import Link from 'next/link'
 
 type ObjectType = {
   [key: string]: string
@@ -87,8 +88,13 @@ const EquipAssociationPage: React.FunctionComponent = () => {
                   장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨<br/>
                 </p>
           }
-          <EquipReservationCreateModal
-            associationName={associationName}/>
+
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <EquipReservationCreateModal associationName={associationName}/>
+            <Link href={'/auth/my-reservation'} passHref>
+              <Button>내 예약 목록</Button>
+            </Link>
+          </div>
         </Grid.Column>
 
         <Grid.Column>
