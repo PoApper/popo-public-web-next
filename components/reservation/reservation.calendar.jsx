@@ -15,7 +15,7 @@ const ReservationCalendar = ({
     <StyledCalendar
       formatDay={(_, date) => moment(date).format('DD')}
       onChange={(value, _) => setSelectedDate(moment(value).format('YYYYMMDD'))}
-      value={moment(selectedDate).toDate()}
+      defaultValue={moment(selectedDate).toDate()}
       view={"month"}
       prev2Label={null}
       next2Label={null}
