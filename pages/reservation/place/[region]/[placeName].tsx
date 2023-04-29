@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Grid, Label } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import Layout from '../../../../components/layout'
 import PlaceReservationTable
@@ -18,7 +18,7 @@ const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
   const placeName = router.query.placeName as string
 
-  const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
+  const [selectedDate, setSelectedDate] = useState(moment().tz("Asia/Seoul").format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
