@@ -40,6 +40,9 @@ const NavbarDesktop = () => {
                 <Link href={'/association'} passHref>
                   <Dropdown.Item as="a" text={'자치단체 소개'}/>
                 </Link>
+                <Link href={'/store'} passHref>
+                  <Dropdown.Item as="a" text={'제휴 및 할인업체 소개'}/>
+                </Link>
                 <Dropdown.Item text={'총학생회 기록물관리기관'} target="_blank"
                                href={'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'}/>
               </Dropdown.Menu>
@@ -58,9 +61,6 @@ const NavbarDesktop = () => {
                 <Link href={'/whitebook'} passHref>
                   <Dropdown.Item as="a" text={'생활백서'}/>
                 </Link>
-                <Dropdown.Item
-                  text={'생활관 자치회'}
-                  href={'https://dorm.postech.ac.kr/'} target={'_blank'}/>
                 <Dropdown.Item
                   text={'배달업체'}
                   href={'http://delivery.postech.ac.kr/'} target={'_blank'}/>
