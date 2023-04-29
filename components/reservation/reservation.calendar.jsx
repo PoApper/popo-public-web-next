@@ -8,9 +8,6 @@ const ReservationCalendar = ({
   selectedDate,
   setSelectedDate,
 }) => {
-  console.log("selectedDate", selectedDate);
-  console.log("value", moment(selectedDate).toDate());
-
   return (
     <StyledCalendar
       formatDay={(_, date) => moment(date).format('DD')}
