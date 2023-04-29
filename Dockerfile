@@ -1,5 +1,5 @@
 # Buile Step
-FROM node:16.13-alpine AS builder
+FROM node:18.7-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -13,7 +13,7 @@ RUN npm run build
 RUN npm prune --production
 
 # Run Step
-FROM node:16.13-alpine AS runner
+FROM node:18.7-alpine AS runner
 
 WORKDIR /usr/src/app
 

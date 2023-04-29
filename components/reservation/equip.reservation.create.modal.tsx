@@ -77,7 +77,7 @@ const EquipReservationCreateModal
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => {
-        if (userInfo) {
+        if (userInfo || process.env.NODE_ENV === "development") {
           setOpen(true)
         } else {
           alert('로그인 후 예약할 수 있습니다.')
