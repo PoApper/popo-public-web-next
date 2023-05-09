@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const StoreIndexPage = () => {
   const [selectedRegion, setRegion] = useState('all')
-  const [stores, setStores] = useState([])
+  const [stores, setStores] = useState<any[]>([])
   
   useEffect(() => {
     axios

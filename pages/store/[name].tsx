@@ -11,7 +11,7 @@ import StoreOpeningHours from '../../components/store/storeOpeningHours'
 const StorePage = () => {
   const router = useRouter();
   const store_name = router.query.name
-  const [storeWithAll, setStoreWithAll] = useState()
+  const [storeWithAll, setStoreWithAll] = useState<any>()
 
   useEffect(() => {
     if (!store_name) return;
