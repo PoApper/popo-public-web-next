@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Label } from 'semantic-ui-react'
+import { Button, Grid, Label } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import Layout from '../../../../components/layout'
 import PlaceReservationTable
@@ -12,12 +12,13 @@ import ReservationCalendar
 import PlaceInformationCard from '../../../../components/reservation/place.information.card'
 import PlaceReservationCreateModal
   from '../../../../components/reservation/place.reservation.create.modal'
+import Link from 'next/link'
 
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
   const placeName = router.query.placeName as string
 
-  const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
+  const [selectedDate, setSelectedDate] = useState(moment().tz("Asia/Seoul").format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
@@ -44,7 +45,12 @@ const RegionPlace: React.FunctionComponent = () => {
       <Grid columns={2} divided stackable>
         <Grid.Column width={6}>
           <PlaceInformationCard placeName={placeName}/>
-          <PlaceReservationCreateModal placeName={placeName}/>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <PlaceReservationCreateModal placeName={placeName}/>
+            <Link href={'/auth/my-reservation'} passHref>
+              <Button>내 예약 목록</Button>
+            </Link>
+          </div>
         </Grid.Column>
 
         <Grid.Column width={10}>
