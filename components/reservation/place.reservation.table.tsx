@@ -34,7 +34,9 @@ const PlaceReservationTable = ({ placeName, selectedDate }: PlaceReservationTabl
       <Table.Body>
         {
           reservations.length ?
-            reservations.map((reservation) => {
+            reservations
+              .sort((a, b) => (Number(a.start_time) - Number(b.start_time)))
+              .map((reservation) => {
               return (
                 <Table.Row key={reservation.uuid} textAlign="center">
                   <Table.Cell>{reservation.booker.name}</Table.Cell>
