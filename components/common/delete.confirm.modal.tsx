@@ -13,7 +13,7 @@ const DeleteConfirmModal = (props: any) => {
                 { withCredentials: true })
             window.location.reload()
         } catch (e) {
-            alert('장소 삭제에 실패했습니다.')
+            alert('삭제에 실패했습니다.')
             console.log(e)
         }
     }

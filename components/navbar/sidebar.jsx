@@ -38,6 +38,9 @@ const SideBar = ({ visible, toggleSidebar, pushContent }) => {
               <Link href={'/association'} passHref>
                 <Menu.Item name='자치단체 소개'/>
               </Link>
+              <Link href={'/store'} passHref>
+                <Menu.Item name='제휴 및 할인업체 소개'/>
+              </Link>
               <Menu.Item
                 name='총학생회 기록물관리기관'
                 target="_blank"
@@ -63,11 +66,6 @@ const SideBar = ({ visible, toggleSidebar, pushContent }) => {
               <Link href={'/whitebook'} passHref>
                 <Menu.Item name='생활백서'/>
               </Link>
-              <Menu.Item
-                name='생활관 자치회'
-                target="_blank"
-                href={'https://dorm.postech.ac.kr/'}
-              />
               <Menu.Item
                 name='인포스택'
                 target="_blank"

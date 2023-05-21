@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Label } from 'semantic-ui-react'
+import { Button, Grid, Label } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import Layout from '../../../../components/layout'
 import PlaceReservationTable
@@ -12,13 +12,15 @@ import ReservationCalendar
 import PlaceInformationCard from '../../../../components/reservation/place.information.card'
 import PlaceReservationCreateModal
   from '../../../../components/reservation/place.reservation.create.modal'
+import Link from 'next/link'
 
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
   const placeName = router.query.placeName as string
 
-  const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
+  const [selectedDate, setSelectedDate] = useState(moment().tz("Asia/Seoul").format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
+  const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
   useEffect(() => {
     if (!placeName) return;
@@ -26,7 +28,7 @@ const RegionPlace: React.FunctionComponent = () => {
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
     axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}`,
+      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}?startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []
@@ -36,40 +38,30 @@ const RegionPlace: React.FunctionComponent = () => {
       }
       setMarkedDates(datesArr)
     })
-  }, [placeName, selectedDate])
-
-  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
-    e.preventDefault();
-    const date: string = data.value; // YYYYMMDD
-    setSelectedDate(date);
-  }
+  }, [startDate, placeName, selectedDate])
 
   return (
     <Layout>
       <Grid columns={2} divided stackable>
-
         <Grid.Column width={6}>
           <PlaceInformationCard placeName={placeName}/>
-          {
-            placeName == "음악감상실"
-              ? <p>
-                  음감실 예약 후 키 대여 및 반납 시간은 12:30 ~ 13:30 입니다. <br/>
-                  꼭, 시간에 맞게 대여 및 반납 해주시기 바랍니다. <br/>
-                </p>
-              : null
-          }
-          <PlaceReservationCreateModal placeName={placeName}/>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <PlaceReservationCreateModal placeName={placeName}/>
+            <Link href={'/auth/my-reservation'} passHref>
+              <Button>내 예약 목록</Button>
+            </Link>
+          </div>
         </Grid.Column>
 
-        <Grid.Column>
+        <Grid.Column width={10}>
           <Grid rows={2} divided stackable style={{ padding: '1rem' }}>
             <Grid.Column>
 
-              <Grid.Row centered style={{ margin: '0 0 1rem' }}>
+              <Grid.Row centered style={{ margin: '0 0 1rem', width: '100%' }}>
                 <ReservationCalendar
-                  selectedDate={selectedDate}
                   markedDates={markedDates}
-                  handleDateChange={handleDateChange}/>
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}/>
               </Grid.Row>
 
               <Grid.Row style={{ marginBottom: '1em' }}>

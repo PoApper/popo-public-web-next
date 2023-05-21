@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { Grid } from 'semantic-ui-react'
+import { Button, Grid } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
 import ReservationCalendar
@@ -12,6 +12,7 @@ import EquipReservationTable
 import EquipListTable from '../../../components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '../../../components/reservation/equip.reservation.create.modal'
+import Link from 'next/link'
 
 type ObjectType = {
   [key: string]: string
@@ -37,6 +38,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const [dongyeonBank, setDongyeonBank] = useState('')
+  const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
   const associationKorName = ownerName[associationName];
   const associationLocation = ownerLocation[associationName];
@@ -46,7 +48,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
     axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}`,
+      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []
@@ -59,13 +61,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
 
     axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
          .then(res => setDongyeonBank(res.data.dongyeon_bank))
-  }, [associationName, selectedDate])
-
-  function handleDateChange(e: React.SyntheticEvent<HTMLElement>, data: any): void {
-    e.preventDefault();
-    const date: string = data.value; // YYYYMMDD
-    setSelectedDate(date);
-  }
+  }, [startDate, associationName, selectedDate])
 
   return (
     <Layout>
@@ -92,8 +88,13 @@ const EquipAssociationPage: React.FunctionComponent = () => {
                   장비가 분실되거나 예약 시간을 초과할 경우, 차후 예약에 제한을 둘 수 있습니다. 🚨<br/>
                 </p>
           }
-          <EquipReservationCreateModal
-            associationName={associationName}/>
+
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <EquipReservationCreateModal associationName={associationName}/>
+            <Link href={'/auth/my-reservation'} passHref>
+              <Button>내 예약 목록</Button>
+            </Link>
+          </div>
         </Grid.Column>
 
         <Grid.Column>
@@ -101,9 +102,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
             <Grid.Column>
               <Grid.Row centered style={{ margin: '0 0 1rem' }}>
                 <ReservationCalendar
-                  selectedDate={selectedDate}
                   markedDates={markedDates}
-                  handleDateChange={handleDateChange}/>
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}/>
               </Grid.Row>
               <Grid.Row>
                 <EquipReservationTable

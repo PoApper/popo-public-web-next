@@ -1,10 +1,8 @@
-import { DateInput } from 'semantic-ui-calendar-react'
 import moment from 'moment'
-import React, { KeyboardEvent } from 'react'
+import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { roundUpByDuration } from '../../lib/time-date'
-
 const ReservationDatetimePicker = ({
   date,
   startTime,
@@ -27,14 +25,16 @@ const ReservationDatetimePicker = ({
     <>
       <div className={'required field'}>
         <label>날짜</label>
-        <DateInput
-          dateFormat={'yyyy-MM-DD'}
-          minDate={moment()} maxDate={moment().add(30, 'day')}
-          value={date.format('YYYY-MM-DD')}
-          onKeyDown={(e: KeyboardEvent) => e.preventDefault()}
-          onChange={(_, value) => {
-            const targetDate: string = value.value // YYYY-MM-DD
-            if (targetDate === now.format('YYYY-MM-DD')) {
+        <DatePicker
+          onKeyDown={e => e.preventDefault()}
+          dateFormat={'yyyy-MM-dd'}
+          minDate={now.toDate()}
+          maxDate={now.add(30, 'day').toDate()}
+          selected={date.toDate()}
+          onChange={(date: Date) => {
+            const targetDate: string = moment(date).format('YYYY-MM-DD')
+            const nowDate: string = now.format('YYYY-MM-DD');
+            if (targetDate === nowDate) {
               setDate(now);
               setStartTime(now);
               setEndTime(nowNext30Min);
@@ -43,7 +43,8 @@ const ReservationDatetimePicker = ({
               setStartTime(moment(targetDate + 'T00:00'));
               setEndTime(moment(targetDate + 'T00:30'));
             }
-          }}/>
+          }}
+        />
       </div>
 
       <div className={'required field'}>
