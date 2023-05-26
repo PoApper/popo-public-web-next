@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Container, Icon, Popup } from 'semantic-ui-react'
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 
 const RecruitingPage = () => {
   return (

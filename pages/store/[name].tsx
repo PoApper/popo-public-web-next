@@ -1,12 +1,12 @@
-import react, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import { Image, Icon, Divider } from 'semantic-ui-react'
 import styled from 'styled-components'
 
-import Layout from '../../components/layout'
-import StoreOpeningHours from '../../components/store/storeOpeningHours'
+import Layout from '@/components/layout'
+import StoreOpeningHours from '@/components/store/storeOpeningHours'
 
 const StorePage = () => {
   const router = useRouter();
@@ -80,17 +80,12 @@ const StoreLogo = styled.div`
   text-align: center;
   justify-items: center;
   align-items: center;
-  flex: 1
+  flex: 1;
 `
 
 const StoreInfo = styled.div`
   margin-top: 3rem;
-  flex: 2
+  flex: 2;
 `
 
-const NaverLink = styled.a`
-  margin-left: 1rem;
-  text-color = green;
-`
-
-export default StorePage
+export default StorePage;

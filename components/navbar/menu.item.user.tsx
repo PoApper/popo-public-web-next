@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button, Dropdown, Menu } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
-import { IUser } from '../../types/user.interface'
+import { IUser } from '@/types/user.interface'
 
 const MenuItemUser = () => {
   const router = useRouter()

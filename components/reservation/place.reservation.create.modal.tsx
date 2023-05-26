@@ -4,11 +4,11 @@ import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 
-import { IUser } from '../../types/user.interface'
-import { IPlace } from '../../types/reservation.interface'
-import { hourDiff, roundUpByDuration } from '../../lib/time-date'
+import { IUser } from '@/types/user.interface'
+import { IPlace } from '@/types/reservation.interface'
+import { hourDiff, roundUpByDuration } from '@/lib/time-date'
 import OpeningHoursList from './opening_hours.list'
-import { isOnOpeningHours } from '../../lib/opening_hours'
+import { isOnOpeningHours } from '@/lib/opening_hours'
 import ReservationDatetimePicker from './reservation.datetime.picker'
 
 const RegionKorNameMapping = {

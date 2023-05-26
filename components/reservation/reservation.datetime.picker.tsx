@@ -2,7 +2,7 @@ import moment from 'moment'
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { roundUpByDuration } from '../../lib/time-date'
+import { roundUpByDuration } from '@/lib/time-date'
 const ReservationDatetimePicker = ({
   date,
   startTime,

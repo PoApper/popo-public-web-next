@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import { Grid, Image, Card, Button } from 'semantic-ui-react'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -37,7 +37,7 @@ const StoreIndexPage = () => {
           <Grid.Column key={store.uuid}>
               <Link href={`/store/${store.name}`} key={store.uuid} passHref>
                 <Card>
-                <Image src={store.image_url ?? 'https://via.placeholder.com/360?text=POPO'}/>
+                <Image src={store.image_url ?? 'https://via.placeholder.com/360?text=POPO'} alt={store.name}/>
                 <Card.Content>
                     <Card.Header>{store.name}</Card.Header>
                     <Card.Description>{store.description}</Card.Description>

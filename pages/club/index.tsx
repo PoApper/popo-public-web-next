@@ -1,4 +1,4 @@
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import { Card, Grid, Image } from 'semantic-ui-react'
 
 const ClubIndexPage = () => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Image, Modal, Table } from 'semantic-ui-react'
 
-import { IEquipment } from '../../types/reservation.interface'
+import { IEquipment } from '@/types/reservation.interface'
 
 type EquipListTableProps = {
   associationName: string

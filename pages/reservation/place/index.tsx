@@ -1,5 +1,5 @@
 import { Card, Grid, Image } from 'semantic-ui-react'
-import Layout from '../../../components/layout'
+import Layout from '@/components/layout'
 
 const PlaceIndexPage = () => {
   return (

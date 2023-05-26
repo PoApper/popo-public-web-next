@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 
 const WhiteBookIndexPage = () => {
   const [whitebookList, setWhitebookList] = useState([])

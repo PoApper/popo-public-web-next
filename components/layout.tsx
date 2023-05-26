@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import Head from 'next/head'
 import styled, { ThemeProvider } from 'styled-components'
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 import NavbarDesktop from './navbar/navbar.desktop'
 import Footer from './footer'
 import { Desktop, Mobile } from './media-query'

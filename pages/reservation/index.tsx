@@ -1,7 +1,7 @@
 import { Container, Grid, Icon, Image, List } from 'semantic-ui-react'
 import CountUp from 'react-countup'
 import Link from 'next/link'
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 
 // TODO: this page was deprecated in popo-public v2
 // TODO: move this to index page

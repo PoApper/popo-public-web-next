@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-import Layout from '../../../components/layout'
-import { IAssociationIntroduce, } from '../../../types/introduce.interface'
-import IconLink from '../../../components/common/icon.link'
+import Layout from '@/components/layout'
+import IconLink from '@/components/common/icon.link'
+import { IAssociationIntroduce, } from '@/types/introduce.interface'
 
 const AssociationSingIntroducePage = () => {
   const router = useRouter()

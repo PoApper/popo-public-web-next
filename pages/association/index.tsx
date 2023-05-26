@@ -1,4 +1,4 @@
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import { Grid, Image } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
