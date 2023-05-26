@@ -4,6 +4,7 @@ import Layout from '../../../components/layout'
 const PlaceIndexPage = () => {
   return (
     <Layout>
+      <h2>장소 예약</h2>
       <Grid stackable centered columns={4}>
         <Grid.Column>
           <Card href={'/reservation/place/student-hall'} centered>
