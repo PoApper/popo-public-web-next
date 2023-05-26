@@ -1,4 +1,4 @@
-import { KoreanWeekday } from '../../lib/opening_hours'
+import { KoreanWeekday } from '@/lib/opening_hours'
 
 const OpeningHoursList = ({ openingHours }: {
   openingHours: any

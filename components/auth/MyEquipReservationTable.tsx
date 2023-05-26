@@ -1,8 +1,8 @@
 import { Icon, Label, Table, Button } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
-import { IEquipReservation } from '../../types/reservation.interface'
+import { convertDate, convertStatus, convertTime } from '@/lib/time-date'
+import { IEquipReservation } from '@/types/reservation.interface'
 import EquipReservationDetailModal
   from '../reservation/equip.reservation.detail.modal'
 import DeleteConfirmModal from '../common/delete.confirm.modal'

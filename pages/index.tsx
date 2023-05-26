@@ -1,4 +1,4 @@
-import Layout from '../components/layout'
+import Layout from '@/components/layout'
 import { Container, Grid, Image } from 'semantic-ui-react'
 import Link from "next/link";
 

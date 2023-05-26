@@ -4,14 +4,14 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import moment from 'moment-timezone'
 
-import Layout from '../../../../components/layout'
+import Layout from '@/components/layout'
 import PlaceReservationTable
-  from '../../../../components/reservation/place.reservation.table'
+  from '@/components/reservation/place.reservation.table'
 import ReservationCalendar
-  from '../../../../components/reservation/reservation.calendar'
-import PlaceInformationCard from '../../../../components/reservation/place.information.card'
+  from '@/components/reservation/reservation.calendar'
+import PlaceInformationCard from '@/components/reservation/place.information.card'
 import PlaceReservationCreateModal
-  from '../../../../components/reservation/place.reservation.create.modal'
+  from '@/components/reservation/place.reservation.create.modal'
 import Link from 'next/link'
 
 const RegionPlace: React.FunctionComponent = () => {

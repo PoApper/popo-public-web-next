@@ -4,14 +4,14 @@ import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Button, Grid } from 'semantic-ui-react'
 
-import Layout from '../../../components/layout'
+import Layout from '@/components/layout'
 import ReservationCalendar
-  from '../../../components/reservation/reservation.calendar'
+  from '@/components/reservation/reservation.calendar'
 import EquipReservationTable
-  from '../../../components/reservation/equip.reservation.table'
-import EquipListTable from '../../../components/reservation/equip.list.table'
+  from '@/components/reservation/equip.reservation.table'
+import EquipListTable from '@/components/reservation/equip.list.table'
 import EquipReservationCreateModal
-  from '../../../components/reservation/equip.reservation.create.modal'
+  from '@/components/reservation/equip.reservation.create.modal'
 import Link from 'next/link'
 
 type ObjectType = {

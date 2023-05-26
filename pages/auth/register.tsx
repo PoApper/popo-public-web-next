@@ -1,5 +1,5 @@
 import { Container, Form, Message } from 'semantic-ui-react'
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'

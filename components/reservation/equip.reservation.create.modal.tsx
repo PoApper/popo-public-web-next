@@ -4,9 +4,9 @@ import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 
-import { hourDiff, roundUpByDuration } from '../../lib/time-date'
-import { IEquipment } from '../../types/reservation.interface'
-import { IUser } from '../../types/user.interface'
+import { hourDiff, roundUpByDuration } from '@/lib/time-date'
+import { IEquipment } from '@/types/reservation.interface'
+import { IUser } from '@/types/user.interface'
 import ReservationDatetimePicker from './reservation.datetime.picker'
 
 type EquipReservationCreateModalProps = {

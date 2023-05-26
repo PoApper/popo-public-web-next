@@ -1,6 +1,6 @@
 import { Button, Container, Form, List } from 'semantic-ui-react'
 import Link from 'next/link'
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'

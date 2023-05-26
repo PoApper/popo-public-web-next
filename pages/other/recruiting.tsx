@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { Container, Grid, Icon, Popup } from 'semantic-ui-react'
-import Layout from '../../components/layout'
+import { Container, Icon, Popup } from 'semantic-ui-react'
+import Layout from '@/components/layout'
 
 const RecruitingPage = () => {
   return (
@@ -43,28 +43,15 @@ const RecruitingPage = () => {
           </h1>
           <FrameWorkDiv>
             <p><strong>Developed With</strong></p>
-            <FrameWorkGrid>
-              <Grid.Row columns={3}>
-                <Grid.Column>
-                  <FrameWorkImage src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg"/>
-                  <FrameWorkName>
-                    ReactJS
-                  </FrameWorkName>
-                </Grid.Column>
-                <Grid.Column>
-                  <FrameWorkImage src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/nestjs.svg"/>
-                  <FrameWorkName>
-                    NestJS
-                  </FrameWorkName>
-                </Grid.Column>
-                <Grid.Column>
-                  <FrameWorkImage src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/semantic-ui.svg"/>
-                  <FrameWorkName>
-                    Semantic-UI
-                  </FrameWorkName>
-                </Grid.Column>
-              </Grid.Row>
-            </FrameWorkGrid>
+            <div style={{display: 'flex', gap: 12, marginBottom: 12}}>
+              <img src={'https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white'} alt={'nestjs'}/>
+              <img src={'https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white'} alt={'nextjs'}/>
+              <img src={'https://img.shields.io/badge/Semantic%20UI%20React-%2335BDB2.svg?style=for-the-badge&logo=SemanticUIReact&logoColor=white'} alt={'semantic-ui'}/>
+            </div>
+            <div style={{display: 'flex', gap: 12}}>
+              <img src={'https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white'} alt={'aws'}/>
+              <img src={'https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white'} alt={'docker'}/>
+            </div>
           </FrameWorkDiv>
         </Container>
       </div>
@@ -79,19 +66,4 @@ const FrameWorkDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-const FrameWorkGrid = styled(Grid)`
-  width: 30rem;
-`
-
-const FrameWorkImage = styled.img`
-  width: 5rem;
-  height: 5rem;
-`
-
-const FrameWorkName = styled.p`
-  font-family: Caveat, serif;
-  font-size: 17px;
-  font-weight: bold;
 `

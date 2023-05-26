@@ -1,5 +1,5 @@
 import { Container, Form, Segment } from 'semantic-ui-react'
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'

@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Container, Grid, Image } from 'semantic-ui-react'
 
-import Layout from '../../../../components/layout'
-import { IClubIntroduce } from '../../../../types/introduce.interface'
-import IconLink from '../../../../components/common/icon.link'
+import Layout from '@/components/layout'
+import IconLink from '@/components/common/icon.link'
+import { IClubIntroduce } from '@/types/introduce.interface'
 
 const ClubSingIntroducePage = () => {
   const router = useRouter()

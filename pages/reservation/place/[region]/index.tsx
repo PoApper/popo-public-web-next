@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Button, Card, Icon } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 
-import Layout from '../../../../components/layout'
-import { IPlace } from '../../../../types/reservation.interface'
+import Layout from '@/components/layout'
+import { IPlace } from '@/types/reservation.interface'
 
 type ObjectType = {
   [key: string]: string

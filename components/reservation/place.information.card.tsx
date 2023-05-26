@@ -2,7 +2,7 @@ import { Card, Image } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import { IPlace } from '../../types/reservation.interface'
+import { IPlace } from '@/types/reservation.interface'
 import OpeningHoursList from './opening_hours.list'
 
 type PlaceCardProps = {

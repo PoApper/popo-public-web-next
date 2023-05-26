@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Label, Table } from 'semantic-ui-react'
 import axios from 'axios'
 
-import { convertDate, convertStatus, convertTime } from '../../lib/time-date'
-import { IEquipReservation } from '../../types/reservation.interface'
+import { convertDate, convertStatus, convertTime } from '@/lib/time-date'
+import { IEquipReservation } from '@/types/reservation.interface'
 
 type EquipReservationTableProps = {
   associationName: string,

@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-import Layout from '../../components/layout'
+import Layout from '@/components/layout'
 import MyPlaceReservationTable
-  from '../../components/auth/MyPlaceReservationTable'
+  from '@/components/auth/MyPlaceReservationTable'
 import MyEquipReservationTable
-  from '../../components/auth/MyEquipReservationTable'
+  from '@/components/auth/MyEquipReservationTable'
 
 const MyInfoPage = () => {
   const router = useRouter()
