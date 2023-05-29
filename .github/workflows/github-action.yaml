@@ -2,24 +2,23 @@ on:
   push:
     tags: ["*"]
 
-name: Deploy
+name: Docker Build and Push
 
 env:
   ECR_REGISTRY: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com
   ECR_REPOSITORY: popo-public-web
-  CODEDEPLOY_APP_NAME: $ECR_REPOSITORY
 
 jobs:
   docker-build-and-push:
     name: Docker build and push
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
-          platforms: 'arm64' # support AWS EC2 t4g
+          platforms: 'arm64,arm' # support AWS EC2 t4g
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Configure AWS credentials
@@ -30,20 +29,21 @@ jobs:
           aws-region: ap-northeast-2
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+      - name: Determine Prod/Dev Stage
+        run: |
+          if [[ ${{ github.ref }} == refs/tags/release-* ]]; then
+            echo "PROD"
+            echo "IMAGE_TAG=prod" >> $GITHUB_ENV
+          else
+            echo "DEV"
+            echo "IMAGE_TAG=dev" >> $GITHUB_ENV
+          fi
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/arm64 # support AWS EC2 t4g
-          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:latest
+          platforms: linux/amd64,linux/arm64 # support AWS EC2 t4g
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
-      - name: AWS Codedeploy
-        run: |
-          aws deploy create-deployment \
-            --application-name popo-public-web \
-            --file-exists-behavior OVERWRITE \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name popo-public-web-codedeploy-group \
-            --github-location repository=$GITHUB_REPOSITORY,commitId=$GITHUB_SHA
