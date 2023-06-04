@@ -13,6 +13,7 @@ import EquipListTable from '@/components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '@/components/reservation/equip.reservation.create.modal'
 import Link from 'next/link'
+import { PopoCdnAxios } from '@/lib/axios.instance'
 
 type ObjectType = {
   [key: string]: string
@@ -59,8 +60,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
       setMarkedDates(datesArr)
     })
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
-         .then(res => setDongyeonBank(res.data.dongyeon_bank))
+    PopoCdnAxios
+      .get('/setting')
+      .then(res => setDongyeonBank(res.data.dongyeon_bank))
   }, [startDate, associationName, selectedDate])
 
   return (

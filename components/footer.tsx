@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import {
   Container,
@@ -9,13 +8,15 @@ import {
   List,
   Segment,
 } from 'semantic-ui-react'
+import { PopoCdnAxios } from '@/lib/axios.instance'
 
 const Footer = () => {
   const [popoCRMEmail, setPOPOCRMEmail] = useState('');
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
-         .then(res => setPOPOCRMEmail(res.data.popo_crm_email));
+    PopoCdnAxios
+      .get('/setting')
+      .then(res => setPOPOCRMEmail(res.data.popo_crm_email));
   }, [])
 
   return (
