@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
 
 import Layout from '@/components/layout'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const WhiteBookIndexPage = () => {
   const [whitebookList, setWhitebookList] = useState([])
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
+    PoPoAxios.get('/auth/verifyToken',
       { withCredentials: true }).then(() => {
-      axios.get(
-        `${process.env.NEXT_PUBLIC_API}/whitebook/with-login?orderBy=click_count`,
+      PoPoAxios.get(
+        '/whitebook/with-login?orderBy=click_count',
         { withCredentials: true }).
         then(res => setWhitebookList(res.data)).
         catch(() => console.log('생활백서를 불러오는데 실패했습니다.'))
     }).catch(() => {
-      axios.get(
-        `${process.env.NEXT_PUBLIC_API}/whitebook?orderBy=click_count`).
+      PoPoAxios.get(
+        '/whitebook?orderBy=click_count').
         then(res => setWhitebookList(res.data)).
         catch(() => console.log('생활백서를 불러오는데 실패했습니다.'))
     })
@@ -25,8 +25,8 @@ const WhiteBookIndexPage = () => {
   }, [])
 
   function handleLinkClick (uuid: string) {
-    axios.patch(
-      `${process.env.NEXT_PUBLIC_API}/whitebook/click/${uuid}`).
+    PoPoAxios.patch(
+      `/whitebook/click/${uuid}`).
       catch(() => console.log('조회수 API 호출에 실패했습니다.'))
   }
 
