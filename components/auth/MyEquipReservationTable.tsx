@@ -1,18 +1,18 @@
 import { Icon, Label, Table, Button } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { convertDate, convertStatus, convertTime } from '@/lib/time-date'
 import { IEquipReservation } from '@/types/reservation.interface'
 import EquipReservationDetailModal
   from '../reservation/equip.reservation.detail.modal'
 import DeleteConfirmModal from '../common/delete.confirm.modal'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const MyEquipReservationTable = () => {
   const [reserve_list, setReserveList] = useState<IEquipReservation[]>([])
 
   useEffect(() => {
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip/user`,
+    PoPoAxios.get(
+      '/reservation-equip/user',
       { withCredentials: true }).
       then((res) => setReserveList(res.data)).
       catch(err => {

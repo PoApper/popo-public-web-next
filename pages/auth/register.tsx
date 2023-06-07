@@ -1,9 +1,10 @@
 import { Container, Form, Message } from 'semantic-ui-react'
-import Layout from '@/components/layout'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+
+import Layout from '@/components/layout'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const userTypeOptions = [
   { key: 'STUDENT', text: '학생 (학부/대학원)', value: 'STUDENT' },
@@ -22,7 +23,7 @@ const RegisterPage = () => {
   const [userType, setUserType] = useState<string>('')
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
+    PoPoAxios.get('/auth/verifyToken',
       { withCredentials: true }).then(() => {
       alert('이미 로그인 되었습니다.')
       router.push('/')
@@ -45,7 +46,7 @@ const RegisterPage = () => {
     }
 
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/signIn`, {
+      await PoPoAxios.post('/auth/signIn', {
         email: email,
         id: id,
         password: password,

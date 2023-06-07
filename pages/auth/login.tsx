@@ -1,9 +1,10 @@
 import { Button, Container, Form, List } from 'semantic-ui-react'
 import Link from 'next/link'
-import Layout from '@/components/layout'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+
+import Layout from '@/components/layout'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const LoginPage = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ const LoginPage = () => {
   const [password, setPW] = useState<string>('')
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, {withCredentials: true})
+    PoPoAxios.get('/auth/verifyToken', {withCredentials: true})
       .then(() => {
         alert('이미 로그인 되었습니다.');
         router.push('/');
@@ -21,7 +22,7 @@ const LoginPage = () => {
 
   async function handleLogin () {
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, {
+      await PoPoAxios.post('/auth/login', {
         id: id,
         password: password,
       }, { withCredentials: true })

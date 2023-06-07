@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 import { Button } from 'semantic-ui-react'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const ActivateAccountPage = () => {
   const router = useRouter()
@@ -14,7 +14,7 @@ const ActivateAccountPage = () => {
     if (!userUuid) return;
 
     setIsLoading(true)
-    axios.put(`${process.env.NEXT_PUBLIC_API}/auth/activate/${userUuid}`,
+    PoPoAxios.put(`/auth/activate/${userUuid}`,
       { withCredentials: true }).then(
       () => {
         setIsLoading(false)

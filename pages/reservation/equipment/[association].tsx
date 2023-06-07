@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -13,7 +12,7 @@ import EquipReservationTable
 import EquipListTable from '@/components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '@/components/reservation/equip.reservation.create.modal'
-import { PopoCdnAxios } from '@/lib/axios.instance'
+import { PoPoAxios, PopoCdnAxios } from '@/lib/axios.instance'
 
 type ObjectType = {
   [key: string]: string
@@ -47,8 +46,8 @@ const EquipAssociationPage: React.FunctionComponent = () => {
   useEffect(() => {
     if (!associationName) return
     // TODO: just search for a month, and when month change search again!
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&startDate=${startDate}`,
+    PoPoAxios.get(
+      `/reservation-equip?owner=${associationName}&startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
-import axios from 'axios'
 import moment from 'moment'
 
 import { IUser } from '@/types/user.interface'
@@ -10,6 +9,7 @@ import { hourDiff, roundUpByDuration } from '@/lib/time-date'
 import OpeningHoursList from './opening_hours.list'
 import { isOnOpeningHours } from '@/lib/opening_hours'
 import ReservationDatetimePicker from './reservation.datetime.picker'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const RegionKorNameMapping = {
   STUDENT_HALL: '학생 회관',
@@ -61,13 +61,13 @@ const PlaceReservationCreateModal
   useEffect(() => {
     if (!placeName) return
 
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
+    PoPoAxios.get(
+      '/auth/verifyToken',
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
       catch(() => setUserInfo(null))
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/place/name/${placeName}`).
+    PoPoAxios.get(`/place/name/${placeName}`).
       then((res) => setPlaceInfo(res.data))
 
   }, [placeName, router])
@@ -78,7 +78,7 @@ const PlaceReservationCreateModal
       return;
     }
 
-    axios.post(`${process.env.NEXT_PUBLIC_API}/reservation-place`, {
+    PoPoAxios.post('/reservation-place', {
       place_id: placeInfo.uuid,
       phone: phone,
       title: title,

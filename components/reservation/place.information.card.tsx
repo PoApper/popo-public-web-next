@@ -1,9 +1,9 @@
 import { Card, Image } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import { IPlace } from '@/types/reservation.interface'
 import OpeningHoursList from './opening_hours.list'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 type PlaceCardProps = {
   placeName: string;
@@ -24,7 +24,7 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
   useEffect(() => {
     if (!placeName) return;
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/place/name/${placeName}`).
+    PoPoAxios.get(`/place/name/${placeName}`).
       then(res => setPlaceInfo(res.data))
   }, [placeName])
 

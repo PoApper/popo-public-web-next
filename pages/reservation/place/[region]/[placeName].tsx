@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Grid, Label } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 import moment from 'moment-timezone'
 
 import Layout from '@/components/layout'
@@ -13,6 +12,7 @@ import PlaceInformationCard from '@/components/reservation/place.information.car
 import PlaceReservationCreateModal
   from '@/components/reservation/place.reservation.create.modal'
 import Link from 'next/link'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const RegionPlace: React.FunctionComponent = () => {
   const router = useRouter()
@@ -27,8 +27,8 @@ const RegionPlace: React.FunctionComponent = () => {
 
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}?startDate=${startDate}`,
+    PoPoAxios.get(
+      `/reservation-place/placeName/${placeName}?startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []

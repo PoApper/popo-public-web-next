@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Label, Table } from 'semantic-ui-react'
-import axios from 'axios'
 
 import { IPlaceReservation } from '@/types/reservation.interface'
 import { convertDate, convertStatus, convertTime } from '@/lib/time-date'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 type PlaceReservationTableProps = {
   placeName: string,
@@ -16,8 +16,8 @@ const PlaceReservationTable = ({ placeName, selectedDate }: PlaceReservationTabl
   useEffect(() => {
     if (!placeName || !selectedDate) return;
 
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-place/placeName/${placeName}/${selectedDate}`,
+    PoPoAxios.get(
+      `/reservation-place/placeName/${placeName}/${selectedDate}`,
     ).then(res => setReservations(res.data))
   }, [placeName, selectedDate])
 
