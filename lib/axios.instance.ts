@@ -9,3 +9,7 @@ export const PoPoAxios = axios.create({
 export const PopoCdnAxios = axios.create({
   baseURL: "https://cdn.popo.poapper.club",
 });
+
+export const InPoStackAxios = axios.create({
+  baseURL: "https://api.inpostack.poapper.club",
+});

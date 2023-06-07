@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '@/components/layout'
 import { Grid, Image, Card, Button } from 'semantic-ui-react'
-import axios from 'axios'
 import styled from 'styled-components'
 import Link from 'next/link'
+
+import Layout from '@/components/layout'
+import { InPoStackAxios } from '@/lib/axios.instance'
 
 const StoreIndexPage = () => {
   const [selectedRegion, setRegion] = useState('all')
   const [stores, setStores] = useState<any[]>([])
   
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_INPOSTACK_API}/store`)
+    InPoStackAxios
+      .get(`/store`)
       .then(res => setStores(res.data))
       .catch(() => alert(`가게 목록을 불러오는데 실패했습니다.`))
   }, [])
