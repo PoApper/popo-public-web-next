@@ -15,7 +15,7 @@ const Footer = () => {
 
   useEffect(() => {
     PopoCdnAxios
-      .get('/setting')
+      .get('/popo-setting.json')
       .then(res => setPOPOCRMEmail(res.data.popo_crm_email));
   }, [])
 

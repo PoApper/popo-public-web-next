@@ -59,7 +59,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
     })
 
     PopoCdnAxios
-      .get('/setting')
+      .get('/popo-setting.json')
       .then(res => setDongyeonBank(res.data.dongyeon_bank))
   }, [startDate, associationName, selectedDate])
 
