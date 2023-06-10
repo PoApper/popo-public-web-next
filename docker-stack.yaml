@@ -1,6 +1,6 @@
-version: '3.8'
+version: '3.3'
 services:
-  dev_web:
+  dev:
     image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:dev
     ports:
      - 5000:3000
@@ -13,7 +13,7 @@ services:
         constraints:
          - node.role != manager
          - node.labels.application == popo
-  prod_web:
+  prod:
     image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:prod
     ports:
      - 3000:3000
