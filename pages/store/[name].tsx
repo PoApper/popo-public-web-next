@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 
 import { Image, Icon, Divider } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import Layout from '@/components/layout'
 import StoreOpeningHours from '@/components/store/storeOpeningHours'
+import { InPoStackAxios } from '@/lib/axios.instance'
 
 const StorePage = () => {
   const router = useRouter();
@@ -15,8 +15,8 @@ const StorePage = () => {
 
   useEffect(() => {
     if (!store_name) return;
-    axios
-      .get(`${process.env.NEXT_PUBLIC_INPOSTACK_API}/store/name/${store_name}?category=true&menu=true`,
+    InPoStackAxios
+      .get(`/store/name/${store_name}?category=true&menu=true`,
         {withCredentials: true})
       .then(res => setStoreWithAll(res.data))
       .catch(() => alert(`가게 정보를 불러오는데 실패했습니다.`))

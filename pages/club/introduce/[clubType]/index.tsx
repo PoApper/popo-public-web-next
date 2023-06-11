@@ -1,8 +1,9 @@
-import Layout from '@/components/layout'
 import { Container, Grid, Image } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useRouter } from 'next/router'
+
+import Layout from '@/components/layout'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 interface ClubIntroduce {
   name: string;
@@ -22,8 +23,8 @@ const ClubTypeIndexPage = () => {
 
   useEffect(() => {
     if (!clubType) return;
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/introduce/club/clubType/${clubType}`).
+    PoPoAxios.get(
+      `/introduce/club/clubType/${clubType}`).
       then(res => {
         for (let i = 0; i < res.data.length % COL_NUM; i++) {
           res.data.push(null)

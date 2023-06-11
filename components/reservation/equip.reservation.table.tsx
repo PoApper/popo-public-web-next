@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Label, Table } from 'semantic-ui-react'
-import axios from 'axios'
 
 import { convertDate, convertStatus, convertTime } from '@/lib/time-date'
 import { IEquipReservation } from '@/types/reservation.interface'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 type EquipReservationTableProps = {
   associationName: string,
@@ -19,8 +19,8 @@ const EquipReservationTable = ({
   useEffect(() => {
     if (!associationName || !selectedDate) return;
 
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&date=${selectedDate}`,
+    PoPoAxios.get(
+      `/reservation-equip?owner=${associationName}&date=${selectedDate}`,
     ).then(res => setReservations(res.data))
   }, [associationName, selectedDate])
 

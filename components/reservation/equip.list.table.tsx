@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Image, Modal, Table } from 'semantic-ui-react'
 
 import { IEquipment } from '@/types/reservation.interface'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 type EquipListTableProps = {
   associationName: string
@@ -14,7 +14,7 @@ const EquipListTable = ({ associationName }: EquipListTableProps) => {
   useEffect(() => {
     if (!associationName) return;
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/equip/owner/${associationName}`).
+    PoPoAxios.get(`/equip/owner/${associationName}`).
       then((res) => setEquipments(res.data))
   }, [associationName])
 

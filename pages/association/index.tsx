@@ -1,8 +1,8 @@
 import Layout from '@/components/layout'
 import { Grid, Image } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 interface AssociationIntroduce {
   name: string;
@@ -18,7 +18,7 @@ const AssociationIndexPage = () => {
   const COL_NUM = 4;
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/introduce/association`).
+    PoPoAxios.get('/introduce/association').
       then(res => {
         for (let i = 0; i < res.data.length % COL_NUM; i++) {
           res.data.push(null)

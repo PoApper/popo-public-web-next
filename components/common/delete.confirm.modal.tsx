@@ -1,6 +1,6 @@
 import {useState} from "react";
-import axios from "axios";
 import {Button, Modal} from "semantic-ui-react"
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const DeleteConfirmModal = (props: any) => {
     const deleteTarget = props.target
@@ -9,7 +9,7 @@ const DeleteConfirmModal = (props: any) => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`${process.env.NEXT_PUBLIC_API}/${deleteURI}`,
+            await PoPoAxios.delete(`/${deleteURI}`,
                 { withCredentials: true })
             window.location.reload()
         } catch (e) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { Button, Grid } from 'semantic-ui-react'
 
 import Layout from '@/components/layout'
@@ -12,7 +12,7 @@ import EquipReservationTable
 import EquipListTable from '@/components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '@/components/reservation/equip.reservation.create.modal'
-import Link from 'next/link'
+import { PoPoAxios, PopoCdnAxios } from '@/lib/axios.instance'
 
 type ObjectType = {
   [key: string]: string
@@ -45,10 +45,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
 
   useEffect(() => {
     if (!associationName) return
-    // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/reservation-equip?owner=${associationName}&startDate=${startDate}`,
+    PoPoAxios.get(
+      `/reservation-equip?owner=${associationName}&startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []
@@ -59,8 +58,9 @@ const EquipAssociationPage: React.FunctionComponent = () => {
       setMarkedDates(datesArr)
     })
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/setting`)
-         .then(res => setDongyeonBank(res.data.dongyeon_bank))
+    PopoCdnAxios
+      .get('/popo-setting.json')
+      .then(res => setDongyeonBank(res.data.dongyeon_bank))
   }, [startDate, associationName, selectedDate])
 
   return (

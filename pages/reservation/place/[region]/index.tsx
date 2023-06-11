@@ -1,10 +1,10 @@
 import React, { useRouter } from 'next/router'
-import axios from 'axios'
 import { Button, Card, Icon } from 'semantic-ui-react'
 import { useEffect, useState } from 'react'
 
 import Layout from '@/components/layout'
 import { IPlace } from '@/types/reservation.interface'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 type ObjectType = {
   [key: string]: string
@@ -32,8 +32,8 @@ const PlaceRegionIndexPage: React.FunctionComponent = () => {
   useEffect(() => {
     if (!region) return
 
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/place/region/${regionOptions[region]}`).
+    PoPoAxios.get(
+      `/place/region/${regionOptions[region]}`).
       then((res) => {
         setPlaces(res.data)
       })

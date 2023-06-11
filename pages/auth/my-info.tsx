@@ -1,9 +1,9 @@
 import { Container, Form, Segment } from 'semantic-ui-react'
 import Layout from '@/components/layout'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 interface MyInformation {
   email: string;
@@ -27,7 +27,7 @@ const MyInfoPage = () => {
     = (passwordAgain.length > 0) && (password !== passwordAgain)
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/myInfo`,
+    PoPoAxios.get('/auth/myInfo',
       { withCredentials: true }).
       then((res) => setMyInfo(res.data)).
       catch(() => {
@@ -38,7 +38,7 @@ const MyInfoPage = () => {
 
   async function submitNewPassword () {
     try {
-      await axios.put(`${process.env.NEXT_PUBLIC_API}/auth/updatePW`, {
+      await PoPoAxios.put('/auth/updatePW', {
         'password': password,
       }, { withCredentials: true })
       alert('비밀번호 변경에 성공했습니다!')
