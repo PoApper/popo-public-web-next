@@ -65,7 +65,7 @@ git tag에 `release-`라는 접두사를 붙이면 Prod 배포된다. 그외의 
 
 ### Interpreter
 
-- `node >= 16.13.2`
+- `node >= 18.7`
 - `npm >= 8.3.1`
 
 ### Framework
