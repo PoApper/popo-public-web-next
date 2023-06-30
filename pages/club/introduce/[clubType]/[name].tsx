@@ -48,6 +48,9 @@ const ClubSingIntroducePage = () => {
               <IconLink link={intro.instagram_url}>
                 <img src={'https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white'}
                      alt={'instagram'}/>
+              <IconLink link={intro.youtube_url}>
+                <img src={'https://img.shields.io/badge/Youtube-E4405F?style=for-the-badge&logo=youtube&logoColor=white'}
+                     alt={'youtube'}/>
               </IconLink>
             </Container>
 

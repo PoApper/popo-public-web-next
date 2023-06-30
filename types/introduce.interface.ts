@@ -13,6 +13,7 @@ export interface IClubIntroduce {
   homepage_url?: string;
   facebook_url?: string;
   instagram_url?: string;
+  youtube_url?: string;
 }
 
 export interface IAssociationIntroduce {
@@ -24,4 +25,5 @@ export interface IAssociationIntroduce {
   homepage_url?: string;
   facebook_url?: string;
   instagram_url?: string;
+  youtube_url?: string;
 }
