@@ -17,7 +17,7 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
     description: '',
     location: '',
     imageName: '',
-    opening_hours: '{"Everyday": "00:00-24:00"}'
+    opening_hours: '{"Everyday": "00:00-24:00"}',
   })
   const isPlaceImgExist = (placeInfo && placeInfo.imageName)
 
@@ -33,7 +33,7 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
       <Image
         wrapped ui={false}
         src={isPlaceImgExist
-          ? `${process.env.NEXT_PUBLIC_API}/place/image/${placeInfo.imageName}`
+          ? placeInfo.image_url
           : 'https://react.semantic-ui.com/images/wireframe/image.png'}
         alt={'place_image'}/>
       <Card.Content>

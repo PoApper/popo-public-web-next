@@ -13,6 +13,7 @@ export interface IPlace {
   description: string;
   imageName: string;
   opening_hours: string;
+  image_url?: string;
 }
 
 export interface IEquipment {
