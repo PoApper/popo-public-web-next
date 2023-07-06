@@ -36,7 +36,6 @@ const PlaceReservationCreateModal
     region: '',
     description: '',
     location: '',
-    imageName: '',
     opening_hours: '{"Everyday": "00:00-24:00"}'
   })
 

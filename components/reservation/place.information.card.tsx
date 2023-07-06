@@ -16,10 +16,8 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
     region: '',
     description: '',
     location: '',
-    imageName: '',
-    opening_hours: '{"Everyday": "00:00-24:00"}'
+    opening_hours: '{"Everyday": "00:00-24:00"}',
   })
-  const isPlaceImgExist = (placeInfo && placeInfo.imageName)
 
   useEffect(() => {
     if (!placeName) return;
@@ -32,9 +30,7 @@ const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
     <Card fluid>
       <Image
         wrapped ui={false}
-        src={isPlaceImgExist
-          ? `${process.env.NEXT_PUBLIC_API}/place/image/${placeInfo.imageName}`
-          : 'https://react.semantic-ui.com/images/wireframe/image.png'}
+        src={placeInfo.image_url ?? 'https://react.semantic-ui.com/images/wireframe/image.png'}
         alt={'place_image'}/>
       <Card.Content>
         <Card.Header>{placeInfo.name}</Card.Header>
