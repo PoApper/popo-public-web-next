@@ -11,7 +11,6 @@ export interface IPlace {
   region: string;
   location: string,
   description: string;
-  imageName: string;
   opening_hours: string;
   image_url?: string;
 }
