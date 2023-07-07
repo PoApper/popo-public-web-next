@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Button, Grid } from 'semantic-ui-react'
@@ -13,6 +14,7 @@ import EquipListTable from '@/components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '@/components/reservation/equip.reservation.create.modal'
 import { PoPoAxios, PopoCdnAxios } from '@/lib/axios.instance'
+import { IEquipment } from '@/types/reservation.interface'
 
 type ObjectType = {
   [key: string]: string
@@ -30,8 +32,9 @@ const ownerLocation: ObjectType = {
   'saengna': '생각나눔 사무실(학생회관 108호)',
 }
 
-
-const EquipAssociationPage: React.FunctionComponent = () => {
+const EquipAssociationPage: React.FunctionComponent<{
+  equipmentList: IEquipment[]
+}> = ({ equipmentList }) => {
   const router = useRouter()
   const associationName = router.query.association as string
 
@@ -69,7 +72,7 @@ const EquipAssociationPage: React.FunctionComponent = () => {
       <Grid columns={2} divided stackable>
 
         <Grid.Column width={6}>
-          <EquipListTable associationName={associationName}/>
+          <EquipListTable equipments={equipmentList}/>
           {
             associationName == "dongyeon"
               ? <p>
@@ -120,4 +123,15 @@ const EquipAssociationPage: React.FunctionComponent = () => {
   )
 }
 
-export default EquipAssociationPage
+export default EquipAssociationPage;
+
+export const getServerSideProps : GetServerSideProps  = async (context) => {
+  const { association } = context.query;
+
+  const res = await PoPoAxios.get<IEquipment[]>(`/equip/owner/${association}`);
+  const equipmentList = res.data;
+
+  return {
+    props: { equipmentList }
+  };
+}

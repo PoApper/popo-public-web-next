@@ -1,23 +1,10 @@
-import { useEffect, useState } from 'react'
 import { Image, Modal, Table } from 'semantic-ui-react'
 
 import { IEquipment } from '@/types/reservation.interface'
-import { PoPoAxios } from '@/lib/axios.instance'
 
-type EquipListTableProps = {
-  associationName: string
-}
-
-const EquipListTable = ({ associationName }: EquipListTableProps) => {
-  const [equipments, setEquipments] = useState<IEquipment[]>([])
-
-  useEffect(() => {
-    if (!associationName) return;
-
-    PoPoAxios.get(`/equip/owner/${associationName}`).
-      then((res) => setEquipments(res.data))
-  }, [associationName])
-
+const EquipListTable = ({ equipments }: {
+  equipments: IEquipment[];
+}) => {
   return (
     <Table>
       <Table.Header>
