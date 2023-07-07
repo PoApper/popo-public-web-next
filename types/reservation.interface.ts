@@ -20,7 +20,7 @@ export interface IEquipment {
   name: string;
   description: string;
   fee: number;
-  imageName: string;
+  image_url?: string;
 }
 
 export interface IPlaceReservation {

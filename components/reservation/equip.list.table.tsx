@@ -41,10 +41,7 @@ const EquipListTable = ({ associationName }: EquipListTableProps) => {
                 </Table.Row>
               }>
               <Modal.Content>
-                <Image src={
-                  equipment.imageName ?
-                  `${process.env.NEXT_PUBLIC_API}/equip/image/${equipment.imageName}`
-                  : 'https://via.placeholder.com/200?text=NoImage'}
+                <Image src={equipment.image_url ?? 'https://via.placeholder.com/200?text=NoImage'}
                   alt={`${equipment.name}_logo`}/>
                   <pre style={{whiteSpace: "pre-wrap"}}>
                     {equipment.description}
