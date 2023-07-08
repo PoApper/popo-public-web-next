@@ -1,23 +1,10 @@
-import { useEffect, useState } from 'react'
 import { Image, Modal, Table } from 'semantic-ui-react'
 
 import { IEquipment } from '@/types/reservation.interface'
-import { PoPoAxios } from '@/lib/axios.instance'
 
-type EquipListTableProps = {
-  associationName: string
-}
-
-const EquipListTable = ({ associationName }: EquipListTableProps) => {
-  const [equipments, setEquipments] = useState<IEquipment[]>([])
-
-  useEffect(() => {
-    if (!associationName) return;
-
-    PoPoAxios.get(`/equip/owner/${associationName}`).
-      then((res) => setEquipments(res.data))
-  }, [associationName])
-
+const EquipListTable = ({ equipments }: {
+  equipments: IEquipment[];
+}) => {
   return (
     <Table>
       <Table.Header>
@@ -41,10 +28,7 @@ const EquipListTable = ({ associationName }: EquipListTableProps) => {
                 </Table.Row>
               }>
               <Modal.Content>
-                <Image src={
-                  equipment.imageName ?
-                  `${process.env.NEXT_PUBLIC_API}/equip/image/${equipment.imageName}`
-                  : 'https://via.placeholder.com/200?text=NoImage'}
+                <Image src={equipment.image_url ?? 'https://via.placeholder.com/200?text=NoImage'}
                   alt={`${equipment.name}_logo`}/>
                   <pre style={{whiteSpace: "pre-wrap"}}>
                     {equipment.description}
