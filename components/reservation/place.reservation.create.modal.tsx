@@ -134,7 +134,7 @@ const PlaceReservationCreateModal: FunctionComponent<{
           {
             isPossible ? null : (
               <Message negative>
-                예약이 불가능한 시간대입니다. {placeName}의 사용 가능 시간을 확인해주세요.
+                예약이 불가능한 시간대입니다. {placeInfo.name}의 사용 가능 시간을 확인해주세요.
               </Message>
             )
           }
