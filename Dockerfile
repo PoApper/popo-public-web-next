@@ -1,6 +1,10 @@
 # Buile Step
 FROM node:18.7-alpine AS builder
 
+# dev, prod
+ARG NEXT_PUBLIC_ENV
+ENV NEXT_PUBLIC_ENV ${NEXT_PUBLIC_ENV}
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
