@@ -48,7 +48,7 @@ const PlaceReservationPage: React.FunctionComponent<{
         <Grid.Column width={6}>
           <PlaceInformationCard placeInfo={placeInfo}/>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <PlaceReservationCreateModal placeName={placeName}/>
+            <PlaceReservationCreateModal placeInfo={placeInfo}/>
             <Link href={'/auth/my-reservation'} passHref>
               <Button>내 예약 목록</Button>
             </Link>

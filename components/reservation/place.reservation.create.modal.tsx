@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import moment from 'moment'
@@ -18,25 +18,15 @@ const RegionKorNameMapping = {
   COMMUNITY_CENTER : '커뮤니티 센터',
 }
 
-type PlaceReservationCreateModalProps = {
-  placeName: string,
-}
-
-const PlaceReservationCreateModal
-  = ({ placeName }: PlaceReservationCreateModalProps) => {
+const PlaceReservationCreateModal: FunctionComponent<{
+  placeInfo: IPlace,
+}>
+  = ({ placeInfo }) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
   const [userInfo, setUserInfo] = useState<IUser | null>({
     name: '',
-  })
-  const [placeInfo, setPlaceInfo] = useState<IPlace>({
-    uuid: '',
-    name: '',
-    region: '',
-    description: '',
-    location: '',
-    opening_hours: '{"Everyday": "00:00-24:00"}'
   })
 
   const [phone, setPhone] = useState<string>('')
@@ -58,22 +48,16 @@ const PlaceReservationCreateModal
   );
 
   useEffect(() => {
-    if (!placeName) return
-
     PoPoAxios.get(
       '/auth/verifyToken',
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
       catch(() => setUserInfo(null))
-
-    PoPoAxios.get(`/place/name/${placeName}`).
-      then((res) => setPlaceInfo(res.data))
-
-  }, [placeName, router])
+  }, [router])
 
   function handleSubmit () {
     if (!isPossible) {
-      alert(`예약이 불가능한 시간대입니다. ${placeName}의 사용 가능 시간을 확인해주세요.`);
+      alert(`예약이 불가능한 시간대입니다. ${placeInfo.name}의 사용 가능 시간을 확인해주세요.`);
       return;
     }
 
