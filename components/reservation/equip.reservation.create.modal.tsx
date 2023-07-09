@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useState } from 'react'
+import React, { FunctionComponent, KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Divider, Form, Message, Modal } from 'semantic-ui-react'
 import moment from 'moment'
@@ -9,21 +9,18 @@ import { IEquipment } from '@/types/reservation.interface'
 import { IUser } from '@/types/user.interface'
 import { PoPoAxios } from '@/lib/axios.instance'
 
-type EquipReservationCreateModalProps = {
+const EquipReservationCreateModal: FunctionComponent<{
   associationName: string,
-}
-
-const EquipReservationCreateModal
-  = ({ associationName }: EquipReservationCreateModalProps) => {
+  equipmentList: IEquipment[],
+}> = ({ associationName, equipmentList }) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
   const [userInfo, setUserInfo] = useState<IUser | null>({
     name: '',
   })
-  const [equipments, setEquipments] = useState<IEquipment[]>([])
 
-  const [reservedEquips, setReservedEquips] = useState<string[]>([])
+  const [selectedEquipments, setselectedEquipments] = useState<string[]>([])
   const [phone, setPhone] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
@@ -37,22 +34,16 @@ const EquipReservationCreateModal
   const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
 
   useEffect(() => {
-    if (!associationName) return;
-
     PoPoAxios.get(
       '/auth/verifyToken',
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
       catch(() => setUserInfo(null))
-
-    PoPoAxios.get(`/equip/owner/${associationName}`).
-      then((res) => setEquipments(res.data))
-
   }, [associationName, router])
 
   function handleSubmit () {
     PoPoAxios.post('/reservation-equip', {
-      equipments: reservedEquips,
+      equipments: selectedEquipments,
       owner: associationName,
       phone: phone,
       title: title,
@@ -112,7 +103,7 @@ const EquipReservationCreateModal
             required fluid multiple search selection
             label={'장비 선택'}
             placeholder={'예약할 장비들을 선택해주세요.'}
-            options={equipments.map((equip, idx) => ({
+            options={equipmentList.map((equip, idx) => ({
               key: idx,
               text: equip.name,
               value: equip.uuid,
@@ -123,7 +114,7 @@ const EquipReservationCreateModal
 
               // @ts-ignore
               for (const uuid of value) {
-                for (const equip of equipments) {
+                for (const equip of equipmentList) {
                   if (equip.uuid === uuid) {
                     feeSum += equip.fee
                   }
@@ -132,7 +123,7 @@ const EquipReservationCreateModal
               setFeeSum(feeSum)
 
               // @ts-ignore
-              setReservedEquips(value)
+              setselectedEquipments(value)
             }}
           />
 
@@ -146,7 +137,7 @@ const EquipReservationCreateModal
           <Message>
             <Message.Header>예약한 장비의 예약비를 꼭 확인해주세요!</Message.Header>
             <p>
-              {reservedEquips.length}개 장비, {hourDiff(startTime, endTime)}시간 예약, 총 예약비는 {Number(feeSum).toLocaleString()}원 입니다.
+              {selectedEquipments.length}개 장비, {hourDiff(startTime, endTime)}시간 예약, 총 예약비는 {Number(feeSum).toLocaleString()}원 입니다.
             </p>
           </Message>
 

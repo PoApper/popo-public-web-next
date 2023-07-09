@@ -20,8 +20,7 @@ const RegionKorNameMapping = {
 
 const PlaceReservationCreateModal: FunctionComponent<{
   placeInfo: IPlace,
-}>
-  = ({ placeInfo }) => {
+}> = ({ placeInfo }) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
