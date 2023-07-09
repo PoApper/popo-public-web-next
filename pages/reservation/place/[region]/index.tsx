@@ -65,8 +65,8 @@ const PlaceRegionIndexPage: React.FunctionComponent<{
 
 export default PlaceRegionIndexPage;
 
-export const getServerSideProps : GetServerSideProps  = async (context) => {
-  const { region } = context.query;
+export const getServerSideProps: GetServerSideProps  = async (context) => {
+  const region = context.query['region'] as string;
 
   const res = await PoPoAxios.get<IPlace[]>(`place/region/${regionOptions[region]}`);
   const placeList = res.data;

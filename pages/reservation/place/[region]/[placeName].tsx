@@ -13,11 +13,13 @@ import PlaceReservationCreateModal
   from '@/components/reservation/place.reservation.create.modal'
 import Link from 'next/link'
 import { PoPoAxios } from '@/lib/axios.instance'
+import { IPlace } from '@/types/reservation.interface'
+import { GetServerSideProps } from 'next'
 
-const RegionPlace: React.FunctionComponent = () => {
-  const router = useRouter()
-  const placeName = router.query.placeName as string
-
+const PlaceReservationPage: React.FunctionComponent<{
+  placeName: string,
+  placeInfo: IPlace,
+}> = ({ placeName, placeInfo }) => {
   const [selectedDate, setSelectedDate] = useState(moment().tz("Asia/Seoul").format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
@@ -44,7 +46,7 @@ const RegionPlace: React.FunctionComponent = () => {
     <Layout>
       <Grid columns={2} divided stackable>
         <Grid.Column width={6}>
-          <PlaceInformationCard placeName={placeName}/>
+          <PlaceInformationCard placeInfo={placeInfo}/>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <PlaceReservationCreateModal placeName={placeName}/>
             <Link href={'/auth/my-reservation'} passHref>
@@ -94,4 +96,15 @@ const RegionPlace: React.FunctionComponent = () => {
   )
 }
 
-export default RegionPlace
+export default PlaceReservationPage;
+
+export const getServerSideProps: GetServerSideProps  = async (context) => {
+  const { placeName } = context.query;
+
+  const res = await PoPoAxios.get<IPlace[]>(`place/name/${placeName}`);
+  const placeInfo = res.data;
+
+  return {
+    props: { placeName, placeInfo }
+  };
+};

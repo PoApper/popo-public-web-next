@@ -1,31 +1,13 @@
 import { Card, Image } from 'semantic-ui-react'
-import React, { useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 
 import { IPlace } from '@/types/reservation.interface'
 import OpeningHoursList from './opening_hours.list'
 import { PoPoAxios } from '@/lib/axios.instance'
 
-type PlaceCardProps = {
-  placeName: string;
-}
-
-const PlaceInformationCard = ({ placeName }: PlaceCardProps) => {
-  const [placeInfo, setPlaceInfo] = useState<IPlace>({
-    uuid: '',
-    name: '',
-    region: '',
-    description: '',
-    location: '',
-    opening_hours: '{"Everyday": "00:00-24:00"}',
-  })
-
-  useEffect(() => {
-    if (!placeName) return;
-
-    PoPoAxios.get(`/place/name/${placeName}`).
-      then(res => setPlaceInfo(res.data))
-  }, [placeName])
-
+const PlaceInformationCard: FunctionComponent<{
+  placeInfo: IPlace,
+}> = ({ placeInfo }) => {
   return (
     <Card fluid>
       <Image
