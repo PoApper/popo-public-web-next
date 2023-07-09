@@ -1,10 +1,10 @@
-import React, { useRouter } from 'next/router'
+import React from 'next/router'
 import { Button, Card, Icon } from 'semantic-ui-react'
-import { useEffect, useState } from 'react'
 
 import Layout from '@/components/layout'
 import { IPlace } from '@/types/reservation.interface'
 import { PoPoAxios } from '@/lib/axios.instance'
+import { GetServerSideProps } from 'next'
 
 type ObjectType = {
   [key: string]: string
@@ -24,30 +24,19 @@ const regionOptions: ObjectType = {
   'community-center': 'COMMUNITY_CENTER',
 }
 
-const PlaceRegionIndexPage: React.FunctionComponent = () => {
-  const router = useRouter()
-  const region = router.query.region as string
-  const [places, setPlaces] = useState<IPlace[]>([])
-
-  useEffect(() => {
-    if (!region) return
-
-    PoPoAxios.get(
-      `/place/region/${regionOptions[region]}`).
-      then((res) => {
-        setPlaces(res.data)
-      })
-  }, [region])
-
+const PlaceRegionIndexPage: React.FunctionComponent<{
+  region: string,
+  placeList: IPlace[]
+}> = ({ region, placeList }) => {
   return (
     <Layout>
       <div>
         <h1>{regionName[region]} - 장소 예약하기</h1>
         {
-          places ?
+          placeList ?
             <Card.Group>
               {
-                places.map(place => {
+                placeList.map(place => {
                   return (
                     <Card fluid key={place.uuid}>
                       <Card.Content>
@@ -56,8 +45,9 @@ const PlaceRegionIndexPage: React.FunctionComponent = () => {
                         <Card.Description>{place.description}</Card.Description>
                         <Card.Description style={{ marginTop: '0.8em' }}>
                           <Button
+                            basic compact
                             href={`/reservation/place/${region}/${place.name}`}
-                            basic compact>
+                          >
                             <Icon name={'calendar plus outline'}/> 예약하기
                           </Button>
                         </Card.Description>
@@ -73,4 +63,15 @@ const PlaceRegionIndexPage: React.FunctionComponent = () => {
   )
 }
 
-export default PlaceRegionIndexPage
+export default PlaceRegionIndexPage;
+
+export const getServerSideProps : GetServerSideProps  = async (context) => {
+  const { region } = context.query;
+
+  const res = await PoPoAxios.get<IPlace[]>(`place/region/${regionOptions[region]}`);
+  const placeList = res.data;
+
+  return {
+    props: { region, placeList }
+  };
+};
