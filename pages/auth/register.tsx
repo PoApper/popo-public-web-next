@@ -31,12 +31,12 @@ const RegisterPage = () => {
   }, [router])
 
   const isNotValidEmail: boolean
-    = (email.length > 0 &&
+    = (email.length == 0 ||
     !RegExp(/^(?=.*[a-zA-z])[a-zA-Z0-9]{4,20}@postech.ac.kr$/).test(email))
   const isNotValidPassword: boolean
-    = (password.length > 0 && !RegExp(/^(\w{8,16})$/).test(password))
+    = (password.length == 0 || !RegExp(/^(\w{8,16})$/).test(password))
   const isNotValidPasswordAgain: boolean
-    = (passwordAgain.length > 0) && (password !== passwordAgain)
+    = (passwordAgain.length == 0) || (password !== passwordAgain)
 
   async function handleRegister () {
     if (isNotValidEmail || isNotValidPassword || isNotValidPasswordAgain) {
