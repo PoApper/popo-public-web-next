@@ -88,7 +88,7 @@ const RegisterPage = () => {
               required
               label={'Password'} placeholder={'8자리 이상 16자리 이하'}
               onChange={e => setPW(e.target.value)}
-              error={isNotValidPassword ? '비밃번호가 너무 짧습니다.' : null}/>
+              error={isNotValidPassword ? '비밀번호가 너무 짧습니다.' : null}/>
             <Form.Input
               required
               label={'Password 확인'} placeholder={'8자리 이상 16자리 이하'}
