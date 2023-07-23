@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, Label } from 'semantic-ui-react'
-import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
+import Link from 'next/link'
 import moment from 'moment-timezone'
+import { Button, Grid, Label } from 'semantic-ui-react'
 
 import Layout from '@/components/layout'
 import PlaceReservationTable
@@ -11,10 +12,8 @@ import ReservationCalendar
 import PlaceInformationCard from '@/components/reservation/place.information.card'
 import PlaceReservationCreateModal
   from '@/components/reservation/place.reservation.create.modal'
-import Link from 'next/link'
 import { PoPoAxios } from '@/lib/axios.instance'
 import { IPlace } from '@/types/reservation.interface'
-import { GetServerSideProps } from 'next'
 
 const PlaceReservationPage: React.FunctionComponent<{
   placeName: string,
