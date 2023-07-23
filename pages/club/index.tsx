@@ -1,5 +1,6 @@
 import Layout from '@/components/layout'
-import { Card, Grid, Image } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 const ClubIndexPage = () => {
   const clubTypes = [
@@ -13,27 +14,35 @@ const ClubIndexPage = () => {
 
   return (
     <Layout>
-      <Grid stackable style={{textAlign: "center"}} rows={2} columns={3}>
+      <ClubTypesGrid>
         {
-          clubTypes.map(({slug, name}) => {
-            return (
-              <Grid.Column key={slug}>
-                <Card href={`/club/introduce/${slug}`}>
-                  <Card.Content style={{height: "12em"}}>
-                    <Image src={`club/${slug}.svg`} alt={slug}
-                           style={{height: "100%", width: "100%", verticalAlign: "middle"}}/>
-                  </Card.Content>
-                  <Card.Content>
-                    <Card.Header>{name}</Card.Header>
-                  </Card.Content>
-                </Card>
-              </Grid.Column>
-            )
-          })
+          clubTypes.map(({slug, name}) => (
+            <Card key={slug} href={`/club/introduce/${slug}`} style={{margin: '0 auto'}}>
+              <Card.Content style={{height: "12em"}}>
+                <Image src={`club/${slug}.svg`} alt={slug}
+                       style={{height: "100%", width: "100%", verticalAlign: "middle"}}/>
+              </Card.Content>
+              <Card.Content>
+                <Card.Header>{name}</Card.Header>
+              </Card.Content>
+            </Card>
+          ))
         }
-      </Grid>
+      </ClubTypesGrid>
     </Layout>
   )
 }
 
-export default ClubIndexPage
+export default ClubIndexPage;
+
+const ClubTypesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  gap: 2rem;
+
+  // mobile screen
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
