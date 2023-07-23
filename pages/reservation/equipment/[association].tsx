@@ -93,7 +93,10 @@ const EquipAssociationPage: React.FunctionComponent<{
           }
 
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <EquipReservationCreateModal associationName={associationName}/>
+            <EquipReservationCreateModal
+              associationName={associationName}
+              equipmentList={equipmentList}
+            />
             <Link href={'/auth/my-reservation'} passHref>
               <Button>내 예약 목록</Button>
             </Link>
