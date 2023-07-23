@@ -8,6 +8,7 @@ export interface IClubIntroduce {
   uuid: string;
   name: string;
   content: string;
+  short_desc: string;
   location: string;
   representative: string;
   contact: string;
