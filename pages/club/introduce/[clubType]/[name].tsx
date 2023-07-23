@@ -35,7 +35,7 @@ const ClubSingleIntroducePage: React.FunctionComponent<{
                      alt={'instagram'}/>
               </IconLink>
               <IconLink link={clubInfo.youtube_url}>
-                <img src={'https://img.shields.io/badge/Youtube-E4405F?style=for-the-badge&logo=youtube&logoColor=white'}
+                <img src={'https://img.shields.io/badge/Youtube-FF0000?style=for-the-badge&logo=youtube&logoColor=white'}
                      alt={'youtube'}/>
               </IconLink>
             </Container>
