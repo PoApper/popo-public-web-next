@@ -1,63 +1,58 @@
-import Layout from '@/components/layout'
-import { Grid, Image } from 'semantic-ui-react'
-import { useEffect, useState } from 'react'
+import React from 'react'
+import { GetServerSideProps } from 'next'
 import styled from 'styled-components'
+import { Image } from 'semantic-ui-react'
+
+import Layout from '@/components/layout'
 import { PoPoAxios } from '@/lib/axios.instance'
+import { IAssociationIntroduce } from '@/types/introduce.interface'
 
-interface AssociationIntroduce {
-  name: string;
-  content: string;
-  location: string;
-  representative: string;
-  contact: string;
-  logoName: string;
-}
-
-const AssociationIndexPage = () => {
-  const [introList, setIntroList] = useState<AssociationIntroduce[]>([])
-  const COL_NUM = 4;
-
-  useEffect(() => {
-    PoPoAxios.get('/introduce/association').
-      then(res => {
-        for (let i = 0; i < res.data.length % COL_NUM; i++) {
-          res.data.push(null)
-        }
-        setIntroList(res.data)
-      }).
-      catch(() => alert('소개글을 불러오는데 실패했습니다.'))
-  }, [])
-
+const AssociationIndexPage: React.FunctionComponent<{
+  associationList: IAssociationIntroduce[],
+}> = ({ associationList }) => {
   return (
     <Layout>
-      <Grid textAlign="center" stackable columns={COL_NUM}>
+      <IntroduceGrid>
         {
-          introList.map((intro, idx) => {
-            if (!intro) return <Grid.Column/>
-            return (
-              <Grid.Column key={idx} >
-                <div>
-                  <Image
-                    centered size="small"
-                    href={`/association/introduce/${intro.name}`}
-                    src={
-                      intro.logoName ?
-                        `${process.env.NEXT_PUBLIC_API}/introduce/association/image/${intro.logoName}`
-                        : 'https://react.semantic-ui.com/images/wireframe/image.png'}
-                    alt={`${intro.name}_logo`}
-                  />
-                  <AssociationName>{intro.name}</AssociationName>
-                </div>
-              </Grid.Column>
-            )
-          })
+          associationList.map(intro =>
+            <div key={intro.uuid}>
+              <Image
+                centered size="small"
+                href={`/association/introduce/${intro.name}`}
+                src={intro.image_url ?? 'https://react.semantic-ui.com/images/wireframe/image.png'}
+                alt={`${intro.name}_logo`}
+              />
+              <AssociationName>{intro.name}</AssociationName>
+            </div>
+          )
         }
-      </Grid>
+      </IntroduceGrid>
     </Layout>
   )
 }
 
 export default AssociationIndexPage
+
+export const getServerSideProps : GetServerSideProps  = async () => {
+  const res = await PoPoAxios.get<IAssociationIntroduce[]>('introduce/association');
+  const associationList = res.data;
+
+  return {
+    props: { associationList }
+  };
+}
+
+const IntroduceGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  gap: 2rem;
+
+  // mobile screen
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`
 
 const AssociationName = styled.h3`
   word-break: keep-all;
