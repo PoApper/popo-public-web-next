@@ -32,32 +32,29 @@ const PlaceRegionIndexPage: React.FunctionComponent<{
     <Layout>
       <div>
         <h1>{regionName[region]} - 장소 예약하기</h1>
-        {
-          placeList ?
-            <Card.Group>
-              {
-                placeList.map(place => {
-                  return (
-                    <Card fluid key={place.uuid}>
-                      <Card.Content>
-                        <Card.Header>{place.name}</Card.Header>
-                        <Card.Meta>{place.location}</Card.Meta>
-                        <Card.Description>{place.description}</Card.Description>
-                        <Card.Description style={{ marginTop: '0.8em' }}>
-                          <Button
-                            basic compact
-                            href={`/reservation/place/${region}/${place.name}`}
-                          >
-                            <Icon name={'calendar plus outline'}/> 예약하기
-                          </Button>
-                        </Card.Description>
-                      </Card.Content>
-                    </Card>
-                  )
-                })
-              }
-            </Card.Group> : <p>empty...</p>
-        }
+        <Card.Group>
+          {
+            placeList.map(place => {
+              return (
+                <Card fluid key={place.uuid}>
+                  <Card.Content>
+                    <Card.Header>{place.name}</Card.Header>
+                    <Card.Meta>{place.location}</Card.Meta>
+                    <Card.Description>{place.description}</Card.Description>
+                    <Card.Description style={{ marginTop: '0.8em' }}>
+                      <Button
+                        basic compact
+                        href={`/reservation/place/${region}/${place.name}`}
+                      >
+                        <Icon name={'calendar plus outline'}/> 예약하기
+                      </Button>
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
+              )
+            })
+          }
+        </Card.Group>
       </div>
     </Layout>
   )

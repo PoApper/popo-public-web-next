@@ -131,7 +131,7 @@ export default EquipAssociationPage;
 export const getServerSideProps : GetServerSideProps  = async (context) => {
   const { association } = context.query;
 
-  const res = await PoPoAxios.get<IEquipment[]>(`/equip/owner/${association}`);
+  const res = await PoPoAxios.get<IEquipment[]>(`equip/owner/${association}`);
   const equipmentList = res.data;
 
   return {

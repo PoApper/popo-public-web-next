@@ -5,11 +5,15 @@
  */
 
 export interface IClubIntroduce {
+  uuid: string;
+  name: string;
   content: string;
+  short_desc: string;
   location: string;
   representative: string;
   contact: string;
-  logoName: string;
+  logoName: string; // TODO: deleted
+  image_url: string;
   homepage_url?: string;
   facebook_url?: string;
   instagram_url?: string;
@@ -17,11 +21,14 @@ export interface IClubIntroduce {
 }
 
 export interface IAssociationIntroduce {
+  uuid: string;
+  name: string;
   content: string;
   location: string;
   representative: string;
   contact: string;
-  logoName: string;
+  logoName: string; // TODO: deleted
+  image_url: string;
   homepage_url?: string;
   facebook_url?: string;
   instagram_url?: string;
