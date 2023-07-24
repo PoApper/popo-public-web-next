@@ -11,8 +11,9 @@ export interface IPlace {
   region: string;
   location: string,
   description: string;
-  opening_hours: string;
   image_url?: string;
+  max_minutes: number;
+  opening_hours: string;
 }
 
 export interface IEquipment {
@@ -21,6 +22,7 @@ export interface IEquipment {
   description: string;
   fee: number;
   image_url?: string;
+  max_minutes: number;
 }
 
 export interface IPlaceReservation {
