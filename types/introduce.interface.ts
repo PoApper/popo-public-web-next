@@ -12,8 +12,7 @@ export interface IClubIntroduce {
   location: string;
   representative: string;
   contact: string;
-  logoName: string; // TODO: deleted
-  image_url: string;
+  image_url?: string;
   homepage_url?: string;
   facebook_url?: string;
   instagram_url?: string;
@@ -27,8 +26,7 @@ export interface IAssociationIntroduce {
   location: string;
   representative: string;
   contact: string;
-  logoName: string; // TODO: deleted
-  image_url: string;
+  image_url?: string;
   homepage_url?: string;
   facebook_url?: string;
   instagram_url?: string;
