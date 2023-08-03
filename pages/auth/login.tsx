@@ -59,7 +59,7 @@ const LoginPage = () => {
           </Link>
         </List>
         <p>
-          로그인/회원가입에 문제를 겪고 있다면, 하단의 POPO 관리자 메일로 연락 바랍니다.
+          현재 AWS Cognito로 회원 관리를 이전하고 있습니다. 아이디 및 비밀번호 찾기에 문제를 겪고 있다면 하단의 POPO 관리자 메일로 연락 부탁드립니다.  
         </p>
       </Container>
     </Layout>
