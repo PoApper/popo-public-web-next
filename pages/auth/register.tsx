@@ -79,11 +79,6 @@ const RegisterPage = () => {
             error={isNotValidEmail ? '유효하지 않은 이메일입니다.' : null}/>
           <p>이 이메일로 인증메일이 발송됩니다!</p>
 
-          <Message>
-            ID는 POSTECH email의 앞부분으로 자동 설정 됩니다.<br/>
-            (ex: email: gildong.hong@postech.ac.kr -&gt; id: gildong.hong)
-          </Message>
-
           <Form.Group widths={'equal'}>
             <Form.Input
               required

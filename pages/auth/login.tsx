@@ -1,4 +1,4 @@
-import { Button, Container, Form, List } from 'semantic-ui-react'
+import {Button, Container, Form, List, Message} from 'semantic-ui-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -9,7 +9,7 @@ import { PoPoAxios } from '@/lib/axios.instance'
 const LoginPage = () => {
   const router = useRouter();
 
-  const [id, setId] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [password, setPW] = useState<string>('')
 
   useEffect(() => {
@@ -21,16 +21,18 @@ const LoginPage = () => {
   }, [router])
 
   async function handleLogin () {
-    try {
-      await PoPoAxios.post('/auth/login', {
-        id: id,
-        password: password,
-      }, { withCredentials: true })
-      router.push('/');
-    } catch (err: any) {
-      const response = err.response
-      alert(`⚠ 등록되지 않은 ID/PW 입니다. ⚠\n"${response.data.message}"`)
-    }
+    const body = {
+      email: email,
+      password: password,
+    };
+
+    PoPoAxios.post('/auth/login', body, { withCredentials: true })
+      .then(() => {
+        router.push('/');
+      }).catch((err) => {
+        const response = err.response;
+        alert(`⚠ 등록되지 않은 ID/PW 입니다. ⚠\n"${response.data.message}"`);
+      });
   }
 
   return (
@@ -44,16 +46,18 @@ const LoginPage = () => {
       }}>
         <Form>
           <Form.Input
-            label={'아이디'}
-            onChange={e => setId(e.target.value)}/>
+            label={'Email'}
+            onChange={e => setEmail(e.target.value)}/>
           <Form.Input
             label={'비밀번호'} type={'password'}
             onChange={e => setPW(e.target.value)}/>
           <Button primary onClick={handleLogin}>로그인</Button>
         </Form>
+        <Message>
+          `2023.08.13`부터 POPO 로그인 방식이 ID/PW에서 Email/PW로 변경 됩니다.
+        </Message>
         <List horizontal divided link size="small">
-          <List.Item as="a" disabled content={'아이디 찾기'}/>
-          <List.Item as="a" disabled content={'비밀번호 찾기'}/>
+          {/*<List.Item as="a" disabled content={'비밀번호 찾기'}/>*/}
           <Link href={'/auth/register'} passHref>
             <List.Item as="a" content={'회원가입'}/>
           </Link>
