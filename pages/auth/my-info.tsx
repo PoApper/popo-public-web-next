@@ -7,7 +7,6 @@ import { PoPoAxios } from '@/lib/axios.instance'
 
 interface MyInformation {
   email: string;
-  id: string;
   name: string;
   userType: string;
   createdAt: Date;
@@ -17,7 +16,7 @@ const MyInfoPage = () => {
   const router = useRouter()
 
   const [myInfo, setMyInfo] = useState<MyInformation>(
-    { email: '', id: '', name: '', userType: '', createdAt: new Date() })
+    { email: '', name: '', userType: '', createdAt: new Date() })
   const [password, setPW] = useState<string>('')
   const [passwordAgain, setPwAgain] = useState<string>('')
 
@@ -63,13 +62,6 @@ const MyInfoPage = () => {
             <h4>email</h4>
             <Container>
               {myInfo.email}
-            </Container>
-          </Segment>
-
-          <Segment>
-            <h4>ID</h4>
-            <Container>
-              {myInfo.id}
             </Container>
           </Segment>
 

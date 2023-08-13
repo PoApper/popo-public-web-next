@@ -16,7 +16,6 @@ const RegisterPage = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState<string>('');
-  const id = email.split('@')[0];
   const [password, setPW] = useState<string>('');
   const [passwordAgain, setPwAgain] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -47,7 +46,6 @@ const RegisterPage = () => {
 
     const body = {
       email: email,
-      id: id,
       password: password,
       name: name,
       userType: userType

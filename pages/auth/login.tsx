@@ -31,7 +31,7 @@ const LoginPage = () => {
         router.push('/');
       }).catch((err) => {
         const response = err.response;
-        alert(`⚠ 등록되지 않은 ID/PW 입니다. ⚠\n"${response.data.message}"`);
+        alert(`⚠ 등록되지 않은 Email/PW 입니다. ⚠\n"${response.data.message}"`);
       });
   }
 
