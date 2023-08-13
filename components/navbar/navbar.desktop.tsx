@@ -40,7 +40,7 @@ const NavbarDesktop = () => {
                 <Link href={'/association'} passHref>
                   <Dropdown.Item as="a" text={'자치단체 소개'}/>
                 </Link>
-                <Link href={'/store'} passHref>
+                <Link href={'/benefits'} passHref>
                   <Dropdown.Item as="a" text={'제휴 및 할인업체 소개'}/>
                 </Link>
                 <Dropdown.Item text={'총학생회 기록물관리기관'} target="_blank"
