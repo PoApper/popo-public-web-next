@@ -10,24 +10,24 @@ const userTypeOptions = [
   { key: 'STUDENT', text: '학생 (학부/대학원)', value: 'STUDENT' },
   { key: 'STAFF', text: '교직원', value: 'FACULTY' },
   { key: 'OTHERS', text: 'OTHERS', value: 'OTHERS' },
-]
+];
 
 const RegisterPage = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState<string>('')
-  const [id, setId] = useState<string>('')
-  const [password, setPW] = useState<string>('')
-  const [passwordAgain, setPwAgain] = useState<string>('')
-  const [name, setName] = useState<string>('')
-  const [userType, setUserType] = useState<string>('')
+  const [email, setEmail] = useState<string>('');
+  const id = email.split('@')[0];
+  const [password, setPW] = useState<string>('');
+  const [passwordAgain, setPwAgain] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [userType, setUserType] = useState<string>('');
 
   useEffect(() => {
-    PoPoAxios.get('/auth/verifyToken',
-      { withCredentials: true }).then(() => {
-      alert('이미 로그인 되었습니다.')
-      router.push('/')
-    }).catch(() => {})
+    PoPoAxios.get('/auth/verifyToken', { withCredentials: true })
+      .then(() => {
+        alert('이미 로그인 되었습니다.');
+        router.push('/');
+      }).catch(() => {});
   }, [router])
 
   const isNotValidEmail: boolean
@@ -45,20 +45,22 @@ const RegisterPage = () => {
       return;
     }
 
-    try {
-      await PoPoAxios.post('/auth/signIn', {
-        email: email,
-        id: id,
-        password: password,
-        name: name,
-        userType: userType
-      }, { withCredentials: true })
-      alert("회원가입에 성공했습니다! 😁\nPOPO 가입 메일을 확인해주세요! 📧\n(1분 정도 지연 될 수 있습니다.)");
-      router.push('/auth/login')
-    } catch (err: any) {
-      const response = err.response
-      alert(`회원가입에 실패했습니다. 😢\\n""${response.data.message}"`)
-    }
+    const body = {
+      email: email,
+      id: id,
+      password: password,
+      name: name,
+      userType: userType
+    };
+
+    PoPoAxios.post('/auth/signIn', body, { withCredentials: true })
+      .then(() => {
+        alert("회원가입에 성공했습니다! 😁\nPOPO 가입 메일을 확인해주세요! 📧\n(1분 정도 지연 될 수 있습니다.)");
+        router.push('/auth/login');
+      }).catch((err) => {
+        const response = err.response;
+        alert(`회원가입에 실패했습니다. 😢\n""${response.data.message}"`);
+      });
   }
 
   return (
@@ -77,11 +79,10 @@ const RegisterPage = () => {
             error={isNotValidEmail ? '유효하지 않은 이메일입니다.' : null}/>
           <p>이 이메일로 인증메일이 발송됩니다!</p>
 
-          <Form.Input
-            required
-            label={'ID'} placeholder={'5~20자의 영문 소문자, 숫자만 사용 가능합니다.'}
-            onChange={e => setId(e.target.value)}
-          />
+          <Message>
+            ID는 POSTECH email의 앞부분으로 자동 설정 됩니다.<br/>
+            (ex: email: gildong.hong@postech.ac.kr -&gt; id: gildong.hong)
+          </Message>
 
           <Form.Group widths={'equal'}>
             <Form.Input
