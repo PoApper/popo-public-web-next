@@ -1,13 +1,5 @@
 # POPO Public Web
 
-<br />
-<br />
-
-<p align="center">
-<img src="https://img.shields.io/badge/node-%3E%3D16.13.2-brightgreen">
-<img src="https://img.shields.io/badge/npm-%3E%3D8.3.1-brightgreen">
-</p>
-
 <p align="center">
   <a href="http://popo.poapper.club">
     <img src="https://raw.githubusercontent.com/PoApper/POPO-nest-api/master/assets/popo.svg" alt="Logo" height="150">
@@ -21,66 +13,33 @@
   </p>
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Docker-2CA5E0?style=flat-square&logo=Docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/node-18.7-brightgreen">
+  <img src="https://img.shields.io/badge/NextJS-12.3.7-brightgreen">
+  <img src="https://img.shields.io/badge/ReactJS-17.0.2-brightgreen">
+</p>
+
 ## About
 
 POPO는 PoApper에서 개발하고, POSTECH 총학생회에서 운영하는 포털 사이트입니다. POPO를 통해 교내의 장소/장비를 예약하고, 자치단체 및 동아리 정보를 열람할 수 있습니다.
 
+## How to Deploy
 
-## Commands
+POPO 어플리케이션은 Docker Container로 실행되고 있으며, [Swarmpit](https://swarmpit.io/)을 통해 오케스트레이션 되고 있다.
+Dev-Prod의 two-stage 배포 정책을 가지고 있으며, 각 stage에 배포하기 위한 조건은 아래와 같다.
 
-```bash
-$ npm install
-# fill correct envrionments variables to .env file
-$ npm start
-```
-
-### docker
-
-#### On Your Local Computer
-
-```bash
-$ docker build . -t popo-public-web
-# fill .env.development file
-$ docker-compose -f ./docker-compose.dev.yaml up -d --build
-```
-
-#### Prod/Dev Release
-
-git tag를 추가/수정하면 Github Action이 트리거 된다. Github Action에서 도커 이미지를 빌드하고 AWS ECR에 push 한다. 그러면, Docker Swarm 클러스터의 마스터 노드가 새로운 이미지가 push 된 걸 확인하고 새로운 이미지로 디플로이 한다.
-
-이때, Prod 배포 할지, Dev 배포 할지는 git tag에 따라 결정된다.
-
-```bash
-# Prod 배포
-$ git tag release-1.2.3
-
-# Dev 배포
-$ git tag any-other-tags
-```
-
-git tag에 `release-`라는 접두사를 붙이면 Prod 배포된다. 그외의 경우엔 Dev에 배포된다.
-
-
-## Stack
-
-### Interpreter
-
-- `node >= 18.7`
-- `npm >= 8.3.1`
-
-### Framework
-
-- `NextJS >= 12.0.7`
-
-### CSS
-
-- `Semantic-ui-react`
-
-### Runner
-
-- AWS EC2
+- Dev Stage
+  - POPO 도커 이미지의 `latest` 버전을 업데이트 한다.
+  - 이때, Web 어플리케이션의 경우는 도커 이미지 빌드 때 `NEXT_PUBLIC_ENV=dev`로 설정해줘야 한다.
+  - `latest` 버전이 업데이트 되면, Swarmpit에서 Auto-deploy 해준다.
+- Prod Stage
+  - POPO 도커 이미지의 특정 태그를 업데이트 한다. (ex. `release-1.2.3`)
+  - 이때, Web 어플리케이션의 경우는 도커 이미지 빌드 때 `NEXT_PUBLIC_ENV=prod`로 설정해줘야 한다.
+  - Swarmpit에서 "직접" Prod stage의 버전을 바꿔준다.
 
 ## Contributors & Maintainer
 
 - Seokyun Ha ([@bluehorn07](https://github.com/BlueHorn07))
 - Jeongwon Choi ([@jjeongone](https://github.com/jjeongone))
+- Hyojeong Yun ([@hodori314](https://github.com/hodori314))

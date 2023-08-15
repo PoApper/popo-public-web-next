@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   dev:
-    image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:dev
+    image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:latest
     ports:
      - 5000:3000
     logging:
@@ -16,7 +16,8 @@ services:
          - node.role != manager
          - node.labels.application == popo
   prod:
-    image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:prod
+    # Prod Image Tag should be updated manually
+    image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:release-x.x.x
     ports:
      - 3000:3000
     logging:
