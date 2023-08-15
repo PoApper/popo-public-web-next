@@ -44,6 +44,10 @@ const LoginPage = () => {
         backgroundColor: '#eeeeee',
         borderRadius: 8,
       }}>
+        <Message>
+          `2023.08.15`부터 POPO 로그인 방식이 ID/PW에서 Email/PW로 변경 되었습니다.<br/>
+          POPO 가입 때 사용한 email을 통해 로그인 해주세요.
+        </Message>
         <Form>
           <Form.Input
             label={'Email'}
@@ -53,9 +57,6 @@ const LoginPage = () => {
             onChange={e => setPW(e.target.value)}/>
           <Button primary onClick={handleLogin}>로그인</Button>
         </Form>
-        <Message>
-          `2023.08.13`부터 POPO 로그인 방식이 ID/PW에서 Email/PW로 변경 됩니다.
-        </Message>
         <List horizontal divided link size="small">
           {/*<List.Item as="a" disabled content={'비밀번호 찾기'}/>*/}
           <Link href={'/auth/register'} passHref>
@@ -63,7 +64,7 @@ const LoginPage = () => {
           </Link>
         </List>
         <p>
-          현재 AWS Cognito로 회원 관리를 이전하고 있습니다. 아이디 및 비밀번호 찾기에 문제를 겪고 있다면 하단의 POPO 관리자 메일로 연락 부탁드립니다.  
+          현재 AWS Cognito로 회원 관리를 이전하고 있습니다. 아이디 및 비밀번호 찾기에 문제를 겪고 있다면 하단의 POPO 관리자 메일로 연락 부탁드립니다.
         </p>
       </Container>
     </Layout>
