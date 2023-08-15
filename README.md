@@ -34,7 +34,7 @@ Dev-Prod의 two-stage 배포 정책을 가지고 있으며, 각 stage에 배포�
   - 이때, Web 어플리케이션의 경우는 도커 이미지 빌드 때 `NEXT_PUBLIC_ENV=dev`로 설정해줘야 한다.
   - `latest` 버전이 업데이트 되면, Swarmpit에서 Auto-deploy 해준다.
 - Prod Stage
-  - POPO 도커 이미지의 특정 태그를 업데이트 한다. (ex. `release-1.2.3`)
+  - POPO 도커 이미지의 특정 태그를 업데이트 한다. (ex. `v1.2.3`)
   - 이때, Web 어플리케이션의 경우는 도커 이미지 빌드 때 `NEXT_PUBLIC_ENV=prod`로 설정해줘야 한다.
   - Swarmpit에서 "직접" Prod stage의 버전을 바꿔준다.
 
