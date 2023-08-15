@@ -6,11 +6,10 @@ import { useRouter } from 'next/router'
 import Layout from '@/components/layout'
 import { PoPoAxios } from '@/lib/axios.instance'
 
-const LoginPage = () => {
+const PasswordResetPage = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState<string>('')
-  const [password, setPW] = useState<string>('')
 
   useEffect(() => {
     PoPoAxios.get('/auth/verifyToken', {withCredentials: true})
@@ -20,19 +19,19 @@ const LoginPage = () => {
       }).catch(() => {})
   }, [router])
 
-  async function handleLogin () {
+  async function handlePasswordReset () {
     const body = {
       email: email,
-      password: password,
     };
 
-    PoPoAxios.post('/auth/login', body, { withCredentials: true })
+    PoPoAxios.post('/auth/password/reset', body)
       .then(() => {
+        alert('비빌번호가 초기화 되었습니다. 이메일을 통해 신규 비빌먼호를 확인해주세요.')
         router.push('/');
       }).catch((err) => {
-        const response = err.response;
-        alert(`⚠ 등록되지 않은 Email/PW 입니다. ⚠\n"${response.data.message}"`);
-      });
+      const response = err.response;
+      alert(`${response.data.message}`);
+    });
   }
 
   return (
@@ -46,25 +45,18 @@ const LoginPage = () => {
       }}>
         <Message>
           2023.08.15부터 POPO 로그인 방식이 ID/PW에서 Email/PW로 변경 되었습니다.<br/>
-          POPO 가입 때 사용한 email을 통해 로그인 해주세요.
+          POPO 가입 때 사용한 email을 이용해주세요.
         </Message>
-
         <Form>
           <Form.Input
             label={'Email'}
             onChange={e => setEmail(e.target.value)}/>
-          <Form.Input
-            label={'비밀번호'} type={'password'}
-            onChange={e => setPW(e.target.value)}/>
-          <Button primary onClick={handleLogin}>로그인</Button>
+          <Button primary onClick={handlePasswordReset}>비밀번호 초기화</Button>
         </Form>
 
         <List horizontal divided link size="small">
-          <Link href={'/auth/password/reset'} passHref>
-            <List.Item as="a" content={'비밀번호 찾기'}/>
-          </Link>
           <Link href={'/auth/register'} passHref>
-            <List.Item as="a" content={'회원가입'}/>
+            <List.Item as="a" content={'신규 회원이신가요?'}/>
           </Link>
         </List>
       </Container>
@@ -72,4 +64,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default PasswordResetPage

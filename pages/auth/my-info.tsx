@@ -37,7 +37,7 @@ const MyInfoPage = () => {
 
   async function submitNewPassword () {
     try {
-      await PoPoAxios.put('/auth/updatePW', {
+      await PoPoAxios.post('/auth/password/update', {
         'password': password,
       }, { withCredentials: true })
       alert('비밀번호 변경에 성공했습니다!')
