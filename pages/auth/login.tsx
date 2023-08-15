@@ -1,4 +1,4 @@
-import { Button, Container, Form, List } from 'semantic-ui-react'
+import {Button, Container, Form, List, Message} from 'semantic-ui-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -9,7 +9,7 @@ import { PoPoAxios } from '@/lib/axios.instance'
 const LoginPage = () => {
   const router = useRouter();
 
-  const [id, setId] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [password, setPW] = useState<string>('')
 
   useEffect(() => {
@@ -21,16 +21,18 @@ const LoginPage = () => {
   }, [router])
 
   async function handleLogin () {
-    try {
-      await PoPoAxios.post('/auth/login', {
-        id: id,
-        password: password,
-      }, { withCredentials: true })
-      router.push('/');
-    } catch (err: any) {
-      const response = err.response
-      alert(`⚠ 등록되지 않은 ID/PW 입니다. ⚠\n"${response.data.message}"`)
-    }
+    const body = {
+      email: email,
+      password: password,
+    };
+
+    PoPoAxios.post('/auth/login', body, { withCredentials: true })
+      .then(() => {
+        router.push('/');
+      }).catch((err) => {
+        const response = err.response;
+        alert(`⚠ 등록되지 않은 Email/PW 입니다. ⚠\n"${response.data.message}"`);
+      });
   }
 
   return (
@@ -42,24 +44,27 @@ const LoginPage = () => {
         backgroundColor: '#eeeeee',
         borderRadius: 8,
       }}>
+        <Message>
+          2023.08.15부터 POPO 로그인 방식이 ID/PW에서 Email/PW로 변경 되었습니다.<br/>
+          POPO 가입 때 사용한 email을 통해 로그인 해주세요.
+        </Message>
         <Form>
           <Form.Input
-            label={'아이디'}
-            onChange={e => setId(e.target.value)}/>
+            label={'Email'}
+            onChange={e => setEmail(e.target.value)}/>
           <Form.Input
             label={'비밀번호'} type={'password'}
             onChange={e => setPW(e.target.value)}/>
           <Button primary onClick={handleLogin}>로그인</Button>
         </Form>
         <List horizontal divided link size="small">
-          <List.Item as="a" disabled content={'아이디 찾기'}/>
-          <List.Item as="a" disabled content={'비밀번호 찾기'}/>
+          {/*<List.Item as="a" disabled content={'비밀번호 찾기'}/>*/}
           <Link href={'/auth/register'} passHref>
             <List.Item as="a" content={'회원가입'}/>
           </Link>
         </List>
         <p>
-          현재 AWS Cognito로 회원 관리를 이전하고 있습니다. 아이디 및 비밀번호 찾기에 문제를 겪고 있다면 하단의 POPO 관리자 메일로 연락 부탁드립니다.  
+          현재 AWS Cognito로 회원 관리를 이전하고 있습니다. 아이디 및 비밀번호 찾기에 문제를 겪고 있다면 하단의 POPO 관리자 메일로 연락 부탁드립니다.
         </p>
       </Container>
     </Layout>
