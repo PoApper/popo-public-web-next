@@ -41,6 +41,8 @@ const EquipAssociationPage: React.FunctionComponent<{
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const [dongyeonBank, setDongyeonBank] = useState('')
+  const [dongyeonServiceTime, setDongyeonServiceTime] = useState('');
+  const [dongyeonContact, setDongyeonContact] = useState('');
   const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
   const associationKorName = ownerName[associationName];
@@ -63,7 +65,11 @@ const EquipAssociationPage: React.FunctionComponent<{
 
     PopoCdnAxios
       .get('/popo-setting.json')
-      .then(res => setDongyeonBank(res.data.dongyeon_bank))
+      .then((res) => {
+        setDongyeonBank(res.data.dongyeon_bank);
+        setDongyeonServiceTime(res.data.dongyeon_service_time);
+        setDongyeonContact(res.data.dongyeon_contact);
+      })
   }, [startDate, associationName, selectedDate])
 
   return (
@@ -81,9 +87,9 @@ const EquipAssociationPage: React.FunctionComponent<{
                   3. 예약비는 {dongyeonBank} 계좌로 입금 바랍니다. <br/>
                   4. 입금자명은 예약자명과 같게 해주세요. <br/>
                   5. 장비 분실 및 예약 시간을 어길시 책임을 물을 수 있습니다. <br/>
-                  6. 대여시간은 학기중 평일 12:30 ~ 13:30 입니다. 그 외 시간의 대여와 반납은 어렵습니다. <br/>
+                  6. 대여시간은 {dongyeonServiceTime} 입니다. 그 외 시간의 대여와 반납은 어렵습니다. <br/>
                   7. 예약한 장비는 동아리 연합회 사무실(학생회관 301호)에서 수령할 수 있습니다. <br/>
-                  8. 기타 문의는 (운영관리부) 010-5314-6211 연락주세요. <br/>
+                  8. 기타 문의는 {dongyeonContact} 연락주세요. <br/>
                 </p>
                 : <p style={{ marginTop: '10px' }}>
                   장비를 클릭하면 장비 사진을 볼 수 있습니다! 🖼️<br/>
