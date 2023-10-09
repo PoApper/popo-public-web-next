@@ -8,14 +8,14 @@ import {
   List,
   Segment,
 } from 'semantic-ui-react'
-import { PopoCdnAxios } from '@/lib/axios.instance'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const Footer = () => {
   const [popoCRMEmail, setPOPOCRMEmail] = useState('');
 
   useEffect(() => {
-    PopoCdnAxios
-      .get('/popo-setting.json')
+    PoPoAxios
+      .get('/setting')
       .then(res => setPOPOCRMEmail(res.data.popo_crm_email));
   }, [])
 

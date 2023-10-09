@@ -13,7 +13,7 @@ import EquipReservationTable
 import EquipListTable from '@/components/reservation/equip.list.table'
 import EquipReservationCreateModal
   from '@/components/reservation/equip.reservation.create.modal'
-import { PoPoAxios, PopoCdnAxios } from '@/lib/axios.instance'
+import { PoPoAxios } from '@/lib/axios.instance'
 import { IEquipment } from '@/types/reservation.interface'
 
 type ObjectType = {
@@ -63,8 +63,8 @@ const EquipAssociationPage: React.FunctionComponent<{
       setMarkedDates(datesArr)
     })
 
-    PopoCdnAxios
-      .get('/popo-setting.json')
+    PoPoAxios
+      .get('/setting')
       .then((res) => {
         setDongyeonBank(res.data.dongyeon_bank);
         setDongyeonServiceTime(res.data.dongyeon_service_time);
