@@ -38,7 +38,7 @@ const SideBar = ({ visible, toggleSidebar, pushContent }) => {
               <Link href={'/association'} passHref>
                 <Menu.Item name='자치단체 소개'/>
               </Link>
-              <Link href={'/store'} passHref>
+              <Link href={'/benefits'} passHref>
                 <Menu.Item name='제휴 및 할인업체 소개'/>
               </Link>
               <Menu.Item
