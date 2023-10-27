@@ -1,13 +1,5 @@
 # Buile Step
-FROM node:18.7-alpine AS builder
-
-# dev, prod
-ARG NEXT_PUBLIC_ENV
-ENV NEXT_PUBLIC_ENV ${NEXT_PUBLIC_ENV}
-
-# popo version
-ARG POPO_VERSION
-ENV NEXT_PUBLIC_POPO_VERSION ${POPO_VERSION}
+FROM node:18.18-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -16,6 +8,14 @@ COPY package*.json ./
 RUN npm ci --ignore-scripts
 
 COPY . .
+
+# dev, prod
+ARG NEXT_PUBLIC_ENV
+ENV NEXT_PUBLIC_ENV ${NEXT_PUBLIC_ENV}
+
+# popo version
+ARG POPO_VERSION
+ENV NEXT_PUBLIC_POPO_VERSION ${POPO_VERSION}
 
 RUN npm run build
 RUN npm prune --production
