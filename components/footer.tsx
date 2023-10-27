@@ -84,11 +84,11 @@ const Footer = () => {
 
           <Divider section style={{ marginBottom: '1vh' }}/>
           <List horizontal divided link size="small">
-            <List.Item as="a" href="#">
-              Contact Us
-            </List.Item>
             <List.Item as="a" href="/privacy-policy">
-              Privacy Policy
+              개인정보처리방침
+            </List.Item>
+            <List.Item>
+              popo-{process.env.NEXT_PUBLIC_POPO_VERSION}
             </List.Item>
           </List>
         </Container>

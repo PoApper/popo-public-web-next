@@ -5,6 +5,10 @@ FROM node:18.7-alpine AS builder
 ARG NEXT_PUBLIC_ENV
 ENV NEXT_PUBLIC_ENV ${NEXT_PUBLIC_ENV}
 
+# popo version
+ARG POPO_VERSION
+ENV NEXT_PUBLIC_POPO_VERSION ${POPO_VERSION}
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
