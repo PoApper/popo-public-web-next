@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
@@ -49,6 +49,7 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           build-args: |
             "NEXT_PUBLIC_ENV=${{ env.NEXT_PUBLIC_ENV }}"
+            "POPO_VERSION=${{ github.event.release.tag_name || github.sha }}"
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true

@@ -44,7 +44,6 @@ const PasswordResetPage = () => {
         borderRadius: 8,
       }}>
         <Message>
-          2023.08.15부터 POPO 로그인 방식이 ID/PW에서 Email/PW로 변경 되었습니다.<br/>
           POPO 가입 때 사용한 email을 이용해주세요.
         </Message>
         <Form>
