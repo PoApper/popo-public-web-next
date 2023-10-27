@@ -21,7 +21,7 @@ RUN npm run build
 RUN npm prune --production
 
 # Run Step
-FROM node:18.7-alpine AS runner
+FROM node:18.18-alpine AS runner
 
 WORKDIR /usr/src/app
 
