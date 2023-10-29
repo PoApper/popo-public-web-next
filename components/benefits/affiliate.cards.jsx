@@ -26,7 +26,7 @@ const AffiliateCards = ({affiliates}) => {
               <Card.Content>
                 <Card.Header>{affiliate.title}</Card.Header>
                 <Card.Description>
-                  {affiliate.meta_content}
+                  {affiliate.content_short}
                 </Card.Description>
               </Card.Content>
             </Card>
