@@ -1,4 +1,4 @@
-import { Container } from 'semantic-ui-react'
+import { Container, Tab } from 'semantic-ui-react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
@@ -32,11 +32,20 @@ const MyInfoPage = () => {
         <h2>내 예약</h2>
         <p>예약 제목을 클릭하면 자세한 예약 정보를 볼 수 있습니다.</p>
 
-        <h3>장소 예약</h3>
-        <MyPlaceReservationTable/>
-
-        <h3>장비 예약</h3>
-        <MyEquipReservationTable/>
+        <Tab panes={[
+          { menuItem: '장소 예약', render: () => (
+            <Tab.Pane>
+              <h3>장소 예약</h3>
+              <MyPlaceReservationTable/>
+            </Tab.Pane>
+          )},
+          { menuItem: '장비 예약', render: () => (
+            <Tab.Pane>
+              <h3>장비 예약</h3>
+              <MyEquipReservationTable/>
+            </Tab.Pane>
+          )}
+        ]}/>
       </Container>
     </Layout>
   )
