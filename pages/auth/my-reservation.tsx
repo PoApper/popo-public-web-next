@@ -35,13 +35,11 @@ const MyInfoPage = () => {
         <Tab panes={[
           { menuItem: '장소 예약', render: () => (
             <Tab.Pane>
-              <h3>장소 예약</h3>
               <MyPlaceReservationTable/>
             </Tab.Pane>
           )},
           { menuItem: '장비 예약', render: () => (
             <Tab.Pane>
-              <h3>장비 예약</h3>
               <MyEquipReservationTable/>
             </Tab.Pane>
           )}
