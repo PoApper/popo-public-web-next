@@ -13,8 +13,9 @@ type ObjectType = {
 const regionName: ObjectType = {
   'student-hall': '학생 회관',
   'jigok': '지곡 회관',
-  'others': '생활관 외',
+  'others': '기타',
   'community-center': '커뮤니티 센터',
+  'rc': 'RC',
 }
 
 const regionOptions: ObjectType = {
@@ -22,6 +23,7 @@ const regionOptions: ObjectType = {
   'jigok': 'JIGOK_CENTER',
   'others': 'OTHERS',
   'community-center': 'COMMUNITY_CENTER',
+  'rc': 'RC',
 }
 
 const PlaceRegionIndexPage: React.FunctionComponent<{

@@ -34,11 +34,20 @@ const PlaceIndexPage = () => {
           </Card>
         </Grid.Column>
         <Grid.Column>
+          <Card href={'/reservation/place/rc'} centered>
+            <Image src={'/reservation/rc.jpg'} alt={'rc'}/>
+            <Card.Content>
+              <Card.Header>RC</Card.Header>
+              <Card.Meta>Residential College</Card.Meta>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
           <Card href={'/reservation/place/others'} centered>
             <Image src={'/reservation/dormitory.jpg'} alt={'others'}/>
             <Card.Content>
-              <Card.Header>생활관 외</Card.Header>
-              <Card.Meta>Dormitory, etc.</Card.Meta>
+              <Card.Header>기타</Card.Header>
+              <Card.Meta>etc</Card.Meta>
             </Card.Content>
           </Card>
         </Grid.Column>
