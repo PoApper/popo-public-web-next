@@ -16,7 +16,7 @@ const RegionKorNameMapping = {
   JIGOK_CENTER: '지곡 회관',
   OTHERS: '기타',
   COMMUNITY_CENTER : '커뮤니티 센터',
-  RESIDENTIAL_COLLEGE: 'RESIDENTIAL_COLLEGE',
+  RESIDENTIAL_COLLEGE: 'RC',
 }
 
 const PlaceReservationCreateModal: FunctionComponent<{
