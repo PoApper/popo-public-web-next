@@ -34,7 +34,7 @@ const PlaceIndexPage = () => {
           </Card>
         </Grid.Column>
         <Grid.Column>
-          <Card href={'/reservation/place/rc'} centered>
+          <Card href={'/reservation/place/residential-college'} centered>
             <Image src={'/reservation/rc.jpg'} alt={'rc'}/>
             <Card.Content>
               <Card.Header>RC</Card.Header>
