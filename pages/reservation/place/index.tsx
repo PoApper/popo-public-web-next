@@ -5,7 +5,7 @@ const PlaceIndexPage = () => {
   return (
     <Layout>
       <h2>장소 예약</h2>
-      <Grid stackable centered columns={4}>
+      <Grid stackable centered columns={3}>
         <Grid.Column>
           <Card href={'/reservation/place/student-hall'} centered>
             <Image src={'/reservation/student_hall.jpg'} alt={'student_hall'}/>
