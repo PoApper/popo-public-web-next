@@ -88,7 +88,12 @@ const Footer = () => {
               개인정보처리방침
             </List.Item>
             <List.Item>
-              popo-{process.env.NEXT_PUBLIC_POPO_VERSION}
+              <a
+                href={`https://github.com/PoApper/popo-public-web/releases/tag/${process.env.NEXT_PUBLIC_POPO_VERSION}`}
+                target="_blank" rel="noreferrer"
+              >
+                popo-{process.env.NEXT_PUBLIC_POPO_VERSION}
+              </a>
             </List.Item>
           </List>
         </Container>
