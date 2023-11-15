@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import React from 'next/router'
-import { Container, Grid, Image } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 import Layout from '@/components/layout'
 import IconLink from '@/components/common/icon.link'
@@ -13,50 +13,51 @@ const AssociationSingleIntroducePage: React.FunctionComponent<{
 }> = ({ name, associationInfo }) => {
   return (
     <Layout>
-      <Grid>
-        <Grid.Row columns={2}>
-          <Grid.Column width={10}>
-            <h1 style={{marginBottom: 8}}>
-              {name}
-            </h1>
+      <div style={{padding: 8}}>
+        <div style={{marginBottom: 4}}>
+          <Image
+            size='small'
+            src={associationInfo.image_url ?? 'https://react.semantic-ui.com/images/wireframe/image.png'}
+            alt={`${name}_logo`}
+          />
+        </div>
 
-            <Container style={{fontSize: 18, display: 'inline-flex', gap: 2}}>
-              <IconLink link={associationInfo.homepage_url}>
-                <img src={'https://img.shields.io/badge/website-000000?style=for-the-badge'}
-                     alt={'homepage'}/>
-              </IconLink>
-              <IconLink link={associationInfo.facebook_url}>
-                <img src={'https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white'}
-                     alt={'facebook'}/>
-              </IconLink>
-              <IconLink link={associationInfo.instagram_url}>
-                <img src={'https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white'}
-                     alt={'instagram'}/>
-              </IconLink>
-            </Container>
+        <h1 style={{margin: "0"}}>
+          {name}
+        </h1>
 
-            <Container style={{fontSize: 16}}>
-              {associationInfo.content}
-            </Container>
-            <br/>
-            <Container>
-              <p>
-                <b>사무실 위치</b>: {associationInfo.location}
-              </p>
-              <p>
-                <b>대표자</b>: {associationInfo.representative}({associationInfo.contact})
-              </p>
-            </Container>
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <Image
-              centered size="small"
-              src={associationInfo.image_url ?? 'https://react.semantic-ui.com/images/wireframe/image.png'}
-              alt={`${name}_logo`}
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        <div style={{fontSize: 18}}>
+          <IconLink link={associationInfo.homepage_url}>
+            <img src={'https://img.shields.io/badge/website-000000?style=for-the-badge'}
+                  alt={'homepage'}/>
+          </IconLink>
+          <IconLink link={associationInfo.facebook_url}>
+            <img src={'https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white'}
+                  alt={'facebook'}/>
+          </IconLink>
+          <IconLink link={associationInfo.instagram_url}>
+            <img src={'https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white'}
+                  alt={'instagram'}/>
+          </IconLink>
+          <IconLink link={associationInfo.youtube_url}>
+            <img src={'https://img.shields.io/badge/Youtube-FF0000?style=for-the-badge&logo=youtube&logoColor=white'}
+                  alt={'youtube'}/>
+          </IconLink>
+        </div>
+
+        <div style={{fontSize: 16, margin: "12px 0"}}>
+          {associationInfo.content}
+        </div>
+
+        <div>
+          <p>
+            <b>사무실 위치</b>: {associationInfo.location}
+          </p>
+          <p>
+            <b>대표자</b>: {associationInfo.representative}({associationInfo.contact})
+          </p>
+        </div>
+      </div>
     </Layout>
   )
 }

@@ -22,4 +22,5 @@ export default IconLink
 const IconAnchor = styled.a`
   text-decoration: none;
   color: black;
+  margin-right: 4px;
 `
