@@ -14,7 +14,7 @@ const ClubSingleIntroducePage: React.FunctionComponent<{
 }> = ({ name, clubInfo }) => {
   return (
     <Layout>
-      <div style={{padding: 8, display: "flex", flexDirection: "column"}}>
+      <div style={{padding: 8}}>
         <div style={{marginBottom: 4}}>
           <Image
             size='small'
