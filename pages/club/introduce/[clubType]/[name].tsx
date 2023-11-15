@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import React from 'next/router'
-import { Container, Grid, Image } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 import Layout from '@/components/layout'
 import IconLink from '@/components/common/icon.link'
@@ -11,10 +11,10 @@ const ClubSingleIntroducePage: React.FunctionComponent<{
   name: string,
   clubInfo: IClubIntroduce,
   recommendations: IClubIntroduce[],
-}> = ({ name, clubInfo, recommendations }) => {
+}> = ({ name, clubInfo }) => {
   return (
     <Layout>
-      <div style={{padding: 8}}>
+      <div style={{padding: 8, display: "flex", flexDirection: "column"}}>
         <div style={{marginBottom: 4}}>
           <Image
             size='small'
@@ -71,14 +71,10 @@ export default ClubSingleIntroducePage;
 export const getServerSideProps: GetServerSideProps  = async (context) => {
   const name = context.query['name'] as string;
 
-  const res1 = await PoPoAxios.get<IClubIntroduce>(`introduce/club/name/${name}`);
-  const clubInfo = res1.data;
-
-  // const res2 = await PoPoAxios.get<IClubIntroduce[]>(`introduce/club/recommendation/${clubInfo.uuid}`);
-  const res2 = await PoPoAxios.get<IClubIntroduce[]>(`introduce/club/`);
-  const recommendations = res2.data;
+  const res = await PoPoAxios.get<IClubIntroduce>(`introduce/club/name/${name}`);
+  const clubInfo = res.data;
 
   return {
-    props: { name, clubInfo, recommendations }
+    props: { name, clubInfo }
   };
 };
