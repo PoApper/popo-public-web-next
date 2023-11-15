@@ -23,7 +23,7 @@ const ClubSingleIntroducePage: React.FunctionComponent<{
           />
         </div>
 
-        <h1 style={{margin: "0 auto"}}>
+        <h1 style={{margin: "0"}}>
           {name}
         </h1>
         <h2 style={{color: "grey", marginTop: 0}}>
