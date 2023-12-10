@@ -10,10 +10,10 @@ const NoticePanel = ({
       { 
         noticeList.map((notice) => 
         <NoticeCard key={notice.id}>
-          <div style={{fontWeight: 700, fontSize: 18}}>
+          <div style={{fontWeight: 700, fontSize: 18, textDecoration: 'none'}}>
             {
               notice.link ? (
-                <a href={notice.link} target={'_blank'}>
+                <a href={notice.link} target={'_blank'} style={{color: 'black'}}>
                   {notice.title} 
                 </a>
               ) : notice.title
