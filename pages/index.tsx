@@ -13,8 +13,10 @@ const HomePage = () => {
             <Grid.Column>
               <Container style={{fontSize: "1em"}}>
                 <h1 style={{fontFamily: "Caveat"}}>POPO, POstechian&apos;s POrtal</h1>
-                <p>이곳에서 학생회관, 지곡회관 등의 장소를 예약하고, 총학생회에서 보유한 장비들을 대여할 수 있습니다! 📋
-                  &nbsp;<Link href={"/reservation"} passHref>[장비/장소 예약]</Link>
+                <p>
+                  이곳에서 학생회관, 지곡회관 등의 장소를 예약하고, 총학생회에서 보유한 장비들을 대여할 수 있습니다! 📋 &nbsp;
+                  <Link href={"/reservation/place"} passHref>[장소 예약]</Link> &nbsp;
+                  <Link href={"/reservation/equipment"} passHref>[장비 예약]</Link>
                 </p>
                 <p>총학생회를 구성하는 자치단체에 대해 살펴볼 수 있습니다! 👀
                   &nbsp;<Link href={"/association"} passHref>[총학생회]</Link>
