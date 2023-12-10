@@ -51,8 +51,7 @@ const HomePage: React.FunctionComponent<{
 export default HomePage;
 
 export const getServerSideProps: GetServerSideProps  = async (context) => {
-  const res = await PoPoAxios.get<INotice[]>('notice');
-  // const res = await PoPoAxios.get<INotice>('notice/active');
+  const res = await PoPoAxios.get<INotice>('notice/active');
   const noticeList = res.data;
 
   return {
