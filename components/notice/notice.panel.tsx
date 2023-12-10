@@ -14,12 +14,12 @@ const NoticePanel = ({
             {
               notice.link ? (
                 <a href={notice.link} target={'_blank'} style={{color: 'black'}}>
-                  {notice.title} 
+                  {notice.title} 🔗
                 </a>
               ) : notice.title
             }
           </div>
-          <div style={{marginTop: 8}}>
+          <div style={{marginTop: 8, whiteSpace: "pre-line", textAlign: "left"}}>
             {notice.content}
           </div>
           {
