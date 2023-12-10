@@ -15,7 +15,7 @@ const HomePage: React.FunctionComponent<{
 
   return (
     <Layout>
-      <div style={{display: 'flex', gap: 8}}>
+      <HomeLayout>
         <HomeCard>
           <div style={{fontSize: "1em"}}>
             <h1 style={{fontFamily: "Caveat"}}>POPO, POstechian&apos;s POrtal</h1>
@@ -43,7 +43,7 @@ const HomePage: React.FunctionComponent<{
           </div>
         </HomeCard>
         <NoticePanel noticeList={noticeList}/>
-      </div>
+      </HomeLayout>
     </Layout>
   )
 }
@@ -59,6 +59,14 @@ export const getServerSideProps: GetServerSideProps  = async (context) => {
     props: { noticeList }
   };
 };
+
+const HomeLayout = styled.div`
+  display: flex;
+  gap: 12px;
+  @media only screen and (max-width: 780px) {
+    flex-direction: column;
+  }
+`
 
 const HomeCard = styled.div`
   background: #eeeeee;

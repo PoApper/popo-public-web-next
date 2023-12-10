@@ -6,10 +6,10 @@ const NoticePanel = ({
    noticeList 
 }: { noticeList: INotice[] }) => {
   return (
-    <div style={{flex: 1}}>
+    <div style={{flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
       { 
         noticeList.map((notice) => 
-        <HomeCard key={notice.id}>
+        <NoticeCard key={notice.id}>
           <div style={{fontWeight: 700, fontSize: 18}}>
             {
               notice.link ? (
@@ -27,7 +27,7 @@ const NoticePanel = ({
               <Image src={notice.image_url}/>
             ) : null
           }
-        </HomeCard>
+        </NoticeCard>
       )
       }
     </div>
@@ -36,9 +36,8 @@ const NoticePanel = ({
 
 export default NoticePanel;
 
-const HomeCard = styled.div`
+const NoticeCard = styled.div`
   background: #eeeeee;
   border-radius: 0.4em;
-  flex: 1;
   padding: 14px;
 `
