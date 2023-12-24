@@ -80,11 +80,13 @@ const RegisterPage = () => {
           <Form.Group widths={'equal'}>
             <Form.Input
               required
+              type={'password'}
               label={'Password'} placeholder={'8자리 이상 16자리 이하'}
               onChange={e => setPW(e.target.value)}
               error={isNotValidPassword ? '비밀번호가 너무 짧습니다.' : null}/>
             <Form.Input
               required
+              type={'password'}
               label={'Password 확인'} placeholder={'8자리 이상 16자리 이하'}
               onChange={e => setPwAgain(e.target.value)}
               error={isNotValidPasswordAgain ? '비밀번호가 일치하지 않습니다.' : null}/>
