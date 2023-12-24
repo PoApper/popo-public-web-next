@@ -53,13 +53,18 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace }>
       then(res => setUserInfo(res.data)).
       catch(() => {
         alert('로그인 후 예약 할 수 있습니다.');
-        // router.push('/auth/login')
+        router.push('/auth/login');
       })
   }, [router])
 
   function handleSubmit () {
     if (!isPossible) {
       alert(`예약이 불가능한 시간대입니다. ${placeInfo.name}의 사용 가능 시간을 확인해주세요.`);
+      return;
+    }
+
+    if (description.length < 5) {
+      alert('예약 설명이 너무 짤습니다.');
       return;
     }
 
