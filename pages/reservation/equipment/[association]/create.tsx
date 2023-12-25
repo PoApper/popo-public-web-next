@@ -58,7 +58,7 @@ const EquipReservationCreatePage: React.FunctionComponent<{
 
 
   function handleSubmit () {
-    if (description.length == 1) {
+    if (title.length == 1 || description.length == 1) {
       alert('예약 설명이 너무 짤습니다.');
       return;
     }
