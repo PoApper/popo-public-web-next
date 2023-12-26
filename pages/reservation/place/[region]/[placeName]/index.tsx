@@ -10,21 +10,20 @@ import PlaceReservationTable
 import ReservationCalendar
   from '@/components/reservation/reservation.calendar'
 import PlaceInformationCard from '@/components/reservation/place.information.card'
-import PlaceReservationCreateModal
-  from '@/components/reservation/place.reservation.create.modal'
 import { PoPoAxios } from '@/lib/axios.instance'
 import { IPlace } from '@/types/reservation.interface'
 
 const PlaceReservationPage: React.FunctionComponent<{
+  region: string,
   placeName: string,
   placeInfo: IPlace,
-}> = ({ placeName, placeInfo }) => {
+}> = ({ region, placeName, placeInfo }) => {
   const [selectedDate, setSelectedDate] = useState(moment().tz("Asia/Seoul").format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
   useEffect(() => {
-    if (!placeName) return;
+    if (!region || !placeName) return;
 
     // TODO: not retrieve all reservations on that place,
     // TODO: just search for a month, and when month change search again!
@@ -47,7 +46,9 @@ const PlaceReservationPage: React.FunctionComponent<{
         <Grid.Column width={6}>
           <PlaceInformationCard placeInfo={placeInfo}/>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <PlaceReservationCreateModal placeInfo={placeInfo}/>
+            <Link href={`/reservation/place/${region}/${placeName}/create`} passHref>
+              <Button primary>예약 신청하기</Button>
+            </Link>
             <Link href={'/auth/my-reservation'} passHref>
               <Button>내 예약 목록</Button>
             </Link>
@@ -98,12 +99,12 @@ const PlaceReservationPage: React.FunctionComponent<{
 export default PlaceReservationPage;
 
 export const getServerSideProps: GetServerSideProps  = async (context) => {
-  const { placeName } = context.query;
+  const { region, placeName } = context.query;
 
   const res = await PoPoAxios.get<IPlace[]>(`place/name/${placeName}`);
   const placeInfo = res.data;
 
   return {
-    props: { placeName, placeInfo }
+    props: { region, placeName, placeInfo }
   };
 };

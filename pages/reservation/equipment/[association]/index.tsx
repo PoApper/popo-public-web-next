@@ -11,8 +11,6 @@ import ReservationCalendar
 import EquipReservationTable
   from '@/components/reservation/equip.reservation.table'
 import EquipListTable from '@/components/reservation/equip.list.table'
-import EquipReservationCreateModal
-  from '@/components/reservation/equip.reservation.create.modal'
 import { PoPoAxios } from '@/lib/axios.instance'
 import { IEquipment } from '@/types/reservation.interface'
 
@@ -20,23 +18,23 @@ type ObjectType = {
   [key: string]: string
 }
 
-const ownerName: ObjectType = {
+const OWNER_NAME_MAP: ObjectType = {
   'dongyeon': '동아리연합회',
   'dormunion': '생활관자치회',
   'saengna': '생각나눔',
 }
 
-const ownerLocation: ObjectType = {
+const OWNER_LOCATION_MAP: ObjectType = {
   'dongyeon': '동아리연합회 사무실(학생회관 301호)',
   'dormunion': '생활관자치회 사무실(생활관 4동)',
   'saengna': '생각나눔 사무실(학생회관 108호)',
 }
 
 const EquipAssociationPage: React.FunctionComponent<{
+  association: string,
   equipmentList: IEquipment[]
-}> = ({ equipmentList }) => {
-  const router = useRouter()
-  const associationName = router.query.association as string
+}> = ({ association, equipmentList }) => {
+  const router = useRouter();
 
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
@@ -45,14 +43,14 @@ const EquipAssociationPage: React.FunctionComponent<{
   const [dongyeonContact, setDongyeonContact] = useState('');
   const startDate = moment().subtract(1, 'months').startOf('month').format('YYYYMMDD')
 
-  const associationKorName = ownerName[associationName];
-  const associationLocation = ownerLocation[associationName];
+  const associationKorName = OWNER_NAME_MAP[association];
+  const associationLocation = OWNER_LOCATION_MAP[association];
 
   useEffect(() => {
-    if (!associationName) return
+    if (!association) return
     // TODO: just search for a month, and when month change search again!
     PoPoAxios.get(
-      `/reservation-equip?owner=${associationName}&startDate=${startDate}`,
+      `/reservation-equip?owner=${association}&startDate=${startDate}`,
     ).then(res => {
       const allReservations = res.data
       const datesArr = []
@@ -70,7 +68,7 @@ const EquipAssociationPage: React.FunctionComponent<{
         setDongyeonServiceTime(res.data.dongyeon_service_time);
         setDongyeonContact(res.data.dongyeon_contact);
       })
-  }, [startDate, associationName, selectedDate])
+  }, [startDate, association, selectedDate])
 
   return (
     <Layout>
@@ -80,7 +78,7 @@ const EquipAssociationPage: React.FunctionComponent<{
         <Grid.Column width={6}>
           <EquipListTable equipments={equipmentList}/>
           {
-            associationName == "dongyeon"
+            association == "dongyeon"
               ? <p>
                   1. 물품 대여는 예약 신청 - 입금 - 입금 확인 후 가능합니다. <br/>
                   2. 예약금은 최소한 대여일 전날 입금 바랍니다. <br/>
@@ -99,10 +97,9 @@ const EquipAssociationPage: React.FunctionComponent<{
           }
 
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <EquipReservationCreateModal
-              associationName={associationName}
-              equipmentList={equipmentList}
-            />
+            <Link href={`/reservation/equipment/${association}/create`} passHref>
+              <Button primary>예약 신청하기</Button>
+            </Link>
             <Link href={'/auth/my-reservation'} passHref>
               <Button>내 예약 목록</Button>
             </Link>
@@ -120,7 +117,7 @@ const EquipAssociationPage: React.FunctionComponent<{
               </Grid.Row>
               <Grid.Row>
                 <EquipReservationTable
-                  associationName={associationName}
+                  associationName={association}
                   selectedDate={selectedDate}/>
               </Grid.Row>
             </Grid.Column>
@@ -141,6 +138,6 @@ export const getServerSideProps : GetServerSideProps  = async (context) => {
   const equipmentList = res.data;
 
   return {
-    props: { equipmentList }
+    props: { association, equipmentList }
   };
 }
