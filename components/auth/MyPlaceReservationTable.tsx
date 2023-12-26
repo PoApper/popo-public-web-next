@@ -28,8 +28,8 @@ const MyPlaceReservationTable = () => {
       <Table.Header>
         <Table.Row textAlign="center">
           <Table.HeaderCell width={1}>#</Table.HeaderCell>
-          <Table.HeaderCell width={5}>예약 제목</Table.HeaderCell>
-          <Table.HeaderCell width={5}>예약 설명</Table.HeaderCell>
+          <Table.HeaderCell width={3}>예약 제목</Table.HeaderCell>
+          <Table.HeaderCell width={3}>예약 설명</Table.HeaderCell>
           <Table.HeaderCell width={4}>예약 장소</Table.HeaderCell>
           <Table.HeaderCell width={3}>예약 기간</Table.HeaderCell>
           <Table.HeaderCell width={1}>상태</Table.HeaderCell>
