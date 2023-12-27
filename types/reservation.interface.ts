@@ -13,6 +13,7 @@ export interface IPlace {
   description: string;
   image_url?: string;
   max_minutes: number;
+  max_concurrent_reservation: number;
   opening_hours: string;
 }
 

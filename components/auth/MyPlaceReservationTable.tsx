@@ -7,6 +7,7 @@ import PlaceReservationDetailModal
   from '../reservation/place.reservation.detail.modal'
 import DeleteConfirmModal from '../common/delete.confirm.modal'
 import { PoPoAxios } from '@/lib/axios.instance'
+import Link from 'next/link'
 
 const MyPlaceReservationTable = () => {
   const [reserve_list, setReserveList] = useState<IPlaceReservation[]>([])
@@ -27,7 +28,8 @@ const MyPlaceReservationTable = () => {
       <Table.Header>
         <Table.Row textAlign="center">
           <Table.HeaderCell width={1}>#</Table.HeaderCell>
-          <Table.HeaderCell width={5}>예약 제목</Table.HeaderCell>
+          <Table.HeaderCell width={3}>예약 제목</Table.HeaderCell>
+          <Table.HeaderCell width={3}>예약 설명</Table.HeaderCell>
           <Table.HeaderCell width={4}>예약 장소</Table.HeaderCell>
           <Table.HeaderCell width={3}>예약 기간</Table.HeaderCell>
           <Table.HeaderCell width={1}>상태</Table.HeaderCell>
@@ -51,7 +53,15 @@ const MyPlaceReservationTable = () => {
                   }
                 />
 
-                <Table.Cell>{reservation.place.name}</Table.Cell>
+                <Table.Cell style={{cursor: 'pointer'}}>
+                  {reservation.description}
+                </Table.Cell>
+
+                <Table.Cell>
+                  <Link href={`/reservation/place/${reservation.place.region}/${reservation.place.name}`}>
+                    {reservation.place.name}
+                  </Link>
+                </Table.Cell>
 
                 <Table.Cell>
                   {convertDate(reservation.date)}<br/>
