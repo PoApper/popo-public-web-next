@@ -1,6 +1,17 @@
+import { useEffect, useState } from 'react'
 import Layout from '@/components/layout'
+import { PoPoAxios } from '@/lib/axios.instance'
 
 const PrivacyAndPolicyPage = () => {
+  const [popoCRMEmail, setPOPOCRMEmail] = useState('');
+  const [STUEmail, setSTUEmail] = useState('');
+
+  useEffect(() => {
+    PoPoAxios
+      .get('/setting')
+      .then(res => setSTUEmail(res.data.stu_email));
+  }, [])
+
   return (
     <Layout>
       <h2>개인정보 처리방침</h2>
@@ -111,12 +122,12 @@ const PrivacyAndPolicyPage = () => {
       <p>▶ 개인정보 보호책임자<br/>
         성명 : 고태영<br/>
         직책 : 총학생회 비상대책위원장<br/>
-        연락처 : 054-279-2621, <a href="mailto:stu-37@postech.ac.kr">stu-37@postech.ac.kr</a>,<br/>
+        연락처 : 054-279-2621, <a href={`mailto:${STUEmail}`}>{STUEmail}</a>,<br/>
         ※ 개인정보 보호 담당부서로 연결됩니다.</p>
       <p>▶ 개인정보 보호 담당부서<br/>
         부서명 : 총학생회<br/>
         담당자 : 고태영<br/>
-        연락처 : 054-279-2621, <a href="mailto:stu-37@postech.ac.kr">stu-37@postech.ac.kr</a>,</p>
+        연락처 : 054-279-2621, <a href={`mailto:${STUEmail}`}>{STUEmail}</a>,</p>
       <p>② 정보주체께서는 학생회의 서비스(또는 사업)을 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다.
         학생회는 정보주체의 문의에 대해 지체 없이 답변 및 처리해드릴 것입니다.</p>
       <p><br/>

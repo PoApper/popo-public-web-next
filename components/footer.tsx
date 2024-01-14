@@ -12,11 +12,15 @@ import { PoPoAxios } from '@/lib/axios.instance'
 
 const Footer = () => {
   const [popoCRMEmail, setPOPOCRMEmail] = useState('');
+  const [STUEmail, setSTUEmail] = useState('');
 
   useEffect(() => {
     PoPoAxios
       .get('/setting')
-      .then(res => setPOPOCRMEmail(res.data.popo_crm_email));
+      .then(res => {
+        setPOPOCRMEmail(res.data.popo_crm_email);
+        setSTUEmail(res.data.stu_email);
+      })
   }, [])
 
   return (
@@ -38,7 +42,7 @@ const Footer = () => {
                   FAX +82-54-279-2626
                 </p>
                 <p>
-                  E-mail: stu-37@postech.ac.kr<br/>
+                  E-mail: {STUEmail}<br/>
                   POPO 관련 문의: {popoCRMEmail}
                 </p>
               </small>
