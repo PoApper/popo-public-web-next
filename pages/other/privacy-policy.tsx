@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import Layout from '@/components/layout'
 import { PoPoAxios } from '@/lib/axios.instance'
 
-const PrivacyAndPolicyPage = () => {
-  const [popoCRMEmail, setPOPOCRMEmail] = useState('');
+const PrivacyPolicyPage = () => {
   const [STUEmail, setSTUEmail] = useState('');
 
   useEffect(() => {
@@ -121,7 +120,7 @@ const PrivacyAndPolicyPage = () => {
         ① 학생회는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
       <p>▶ 개인정보 보호책임자<br/>
         성명 : 고태영<br/>
-        직책 : 총학생회 비상대책위원장<br/>
+        직책 : 제38대 총학생회 회장<br/>
         연락처 : 054-279-2621, <a href={`mailto:${STUEmail}`}>{STUEmail}</a>,<br/>
         ※ 개인정보 보호 담당부서로 연결됩니다.</p>
       <p>▶ 개인정보 보호 담당부서<br/>
@@ -148,4 +147,4 @@ const PrivacyAndPolicyPage = () => {
   )
 }
 
-export default PrivacyAndPolicyPage
+export default PrivacyPolicyPage

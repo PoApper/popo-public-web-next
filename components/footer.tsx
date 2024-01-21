@@ -88,7 +88,7 @@ const Footer = () => {
 
           <Divider section style={{ marginBottom: '1vh' }}/>
           <List horizontal divided link size="small">
-            <List.Item as="a" href="/privacy-policy">
+            <List.Item as="a" href="/other/privacy-policy">
               개인정보처리방침
             </List.Item>
             <List.Item>
