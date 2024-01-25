@@ -25,6 +25,15 @@ const PlaceIndexPage = () => {
           </Card>
         </Grid.Column>
         <Grid.Column>
+          <Card href={'https://zzim.postech.ac.kr'} centered>
+            <Image src={'/reservation/library_dummy.jpg'} alt={'library'}/>
+            <Card.Content>
+              <Card.Header>박태준 학술 정보관</Card.Header>
+              <Card.Meta>Tae-joon Park Digital Library</Card.Meta>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
           <Card href={'/reservation/place/community-center'} centered>
             <Image src={'/reservation/community_center.jpg'} alt={'community_center'}/>
             <Card.Content>
