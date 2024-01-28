@@ -5,7 +5,7 @@ const PlaceIndexPage = () => {
   return (
     <Layout>
       <h2>장소 예약</h2>
-      <Grid stackable centered columns={3}>
+      <Grid stackable centered columns={3} style={{maxWidth: 900}}>
         <Grid.Column>
           <Card href={'/reservation/place/student-hall'} centered>
             <Image src={'/reservation/student_hall.jpg'} alt={'student_hall'}/>
@@ -55,21 +55,30 @@ const PlaceIndexPage = () => {
 
         </Grid.Column>
       </Grid>
+
       <h2>기타 예약</h2>
-      <Grid stackable columns={3}>
+      <Grid stackable columns={3} style={{maxWidth: 900}}>
         <Grid.Column>
-          <Card href={'https://zzim.postech.ac.kr'} centered>
+          <Card
+            href={'https://zzim.postech.ac.kr'}
+            target={'_blank'} rel={'noopener noreferrer'}
+            centered
+          >
             <Card.Content style={{'display': 'flex', 'align-items':'center'}}>
               <Icon style={{'margin-right': '10px'}} color='black' name='book'/>
               <div>
-                <Card.Header style={{'color':'black', 'font-weight':'bold'}}>박태준 학술 정보관</Card.Header>
+                <Card.Header style={{'color':'black', 'font-weight':'bold'}}>박태준 학술정보관</Card.Header>
                 <Card.Meta>Tae-joon Park Digital Library</Card.Meta>
               </div>
             </Card.Content>
           </Card>
         </Grid.Column>
         <Grid.Column>
-          <Card href={'https://povis.postech.ac.kr/'} centered>
+          <Card
+            href={'https://povis.postech.ac.kr/'}
+            target={'_blank'} rel={'noopener noreferrer'}
+            centered
+          >
             <Card.Content style={{'display': 'flex', 'align-items':'center'}}>
               <Icon style={{'margin-right': '10px'}} color='black' name='building'/>
               <div>
