@@ -13,7 +13,7 @@ const NoticePanel = ({
           <div style={{fontWeight: 700, fontSize: 18, textDecoration: 'none'}}>
             {
               notice.link ? (
-                <a href={notice.link} target={'_blank'} style={{color: 'black'}}>
+                <a href={notice.link} target={'_blank'} rel={'noopener noreferrer'} style={{color: 'black'}}>
                   {notice.title} 🔗
                 </a>
               ) : notice.title

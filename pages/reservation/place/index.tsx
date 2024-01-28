@@ -74,7 +74,7 @@ const PlaceIndexPage = () => {
               <Icon style={{'margin-right': '10px'}} color='black' name='building'/>
               <div>
                 <Card.Header style={{'color':'black', 'font-weight':'bold'}}>강의실 및 체육시설</Card.Header>
-                <Card.Meta>POVIS 신고신청 > 시설이용</Card.Meta>
+                <Card.Meta>POVIS 신고신청 {'>'} 시설이용</Card.Meta>
               </div>
             </Card.Content>
           </Card>
