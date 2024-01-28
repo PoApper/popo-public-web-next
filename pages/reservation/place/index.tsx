@@ -51,6 +51,9 @@ const PlaceIndexPage = () => {
             </Card.Content>
           </Card>
         </Grid.Column>
+        <Grid.Column>
+
+        </Grid.Column>
       </Grid>
       <h2>기타 예약</h2>
       <Grid stackable columns={3}>
@@ -61,6 +64,17 @@ const PlaceIndexPage = () => {
               <div>
                 <Card.Header style={{'color':'black', 'font-weight':'bold'}}>박태준 학술 정보관</Card.Header>
                 <Card.Meta>Tae-joon Park Digital Library</Card.Meta>
+              </div>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href={'https://povis.postech.ac.kr/'} centered>
+            <Card.Content style={{'display': 'flex', 'align-items':'center'}}>
+              <Icon style={{'margin-right': '10px'}} color='black' name='building'/>
+              <div>
+                <Card.Header style={{'color':'black', 'font-weight':'bold'}}>강의실 및 체육시설</Card.Header>
+                <Card.Meta>POVIS 신고신청 > 시설이용</Card.Meta>
               </div>
             </Card.Content>
           </Card>
