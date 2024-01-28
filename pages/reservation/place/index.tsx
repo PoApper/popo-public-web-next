@@ -1,4 +1,4 @@
-import { Card, Grid, Image } from 'semantic-ui-react'
+import { Card, Grid, Icon, Image } from 'semantic-ui-react'
 import Layout from '@/components/layout'
 
 const PlaceIndexPage = () => {
@@ -21,15 +21,6 @@ const PlaceIndexPage = () => {
             <Card.Content>
               <Card.Header>지곡회관</Card.Header>
               <Card.Meta>Ji-gok Community Center</Card.Meta>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
-        <Grid.Column>
-          <Card href={'https://zzim.postech.ac.kr'} centered>
-            <Image src={'/reservation/library_dummy.jpg'} alt={'library'}/>
-            <Card.Content>
-              <Card.Header>박태준 학술 정보관</Card.Header>
-              <Card.Meta>Tae-joon Park Digital Library</Card.Meta>
             </Card.Content>
           </Card>
         </Grid.Column>
@@ -57,6 +48,20 @@ const PlaceIndexPage = () => {
             <Card.Content>
               <Card.Header>기타</Card.Header>
               <Card.Meta>etc</Card.Meta>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+      </Grid>
+      <h2>기타 예약</h2>
+      <Grid stackable columns={3}>
+        <Grid.Column>
+          <Card href={'https://zzim.postech.ac.kr'} centered>
+            <Card.Content style={{'display': 'flex', 'align-items':'center'}}>
+              <Icon style={{'margin-right': '10px'}} color='black' name='book'/>
+              <div>
+                <Card.Header style={{'color':'black', 'font-weight':'bold'}}>박태준 학술 정보관</Card.Header>
+                <Card.Meta>Tae-joon Park Digital Library</Card.Meta>
+              </div>
             </Card.Content>
           </Card>
         </Grid.Column>
