@@ -24,7 +24,7 @@ const NoticePanel = ({
           </div>
           {
             notice.image_url ? (
-              <Image src={notice.image_url}/>
+              <Image src={notice.image_url} alt={notice.title}/>
             ) : null
           }
         </NoticeCard>

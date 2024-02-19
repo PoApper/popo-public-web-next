@@ -8,14 +8,14 @@ const DeleteConfirmModal = (props: any) => {
     const [open, setOpen] = useState(props.open)
 
     const handleDelete = async () => {
-        try {
-            await PoPoAxios.delete(`/${deleteURI}`,
-                { withCredentials: true })
+        PoPoAxios.delete(`/${deleteURI}`, { withCredentials: true })
+        .then(() => {
             window.location.reload()
-        } catch (e) {
-            alert('삭제에 실패했습니다.')
-            console.log(e)
-        }
+        })
+        .catch((err) => {
+            const errMsg = err.response.data.message;
+            alert(`삭제에 실패했습니다.\n${errMsg}`);
+        })
     }
 
     return (

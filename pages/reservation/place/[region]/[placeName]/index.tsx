@@ -38,7 +38,7 @@ const PlaceReservationPage: React.FunctionComponent<{
       }
       setMarkedDates(datesArr)
     })
-  }, [startDate, placeName, selectedDate])
+  }, [region, placeName, startDate, selectedDate])
 
   return (
     <Layout>
