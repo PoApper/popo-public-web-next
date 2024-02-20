@@ -6,20 +6,27 @@ import styled from 'styled-components'
 import { PoPoAxios } from '@/lib/axios.instance'
 import { IPlaceReservation } from '@/types/reservation.interface'
 
+type ReservationCalendarProps = {
+  markedDates: Date[],
+  selectedDate: string,
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>,
+  placeName: string,
+}
+
 const ReservationCalendar = ({
   markedDates,
   selectedDate,
   setSelectedDate,
   placeName,
-}) => {
+}: ReservationCalendarProps) => {
   const [reservations, setReservations] = useState<IPlaceReservation[]>([])
 
-  const handleTileContent = ({ date, _ }) => {
-    let color = null;
+  const handleTileContent = ({ date, _ }:{date: Date, _:any}) => {
+    let color = "#ffffff";
     let height = null; 
     let border_radius = null;
 
-    if (markedDates.find((x) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
+    if (markedDates.find((x:any) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
       color = "#f2711c";
     }
 
@@ -51,7 +58,7 @@ const ReservationCalendar = ({
   return (
     <StyledCalendar
       formatDay={(_, date) => moment(date).format('DD')}
-      onChange={(value, _) => setSelectedDate(moment(value).format('YYYYMMDD'))}
+      onChange={(value:any, _) => setSelectedDate(moment(value).format('YYYYMMDD'))}
       defaultValue={moment(selectedDate).toDate()}
       view={"month"}
       prev2Label={null}
@@ -69,7 +76,7 @@ const StyledCalendar = styled(Calendar)`
   font-size: 1.2rem;
 `
 
-const CellDot = styled.div`
+const CellDot = styled.div<{color:string; height:string; border_radius:string}>`
   height: ${props => props.height};
   width: 8px;
   background-color: ${props => props.color};
