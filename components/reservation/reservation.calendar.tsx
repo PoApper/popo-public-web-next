@@ -21,9 +21,9 @@ const ReservationCalendar = ({
 }: ReservationCalendarProps) => {
   const [reservations, setReservations] = useState<IPlaceReservation[]>([])
 
-  const handleTileContent = ({ date, _ }:{date: Date, _:any}) => {
+  const handleTileContent = ({ date, _ }:{date:string, _:any}) => {
     let color = "#ffffff";
-    let height = null; 
+    let height = null; let width=null;
     let border_radius = null;
 
     if (markedDates.find((x:any) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
@@ -32,8 +32,9 @@ const ReservationCalendar = ({
 
     if (placeName == "equip") {
       height = "8px";
+      width = "8px";
       border_radius = "50%";
-      return <CellDot color={color} height={height} border_radius={border_radius} />;
+      return <CellDot color={color} height={height} width={width} border_radius={border_radius} />;
     }
 
     PoPoAxios.get(
@@ -42,17 +43,18 @@ const ReservationCalendar = ({
 
     let crowded = null;
     crowded = reservations.length;
-    console.log(crowded);
     
-    if (crowded < 10 ) { 
-      height = "4px";
+    if (crowded < 3 ) { 
+      height = "8px";
+      width = "4px";
       border_radius = "4px 0 0 4px";
     }
     else {
       height = "8px";
+      width = "8px";
       border_radius = "50%";
     }
-    return <CellDot color={color} height={height} border_radius={border_radius} />;
+    return <CellDot color={color} height={height} width={width} border_radius={border_radius} />;
   }
 
   return (
@@ -76,9 +78,9 @@ const StyledCalendar = styled(Calendar)`
   font-size: 1.2rem;
 `
 
-const CellDot = styled.div<{color:string; height:string; border_radius:string}>`
+const CellDot = styled.div<{color:string; height:string; width:string; border_radius:string}>`
   height: ${props => props.height};
-  width: 8px;
+  width: ${props => props.width};
   background-color: ${props => props.color};
   border-radius: ${props => props.border_radius};
   display: flex;
