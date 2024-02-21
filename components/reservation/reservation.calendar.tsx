@@ -21,7 +21,7 @@ const ReservationCalendar = ({
 }: ReservationCalendarProps) => {
   const [reservations, setReservations] = useState<IPlaceReservation[]>([])
 
-  const handleTileContent = ({ date, _ }:{date:string, _:any}) => {
+  const handleTileContent = ({ date, _ }:{date:Date, _:any}) => {
     let color = "#ffffff";
     let height = null; let width=null;
     let border_radius = null;
@@ -39,11 +39,11 @@ const ReservationCalendar = ({
     
     try {
       PoPoAxios.get(
-      `/reservation-place/placeName/${placeName}/${date}`,
+      `/reservation-place/placeName/${placeName}/${moment(date).format('YYYYMMDD')}`,
       ).then(res => setReservations(res.data))
     } catch (e) {
       alert('Failed to load reservations')
-      console.log(e)
+      console.log("[DEBUG]", placeName, moment(date).format('YYYYMMDD'))
     }
     
 
