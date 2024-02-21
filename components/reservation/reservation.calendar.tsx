@@ -25,6 +25,7 @@ const ReservationCalendar = ({
     let color = "#ffffff";
     let height = null; let width=null;
     let border_radius = null;
+    let crowded = 0;
 
     if (markedDates.find((x:any) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
       color = "#f2711c";
@@ -40,15 +41,12 @@ const ReservationCalendar = ({
     try {
       PoPoAxios.get(
       `/reservation-place/placeName/${placeName}/${moment(date).format('YYYYMMDD')}`,
-      ).then(res => setReservations(res.data))
+      ).then(res => {crowded = res.data.length})
+      
     } catch (e) {
       alert('Failed to load reservations')
       console.log("[DEBUG]", placeName, moment(date).format('YYYYMMDD'))
     }
-    
-
-    let crowded = null;
-    crowded = reservations.length;
     
     if (crowded < 3 ) { 
       height = "8px";
