@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import Calendar from 'react-calendar'
 import styled from 'styled-components'
 
 import { PoPoAxios } from '@/lib/axios.instance'
-import { IPlaceReservation } from '@/types/reservation.interface'
 
 type ReservationCalendarProps = {
   markedDates: Date[],
@@ -19,44 +18,54 @@ const ReservationCalendar = ({
   setSelectedDate,
   placeName,
 }: ReservationCalendarProps) => {
-  const [reservations, setReservations] = useState<IPlaceReservation[]>([])
+  const [crowdedMap, setCrowdedMap] = useState<Map<string, number>>(new Map());
 
-  const handleTileContent = ({ date, _ }:{date:Date, _:any}) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const requests = markedDates.map(async (date) => {
+        try {
+          const res = await PoPoAxios.get(`/reservation-place/placeName/${placeName}/${moment(date).format('YYYYMMDD')}`);
+          return [moment(date).format('YYYY-MM-DD'), res.data.length] as const;
+        } catch (error) {
+          console.log("Faild to load reservation in ", placeName, "on", moment(date).format('YYYYMMDD'));
+          return null;
+        }
+      });
+
+      const results = await Promise.all(requests);
+      const mapArray = results.filter(result => result !== null && result !== undefined) as Array<[string, number]>;
+      const map = new Map<string, number>(mapArray);
+      setCrowdedMap(map);
+    };
+
+    fetchData();
+  }, [markedDates, placeName]);
+
+  const handleTileContent = ({ date, _ }: { date: Date; _: any }) => {
     let color = "#ffffff";
     let height = null; let width=null;
     let border_radius = null;
-    let crowded = 0;
 
     if (markedDates.find((x:any) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
       color = "#f2711c";
     }
 
+    const crowded = crowdedMap.get(moment(date).format('YYYY-MM-DD'));
     if (placeName == "equip") {
       height = "8px";
       width = "8px";
       border_radius = "50%";
-      return <CellDot color={color} height={height} width={width} border_radius={border_radius} />;
-    }
-    
-    try {
-      PoPoAxios.get(
-      `/reservation-place/placeName/${placeName}/${moment(date).format('YYYYMMDD')}`,
-      ).then(res => {crowded = res.data.length})
-      
-    } catch (e) {
-      alert('Failed to load reservations')
-      console.log("[DEBUG]", placeName, moment(date).format('YYYYMMDD'))
-    }
-    
-    if (crowded < 3 ) { 
-      height = "8px";
-      width = "4px";
-      border_radius = "4px 0 0 4px";
-    }
-    else {
-      height = "8px";
-      width = "8px";
-      border_radius = "50%";
+    } else {
+      if (crowded && crowded < 3) {
+        height = "8px";
+        width = "4px";
+        border_radius = "4px 0 0 4px";
+      } 
+      else {
+        height = "8px";
+        width = "8px";
+        border_radius = "50%";
+      }
     }
     return <CellDot color={color} height={height} width={width} border_radius={border_radius} />;
   }
