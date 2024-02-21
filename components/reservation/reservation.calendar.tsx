@@ -36,10 +36,16 @@ const ReservationCalendar = ({
       border_radius = "50%";
       return <CellDot color={color} height={height} width={width} border_radius={border_radius} />;
     }
-
-    PoPoAxios.get(
+    
+    try {
+      PoPoAxios.get(
       `/reservation-place/placeName/${placeName}/${date}`,
       ).then(res => setReservations(res.data))
+    } catch (e) {
+      alert('Failed to load reservations')
+      console.log(e)
+    }
+    
 
     let crowded = null;
     crowded = reservations.length;
