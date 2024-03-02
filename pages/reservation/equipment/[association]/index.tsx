@@ -97,7 +97,7 @@ const EquipAssociationPage: React.FunctionComponent<{
           }
 
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <Link href={`/reservation/equipment/${association}/create`} passHref>
+            <Link href={`/reservation/equipment/${association}/create?selectedDate=${selectedDate}`} passHref>
               <Button primary>예약 신청하기</Button>
             </Link>
             <Link href={'/auth/my-reservation'} passHref>
