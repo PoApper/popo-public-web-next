@@ -21,8 +21,7 @@ const RegionKorNameMapping = {
 
 const PlaceReservationCreateModal: FunctionComponent<{
   placeInfo: IPlace,
-  SelectedDate: string,
-}> = ({ placeInfo, SelectedDate }) => {
+}> = ({ placeInfo }) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
@@ -37,7 +36,7 @@ const PlaceReservationCreateModal: FunctionComponent<{
   const now: moment.Moment = roundUpByDuration(moment(), 30);
   const nowNext30Min: moment.Moment = moment(now).add(30, 'minute');
 
-  const [date, setDate] = useState<moment.Moment>(moment(SelectedDate, 'YYYYMMDD')) // YYYY-MM-DD
+  const [date, setDate] = useState<moment.Moment>(now) // YYYY-MM-DD
   const [startTime, setStartTime] = useState<moment.Moment>(now) // HHmm
   const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
 
