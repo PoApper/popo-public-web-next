@@ -21,8 +21,9 @@ const RegionKorNameMapping = {
   RESIDENTIAL_COLLEGE: 'RC',
 }
 
-const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace }> = ({ placeInfo }) => {
+const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, selectedDate: string }> = ({ placeInfo, selectedDate }) => {
   const router = useRouter()
+
 
   const [userInfo, setUserInfo] = useState<IUser | null>({
     name: '',
@@ -35,9 +36,10 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace }>
   const now: moment.Moment = roundUpByDuration(moment(), 30);
   const nowNext30Min: moment.Moment = moment(now).add(30, 'minute');
 
-  const [date, setDate] = useState<moment.Moment>(now) // YYYY-MM-DD
+  const [date, setDate] = useState<moment.Moment>(moment(selectedDate)) // YYYY-MM-DD
   const [startTime, setStartTime] = useState<moment.Moment>(now) // HHmm
   const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
+
 
   const isPossible = isOnOpeningHours(
     placeInfo.opening_hours,
@@ -161,12 +163,12 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace }>
 export default PlaceReservationCreatePage;
 
 export const getServerSideProps: GetServerSideProps  = async (context) => {
-  const { placeName } = context.query;
+  const { placeName, selectedDate } = context.query;
 
   const res = await PoPoAxios.get<IPlace[]>(`place/name/${placeName}`);
   const placeInfo = res.data;
 
   return {
-    props: { placeName, placeInfo }
+    props: { placeName, placeInfo, selectedDate }
   };
 };
