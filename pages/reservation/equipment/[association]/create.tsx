@@ -24,7 +24,8 @@ const OWNER_NAME_MAP: ObjectType = {
 const EquipReservationCreatePage: React.FunctionComponent<{
   association: string,
   equipmentList: IEquipment[]
-}> = ({ association, equipmentList }) => {
+  selectedDate: string
+}> = ({ association, equipmentList, selectedDate }) => {
   const router = useRouter()
 
   const [userInfo, setUserInfo] = useState<IUser | null>({
@@ -40,7 +41,7 @@ const EquipReservationCreatePage: React.FunctionComponent<{
   const now: moment.Moment = roundUpByDuration(moment(), 30);
   const nowNext30Min: moment.Moment = moment(now).add(30, 'minute');
 
-  const [date, setDate] = useState<moment.Moment>(now) // YYYY-MM-DD
+  const [date, setDate] = useState<moment.Moment>(moment(selectedDate)) // YYYY-MM-DD
   const [startTime, setStartTime] = useState<moment.Moment>(now) // HHmm
   const [endTime, setEndTime] = useState<moment.Moment>(nowNext30Min) // HHmm
 
@@ -161,12 +162,12 @@ const EquipReservationCreatePage: React.FunctionComponent<{
 export default EquipReservationCreatePage;
 
 export const getServerSideProps : GetServerSideProps  = async (context) => {
-  const { association } = context.query;
+  const { association, selectedDate } = context.query;
 
   const res = await PoPoAxios.get<IEquipment[]>(`equip/owner/${association}`);
   const equipmentList = res.data;
 
   return {
-    props: { association, equipmentList }
+    props: { association, equipmentList, selectedDate }
   };
 }
