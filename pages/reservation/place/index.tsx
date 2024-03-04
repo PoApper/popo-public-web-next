@@ -88,6 +88,20 @@ const PlaceIndexPage = () => {
             </Card.Content>
           </Card>
         </Grid.Column>
+        <Grid.Column>
+          <Card
+            href={'tel:054-279-3860'}
+            centered
+          >
+            <Card.Content style={{'display': 'flex', 'align-items':'center'}}>
+              <Icon style={{'margin-right': '10px'}} color='black' name='home'/>
+              <div>
+                <Card.Header style={{'color':'black', 'font-weight':'bold'}}>통나무집</Card.Header>
+                <Card.Meta>054-279-3860</Card.Meta>
+              </div>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
       </Grid>
     </Layout>
   )
