@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { Divider, Form, Message } from 'semantic-ui-react'
+import { Divider, Form, Grid, Message } from 'semantic-ui-react'
 import moment from 'moment'
 
 import { IPlace } from '@/types/reservation.interface'
@@ -12,6 +12,7 @@ import { isOnOpeningHours } from '@/lib/opening_hours'
 import { hourDiff, roundUpByDuration } from '@/lib/time-date'
 import ReservationDatetimePicker from '@/components/reservation/reservation.datetime.picker'
 import OpeningHoursList from '@/components/reservation/opening_hours.list'
+import PlaceReservationTable from '@/components/reservation/place.reservation.table'
 
 const RegionKorNameMapping = {
   STUDENT_HALL: '학생 회관',
@@ -21,7 +22,7 @@ const RegionKorNameMapping = {
   RESIDENTIAL_COLLEGE: 'RC',
 }
 
-const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, selectedDate: string }> = ({ placeInfo, selectedDate }) => {
+const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, selectedDate: string, placeName: string }> = ({ placeInfo, selectedDate, placeName }) => {
   const router = useRouter()
 
 
@@ -141,6 +142,13 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
             <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
           </div>
         </div>
+        
+        <Grid.Row>
+          <PlaceReservationTable
+            placeName={placeName}
+            selectedDate={selectedDate}
+          />
+        </Grid.Row>
 
         <Message>
           <Message.Header>예약 장소와 예약 시간을 꼭 확인해주세요!</Message.Header>
