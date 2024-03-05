@@ -121,6 +121,13 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
 
         <Divider/>
 
+        <div className={'field'} style={{maxWidth: 240}}>
+          <label>사용 가능 시간</label>
+          <div style={{color: 'gray'}}>
+            <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
+          </div>
+        </div>
+
         <Form.Group>
           <ReservationDatetimePicker
             date={date} startTime={startTime} endTime={endTime}
@@ -135,20 +142,16 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
             </Message>
           )
         }
-
-        <div className={'field'} style={{maxWidth: 240}}>
-          <label>사용 가능 시간</label>
-          <div style={{color: 'gray'}}>
-            <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
-          </div>
-        </div>
         
-        <Grid.Row>
-          <PlaceReservationTable
-            placeName={placeName}
-            selectedDate={date.format('YYYYMMDD')}
-          />
-        </Grid.Row>
+        <div className={'field'}>
+          <label>예약 현황</label>
+          <Grid.Row>
+            <PlaceReservationTable
+              placeName={placeName}
+              selectedDate={date.format('YYYYMMDD')}
+              />
+          </Grid.Row>
+        </div>
 
         <Message>
           <Message.Header>예약 장소와 예약 시간을 꼭 확인해주세요!</Message.Header>
