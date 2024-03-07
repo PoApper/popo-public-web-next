@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { Divider, Form, Grid, Message } from 'semantic-ui-react'
+import { Divider, Form, Message } from 'semantic-ui-react'
 import moment from 'moment'
 
 import { IPlace } from '@/types/reservation.interface'

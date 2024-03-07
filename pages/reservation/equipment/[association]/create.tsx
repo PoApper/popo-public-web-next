@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { Divider, Form, Grid, Message } from 'semantic-ui-react'
+import { Divider, Form, Message } from 'semantic-ui-react'
 
 import { hourDiff, roundUpByDuration } from '@/lib/time-date'
 import Layout from '@/components/layout'
