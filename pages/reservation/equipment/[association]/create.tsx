@@ -145,12 +145,12 @@ const EquipReservationCreatePage: React.FunctionComponent<{
         
         <div className={'field'}>
           <label>예약 현황</label>
-          <Grid.Row>
+          <div>
             <EquipReservationTable
               associationName={association}
               selectedDate={date.format('YYYYMMDD')}
               />
-          </Grid.Row>
+          </div>
         </div>
 
         <Message>

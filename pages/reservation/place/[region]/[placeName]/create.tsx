@@ -145,12 +145,12 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
         
         <div className={'field'}>
           <label>예약 현황</label>
-          <Grid.Row>
+          <div>
             <PlaceReservationTable
               placeName={placeName}
               selectedDate={date.format('YYYYMMDD')}
               />
-          </Grid.Row>
+          </div>
         </div>
 
         <Message>
