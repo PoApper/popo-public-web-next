@@ -12,6 +12,7 @@ import { isOnOpeningHours } from '@/lib/opening_hours'
 import { hourDiff, roundUpByDuration } from '@/lib/time-date'
 import ReservationDatetimePicker from '@/components/reservation/reservation.datetime.picker'
 import OpeningHoursList from '@/components/reservation/opening_hours.list'
+import PlaceReservationTable from '@/components/reservation/place.reservation.table'
 
 const RegionKorNameMapping = {
   STUDENT_HALL: '학생 회관',
@@ -21,7 +22,7 @@ const RegionKorNameMapping = {
   RESIDENTIAL_COLLEGE: 'RC',
 }
 
-const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, selectedDate: string }> = ({ placeInfo, selectedDate }) => {
+const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, selectedDate: string, placeName: string }> = ({ placeInfo, selectedDate, placeName }) => {
   const router = useRouter()
 
 
@@ -120,6 +121,13 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
 
         <Divider/>
 
+        <div className={'field'} style={{maxWidth: 240}}>
+          <label>사용 가능 시간</label>
+          <div style={{color: 'gray'}}>
+            <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
+          </div>
+        </div>
+
         <Form.Group>
           <ReservationDatetimePicker
             date={date} startTime={startTime} endTime={endTime}
@@ -134,11 +142,14 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
             </Message>
           )
         }
-
-        <div className={'field'} style={{maxWidth: 240}}>
-          <label>사용 가능 시간</label>
-          <div style={{color: 'gray'}}>
-            <OpeningHoursList openingHours={JSON.parse(placeInfo.opening_hours)}/>
+        
+        <div className={'field'}>
+          <label>예약 현황</label>
+          <div>
+            <PlaceReservationTable
+              placeName={placeName}
+              selectedDate={date.format('YYYYMMDD')}
+              />
           </div>
         </div>
 

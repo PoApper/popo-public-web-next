@@ -10,6 +10,7 @@ import { PoPoAxios } from '@/lib/axios.instance'
 import { IEquipment } from '@/types/reservation.interface'
 import { IUser } from '@/types/user.interface'
 import ReservationDatetimePicker from '@/components/reservation/reservation.datetime.picker'
+import EquipReservationTable from '@/components/reservation/equip.reservation.table'
 
 type ObjectType = {
   [key: string]: string
@@ -141,6 +142,16 @@ const EquipReservationCreatePage: React.FunctionComponent<{
             setDate={setDate} setStartTime={setStartTime} setEndTime={setEndTime}
           />
         </Form.Group>
+        
+        <div className={'field'}>
+          <label>예약 현황</label>
+          <div>
+            <EquipReservationTable
+              associationName={association}
+              selectedDate={date.format('YYYYMMDD')}
+              />
+          </div>
+        </div>
 
         <Message>
           <Message.Header>예약한 장비의 예약비를 꼭 확인해주세요!</Message.Header>
