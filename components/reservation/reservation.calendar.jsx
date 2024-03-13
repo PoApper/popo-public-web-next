@@ -16,6 +16,8 @@ const ReservationCalendar = ({
       view={"month"}
       prev2Label={null}
       next2Label={null}
+      minDate={moment().subtract(1, 'month').startOf('month').toDate()}
+      maxDate={moment().add(30, 'day').toDate()}
       tileContent={({ date, _ }) => {
         let color = null;
         if (markedDates.find((x) => moment(x).format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))) {
