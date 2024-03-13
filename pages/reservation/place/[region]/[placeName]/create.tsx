@@ -55,6 +55,8 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
       catch(() => {
+        if (process.env.NEXT_PUBLIC_ENV === 'local')
+          return;
         alert('로그인 후 예약 할 수 있습니다.');
         router.push('/auth/login');
       })
@@ -142,7 +144,7 @@ const PlaceReservationCreatePage: React.FunctionComponent<{ placeInfo: IPlace, s
             </Message>
           )
         }
-        
+
         <div className={'field'}>
           <label>예약 현황</label>
           <div>

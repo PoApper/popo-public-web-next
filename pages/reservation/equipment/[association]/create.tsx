@@ -53,6 +53,8 @@ const EquipReservationCreatePage: React.FunctionComponent<{
       { withCredentials: true }).
       then(res => setUserInfo(res.data)).
       catch(() => {
+        if (process.env.NEXT_PUBLIC_ENV === 'local')
+          return;
         alert('로그인 후 예약 할 수 있습니다.');
         router.push('/auth/login');
       })
@@ -142,7 +144,7 @@ const EquipReservationCreatePage: React.FunctionComponent<{
             setDate={setDate} setStartTime={setStartTime} setEndTime={setEndTime}
           />
         </Form.Group>
-        
+
         <div className={'field'}>
           <label>예약 현황</label>
           <div>
