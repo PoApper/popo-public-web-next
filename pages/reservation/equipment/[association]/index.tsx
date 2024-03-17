@@ -36,6 +36,8 @@ const EquipAssociationPage: React.FunctionComponent<{
 }> = ({ association, equipmentList }) => {
   const router = useRouter();
 
+  const sortedEquipList = equipmentList.sort((a, b) => { return a.name > b.name ? 1 : -1 })
+
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYYMMDD'))
   const [markedDates, setMarkedDates] = useState<Date[]>([])
   const [dongyeonBank, setDongyeonBank] = useState('')
@@ -76,7 +78,7 @@ const EquipAssociationPage: React.FunctionComponent<{
       <Grid columns={2} divided stackable>
 
         <Grid.Column width={6}>
-          <EquipListTable equipments={equipmentList}/>
+          <EquipListTable equipments={sortedEquipList}/>
           {
             association == "dongyeon"
               ? <p>

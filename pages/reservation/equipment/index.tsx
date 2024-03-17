@@ -27,7 +27,7 @@ const EquipmentIndexPage = () => {
             </Card.Content>
           </Card>
         </Grid.Column>
-        <Grid.Column>
+        {/* <Grid.Column>
           <Card href={'/reservation/equipment/saengna'} centered>
             <LogoImage src={'/reservation/saengna.jpg'} alt={'saengna'}/>
             <Card.Content>
@@ -35,7 +35,7 @@ const EquipmentIndexPage = () => {
               <Card.Meta>Committee Advisory Council</Card.Meta>
             </Card.Content>
           </Card>
-        </Grid.Column>
+        </Grid.Column> */}
       </Grid>
     </Layout>
   )
