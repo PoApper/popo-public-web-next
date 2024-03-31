@@ -15,6 +15,7 @@ export interface IPlace {
   max_minutes: number;
   max_concurrent_reservation: number;
   opening_hours: string;
+  total_reservation_count: number;
 }
 
 export interface IEquipment {

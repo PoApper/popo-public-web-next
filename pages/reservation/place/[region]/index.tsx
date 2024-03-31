@@ -1,10 +1,11 @@
 import React from 'next/router'
-import { Button, Card, Icon } from 'semantic-ui-react'
+import { Button, Card, Icon, Select } from 'semantic-ui-react'
 
 import Layout from '@/components/layout'
 import { IPlace } from '@/types/reservation.interface'
 import { PoPoAxios } from '@/lib/axios.instance'
 import { GetServerSideProps } from 'next'
+import { useState } from 'react'
 
 type ObjectType = {
   [key: string]: string
@@ -26,17 +27,43 @@ const regionOptions: ObjectType = {
   'residential-college': 'RESIDENTIAL_COLLEGE',
 }
 
+const SelectClubTypeOptions = [
+  { key: 'alphabetic', value: 'alphabetic', text: '가나다순' },
+  { key: 'popular', value: 'popular', text: '예약 많은 순' },
+]
+
 const PlaceRegionIndexPage: React.FunctionComponent<{
   region: string,
   placeList: IPlace[]
 }> = ({ region, placeList }) => {
+  const [selectedSortType, setSelectedSortType] = useState('alphabetic')
+
+  const sortedPlaceList = placeList.sort((a, b) => {
+    if (selectedSortType === 'alphabetic') {
+      return a.name > b.name ? 1 : -1
+    } else if (selectedSortType === 'popular') {
+      return a.total_reservation_count < b.total_reservation_count ? 1 : -1
+    } else {
+      return 0
+    }
+  })
+
   return (
     <Layout>
       <div>
         <h1>{regionName[region]} - 장소 예약하기</h1>
+        <div style={{marginBottom: 16, textAlign: 'right'}}>
+          <Select
+            value={selectedSortType}
+            options={SelectClubTypeOptions}
+            // @ts-ignore
+            onChange={(e, { value }) => setSelectedSortType(value)}
+          />
+        </div>
+        
         <Card.Group>
           {
-            placeList.map(place => {
+            sortedPlaceList.map(place => {
               return (
                 <Card fluid key={place.uuid}>
                   <Card.Content>
