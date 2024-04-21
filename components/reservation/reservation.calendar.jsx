@@ -11,14 +11,14 @@ const ReservationCalendar = ({
   return (
     <StyledCalendar
       formatDay={(_, date) => moment(date).format('DD')}
-      onChange={(value, _) => setSelectedDate(moment(value).format('YYYYMMDD'))}
+      onChange={(value) => setSelectedDate(moment(value).format('YYYYMMDD'))}
       defaultValue={moment(selectedDate).toDate()}
       view={'month'}
       prev2Label={null}
       next2Label={null}
       minDate={moment().subtract(1, 'month').startOf('month').toDate()}
       maxDate={moment().add(30, 'day').toDate()}
-      tileContent={({ date, _ }) => {
+      tileContent={({ date }) => {
         let color = null;
         if (
           markedDates.find(

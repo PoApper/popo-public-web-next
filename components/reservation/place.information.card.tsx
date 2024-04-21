@@ -1,9 +1,8 @@
 import { Card, Image } from 'semantic-ui-react';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { IPlace } from '@/types/reservation.interface';
 import OpeningHoursList from './opening_hours.list';
-import { PoPoAxios } from '@/lib/axios.instance';
 
 const PlaceInformationCard: FunctionComponent<{
   placeInfo: IPlace;

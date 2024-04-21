@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { Image } from 'semantic-ui-react';
 import Link from 'next/link';
 import styled from 'styled-components';
-
+import React from 'react';
 import Layout from '@/components/layout';
 import { INotice } from '@/types/notice.interface';
 import { PoPoAxios } from '@/lib/axios.instance';
@@ -67,7 +67,7 @@ const HomePage: React.FunctionComponent<{
 
 export default HomePage;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await PoPoAxios.get<INotice>('notice/active');
   const noticeList = res.data;
 

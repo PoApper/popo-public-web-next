@@ -176,7 +176,9 @@ const EquipReservationCreatePage: React.FunctionComponent<{
           </Message.Header>
           <p>
             {selectedEquipments.length}개 장비, {hourDiff(startTime, endTime)}
-            시간 예약, 총 예약비는 <b>{Number(feeSum).toLocaleString()}원</b>{' '}
+            시간 예약, 총 예약비는 <b>
+              {Number(feeSum).toLocaleString()}원
+            </b>{' '}
             입니다.
           </p>
         </Message>

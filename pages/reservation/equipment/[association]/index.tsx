@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Button, Grid } from 'semantic-ui-react';
 
@@ -32,8 +31,6 @@ const EquipAssociationPage: React.FunctionComponent<{
   association: string;
   equipmentList: IEquipment[];
 }> = ({ association, equipmentList }) => {
-  const router = useRouter();
-
   const sortedEquipList = equipmentList.sort((a, b) => {
     return a.name > b.name ? 1 : -1;
   });

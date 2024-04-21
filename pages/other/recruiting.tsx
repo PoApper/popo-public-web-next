@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container, Icon, Popup } from 'semantic-ui-react';
+import { Container, Icon, Popup, Image } from 'semantic-ui-react';
 import Layout from '@/components/layout';
 
 const RecruitingPage = () => {
@@ -59,19 +59,19 @@ const RecruitingPage = () => {
               <strong>Developed With</strong>
             </p>
             <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
-              <img
+              <Image
                 src={
                   'https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white'
                 }
                 alt={'nestjs'}
               />
-              <img
+              <Image
                 src={
                   'https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white'
                 }
                 alt={'nextjs'}
               />
-              <img
+              <Image
                 src={
                   'https://img.shields.io/badge/Semantic%20UI%20React-%2335BDB2.svg?style=for-the-badge&logo=SemanticUIReact&logoColor=white'
                 }
@@ -79,13 +79,13 @@ const RecruitingPage = () => {
               />
             </div>
             <div style={{ display: 'flex', gap: 12 }}>
-              <img
+              <Image
                 src={
                   'https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white'
                 }
                 alt={'aws'}
               />
-              <img
+              <Image
                 src={
                   'https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white'
                 }
