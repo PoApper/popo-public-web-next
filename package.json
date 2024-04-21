@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3000",
+    "format": "prettier --write .",
     "lint": "next lint"
   },
   "dependencies": {
