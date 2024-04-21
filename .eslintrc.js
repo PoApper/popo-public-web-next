@@ -16,8 +16,4 @@ module.exports = {
     'plugin:@next/next/recommended',
     'next/core-web-vitals',
   ],
-  rules: {
-    // 'react/prop-types': 'off',
-    // 'react/react-in-jsx-scope': 'off',
-  },
 };
