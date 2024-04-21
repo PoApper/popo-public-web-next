@@ -3,7 +3,7 @@ services:
   dev:
     image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:latest
     ports:
-     - 5000:3000
+      - 5000:3000
     logging:
       driver: local
       options:
@@ -13,13 +13,13 @@ services:
         swarmpit.service.deployment.autoredeploy: 'true'
       placement:
         constraints:
-         - node.role != manager
-         - node.labels.application == popo
+          - node.role != manager
+          - node.labels.application == popo
   prod:
     # Prod Image Tag should be updated manually
     image: 151345152001.dkr.ecr.ap-northeast-2.amazonaws.com/popo-public-web:vX.X.X
     ports:
-     - 3000:3000
+      - 3000:3000
     logging:
       driver: local
       options:
@@ -29,5 +29,5 @@ services:
         swarmpit.service.deployment.autoredeploy: 'true'
       placement:
         constraints:
-         - node.role != manager
-         - node.labels.application == popo
+          - node.role != manager
+          - node.labels.application == popo

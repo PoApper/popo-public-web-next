@@ -1,10 +1,8 @@
-import { Image, Modal, Table } from 'semantic-ui-react'
+import { Image, Modal, Table } from 'semantic-ui-react';
 
-import { IEquipment } from '@/types/reservation.interface'
+import { IEquipment } from '@/types/reservation.interface';
 
-const EquipListTable = ({ equipments }: {
-  equipments: IEquipment[];
-}) => {
+const EquipListTable = ({ equipments }: { equipments: IEquipment[] }) => {
   return (
     <Table>
       <Table.Header>
@@ -15,31 +13,35 @@ const EquipListTable = ({ equipments }: {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {
-          equipments.map((equipment: any, idx: number) =>
-            <Modal
-              key={idx}
-              size={'mini'}
-              trigger={
-                <Table.Row>
-                  <Table.Cell>{idx + 1}</Table.Cell>
-                  <Table.Cell>{equipment.name}</Table.Cell>
-                  <Table.Cell>{equipment.fee.toLocaleString()}</Table.Cell>
-                </Table.Row>
-              }>
-              <Modal.Content>
-                <Image src={equipment.image_url ?? 'https://via.placeholder.com/200?text=NoImage'}
-                  alt={`${equipment.name}_logo`}/>
-                  <pre style={{whiteSpace: "pre-wrap"}}>
-                    {equipment.description}
-                  </pre>
-              </Modal.Content>
-            </Modal>,
-          )
-        }
+        {equipments.map((equipment: any, idx: number) => (
+          <Modal
+            key={idx}
+            size={'mini'}
+            trigger={
+              <Table.Row>
+                <Table.Cell>{idx + 1}</Table.Cell>
+                <Table.Cell>{equipment.name}</Table.Cell>
+                <Table.Cell>{equipment.fee.toLocaleString()}</Table.Cell>
+              </Table.Row>
+            }
+          >
+            <Modal.Content>
+              <Image
+                src={
+                  equipment.image_url ??
+                  'https://via.placeholder.com/200?text=NoImage'
+                }
+                alt={`${equipment.name}_logo`}
+              />
+              <pre style={{ whiteSpace: 'pre-wrap' }}>
+                {equipment.description}
+              </pre>
+            </Modal.Content>
+          </Modal>
+        ))}
       </Table.Body>
     </Table>
-  )
-}
+  );
+};
 
-export default EquipListTable
+export default EquipListTable;
