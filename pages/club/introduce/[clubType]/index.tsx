@@ -1,52 +1,55 @@
-import React from 'next/router'
-import { Container, Image } from 'semantic-ui-react'
+import React from 'next/router';
+import { Container, Image } from 'semantic-ui-react';
 
-import Layout from '@/components/layout'
-import { PoPoAxios } from '@/lib/axios.instance'
-import { GetServerSideProps } from 'next'
-import { IClubIntroduce } from '@/types/introduce.interface'
-import styled from 'styled-components'
+import Layout from '@/components/layout';
+import { PoPoAxios } from '@/lib/axios.instance';
+import { GetServerSideProps } from 'next';
+import { IClubIntroduce } from '@/types/introduce.interface';
+import styled from 'styled-components';
 
 const ClubTypeIndexPage: React.FunctionComponent<{
-  clubType: string,
-  clubList: IClubIntroduce[]
+  clubType: string;
+  clubList: IClubIntroduce[];
 }> = ({ clubType, clubList }) => {
   return (
     <Layout>
       <IntroduceGrid>
-        {
-          clubList.map(clubInfo =>
-            <Container
-              key={clubInfo.uuid}
-              style={{width: "12em", lineHeight: "12em"}}
-            >
-              <Image
-                centered size="small"
-                href={`/club/introduce/${clubType}/${clubInfo.name}`}
-                src={clubInfo.image_url ?? 'https://react.semantic-ui.com/images/wireframe/image.png'}
-                alt={`${clubInfo.name}_logo`}
-              />
-              <h4 style={{margin: "5px 0 0"}}>{clubInfo.name}</h4>
-              <p style={{color: 'gray'}}>{clubInfo.short_desc}</p>
-            </Container>
-          )
-        }
+        {clubList.map((clubInfo) => (
+          <Container
+            key={clubInfo.uuid}
+            style={{ width: '12em', lineHeight: '12em' }}
+          >
+            <Image
+              centered
+              size="small"
+              href={`/club/introduce/${clubType}/${clubInfo.name}`}
+              src={
+                clubInfo.image_url ??
+                'https://react.semantic-ui.com/images/wireframe/image.png'
+              }
+              alt={`${clubInfo.name}_logo`}
+            />
+            <h4 style={{ margin: '5px 0 0' }}>{clubInfo.name}</h4>
+            <p style={{ color: 'gray' }}>{clubInfo.short_desc}</p>
+          </Container>
+        ))}
       </IntroduceGrid>
     </Layout>
-  )
+  );
+};
 
-}
+export default ClubTypeIndexPage;
 
-export default ClubTypeIndexPage
-
-export const getServerSideProps: GetServerSideProps  = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const clubType = context.query['clubType'] as string;
 
-  const res = await PoPoAxios.get<IClubIntroduce[]>(`/introduce/club/clubType/${clubType}`);
+  const res = await PoPoAxios.get<IClubIntroduce[]>(
+    `/introduce/club/clubType/${clubType}`,
+  );
   const clubList = res.data;
 
   return {
-    props: { clubType, clubList }
+    props: { clubType, clubList },
   };
 };
 
@@ -60,4 +63,4 @@ const IntroduceGrid = styled.div`
   @media only screen and (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
-`
+`;

@@ -3,13 +3,13 @@
  * For `React Component Props`, use `type`
  * For other object-like or class-like stuffs, use `interface`
  */
-import { IUser } from './user.interface'
+import { IUser } from './user.interface';
 
 export interface IPlace {
   uuid: string;
   name: string;
   region: string;
-  location: string,
+  location: string;
   description: string;
   image_url?: string;
   max_minutes: number;

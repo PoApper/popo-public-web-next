@@ -1,17 +1,18 @@
-import { Button, Icon, Modal, Segment } from 'semantic-ui-react'
-import { useState } from 'react'
-import moment from 'moment'
-import DeleteConfirmModal from '../common/delete.confirm.modal'
+import { Button, Icon, Modal, Segment } from 'semantic-ui-react';
+import { useState } from 'react';
+import moment from 'moment';
+import DeleteConfirmModal from '../common/delete.confirm.modal';
 
 // @ts-ignore
-const PlaceReservationDetailModal = ({reservation, trigger}) => {
-  const [open, setOpen] = useState(false)
+const PlaceReservationDetailModal = ({ reservation, trigger }) => {
+  const [open, setOpen] = useState(false);
 
   return (
     <Modal
       closeIcon
-      size={"small"}
-      open={open} trigger={trigger}
+      size={'small'}
+      open={open}
+      trigger={trigger}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
     >
@@ -20,40 +21,29 @@ const PlaceReservationDetailModal = ({reservation, trigger}) => {
         <Segment.Group>
           <Segment>
             <h4>장소</h4>
-            <div>
-              {reservation.place.name}
-            </div>
+            <div>{reservation.place.name}</div>
           </Segment>
           <Segment>
             <h4>전화번호</h4>
-            <div>
-              {reservation.phone}
-            </div>
+            <div>{reservation.phone}</div>
           </Segment>
           <Segment>
             <h4>예약 제목</h4>
-            <div>
-              {reservation.title}
-            </div>
+            <div>{reservation.title}</div>
           </Segment>
           <Segment>
             <h4>설명</h4>
-            <div>
-              {reservation.description}
-            </div>
+            <div>{reservation.description}</div>
           </Segment>
           <Segment>
             <h4>예약 기간</h4>
             <div>
               <b>
-                {moment(reservation.date, 'YYYYMMDD').
-                  format('YYYY-MM-DD')}
+                {moment(reservation.date, 'YYYYMMDD').format('YYYY-MM-DD')}
                 &nbsp;
-                {moment(reservation.start_time, 'HHmm').
-                  format('HH:mm')}
+                {moment(reservation.start_time, 'HHmm').format('HH:mm')}
                 &nbsp;~&nbsp;
-                {moment(reservation.end_time, 'HHmm').
-                  format('HH:mm')}
+                {moment(reservation.end_time, 'HHmm').format('HH:mm')}
               </b>
             </div>
           </Segment>
@@ -72,16 +62,15 @@ const PlaceReservationDetailModal = ({reservation, trigger}) => {
               deleteURI={`reservation-place/${reservation.uuid}`}
               trigger={
                 <Button negative>
-                  <Icon name={'trash'}/> 예약 삭제
+                  <Icon name={'trash'} /> 예약 삭제
                 </Button>
               }
             />
           </Button.Group>
         </Modal.Actions>
-
       </Modal.Content>
     </Modal>
-  )
-}
+  );
+};
 
-export default PlaceReservationDetailModal
+export default PlaceReservationDetailModal;
