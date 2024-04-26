@@ -1,5 +1,5 @@
 # Buile Step
-FROM node:20.9-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /usr/src/app
 
