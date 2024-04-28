@@ -44,7 +44,9 @@ const ReservationCalendar = ({
           height = '4px';
           borderRadius = '50%';
         }
-        return <CellDot color={color} height={height} borderRadius={borderRadius}/>;
+        return (
+          <CellDot color={color} height={height} borderRadius={borderRadius} />
+        );
       }}
     />
   );
