@@ -20,6 +20,8 @@ const ReservationCalendar = ({
       maxDate={moment().add(30, 'day').toDate()}
       tileContent={({ date }) => {
         let color = null;
+        let height = null;
+        let borderRadius = null;
         if (
           markedDates.find(
             (x) =>
@@ -29,7 +31,20 @@ const ReservationCalendar = ({
         ) {
           color = '#f2711c';
         }
-        return <CellDot color={color} />;
+        if (
+          markedDates.filter(
+            (x) =>
+              moment(x).format('YYYY-MM-DD') ===
+              moment(date).format('YYYY-MM-DD'),
+          ).length > 1
+        ) {
+          height = '8px';
+          borderRadius = '50%';
+        } else {
+          height = '4px';
+          borderRadius = '50%';
+        }
+        return <CellDot color={color} height={height} borderRadius={borderRadius}/>;
       }}
     />
   );
@@ -44,10 +59,10 @@ const StyledCalendar = styled(Calendar)`
 `;
 
 const CellDot = styled.div`
-  height: 8px;
+  height: ${(props) => props.height};
   width: 8px;
   background-color: ${(props) => props.color};
-  border-radius: 50%;
+  border-radius: ${(props) => props.borderRadius};
   display: flex;
   margin: 2px auto;
 `;
