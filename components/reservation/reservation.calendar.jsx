@@ -20,6 +20,7 @@ const ReservationCalendar = ({
       maxDate={moment().add(30, 'day').toDate()}
       tileContent={({ date }) => {
         let color = null;
+        let crowded = null;
         if (
           markedDates.find(
             (x) =>
@@ -29,7 +30,48 @@ const ReservationCalendar = ({
         ) {
           color = '#f2711c';
         }
-        return <CellDot color={color} />;
+        crowded = markedDates.filter(
+          (x) =>
+            moment(x).format('YYYY-MM-DD') ===
+            moment(date).format('YYYY-MM-DD'),
+        ).length;
+        if (crowded >= 3) {
+          return (
+            <CellDots>
+              <CellDots>
+                {[0, 1, 2].map((index) => (
+                  <CellDot
+                    key={index}
+                    color={color}
+                    margin={`2px ${index === 2 ? 'auto' : '0'} 0 ${
+                      index === 0 ? 'auto' : '0'
+                    }`}
+                  />
+                ))}
+              </CellDots>
+            </CellDots>
+          );
+        } else if (crowded >= 2) {
+          return (
+            <CellDots>
+              {[0, 1].map((index) => (
+                <CellDot
+                  key={index}
+                  color={color}
+                  margin={`2px ${index === 1 ? 'auto' : '0'} 0 ${
+                    index === 0 ? 'auto' : '0'
+                  }`}
+                />
+              ))}
+            </CellDots>
+          );
+        } else {
+          return (
+            <CellDots>
+              <CellDot color={color} margin={'2px auto'} />
+            </CellDots>
+          );
+        }
       }}
     />
   );
@@ -48,6 +90,12 @@ const CellDot = styled.div`
   width: 8px;
   background-color: ${(props) => props.color};
   border-radius: 50%;
+  margin: ${(props) => props.margin};
+`;
+
+const CellDots = styled.div`
   display: flex;
-  margin: 2px auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
