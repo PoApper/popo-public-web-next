@@ -35,53 +35,59 @@ const ReservationCalendar = ({
             moment(x).format('YYYY-MM-DD') ===
             moment(date).format('YYYY-MM-DD'),
         ).length;
-        if (crowded > 4) {
+        if (crowded > 3) {
+          return (
+            <CellDots>
+              <CellDot
+                color={color}
+                width={'8px'}
+                height={'8px'}
+                borderRadius={'50%'}
+                margin={'2px auto'}
+              />
+              <CellDot
+                color={color}
+                width={'8px'}
+                height={'8px'}
+                borderRadius={'50%'}
+                margin={'2px auto'}
+              />
+              <CellDot
+                color={color}
+                width={'8px'}
+                height={'8px'}
+                borderRadius={'50%'}
+                margin={'2px auto'}
+              />
+            </CellDots>
+          );
+        } else if (crowded > 2) {
+          return (
+            <CellDots>
+              <CellDot
+                color={color}
+                width={'8px'}
+                height={'8px'}
+                borderRadius={'50%'}
+                margin={'2px auto'}
+              />
+              <CellDot
+                color={color}
+                width={'8px'}
+                height={'8px'}
+                borderRadius={'50%'}
+                margin={'2px auto'}
+              />
+            </CellDots>
+          );
+        } else {
           return (
             <CellDot
               color={color}
               width={'8px'}
               height={'8px'}
               borderRadius={'50%'}
-              margin={'2px 0 0 0'}
-            />
-          );
-        } else if (crowded > 3) {
-          return (
-            <CellDots>
-              <CellDot
-                color={color}
-                width={'4px'}
-                height={'4px'}
-                borderRadius={'0 4px 0 0'}
-                margin={'2px 0 0 4px'}
-              />
-              <CellDot
-                color={color}
-                width={'8px'}
-                height={'4px'}
-                borderRadius={'0 0 4px 4px'}
-                margin={'0 0 0 0'}
-              />
-            </CellDots>
-          );
-        } else if (crowded > 2) {
-          return (
-            <CellDot
-              color={color}
-              width={'4px'}
-              height={'8px'}
-              borderRadius={'0 4px 4px 0'}
-              margin={'2px 0 0 4px'}
-            />
-          );
-        } else {
-          return (
-            <CellDot
-              color={color}
-              width={'4px'}
-              height={'4px'}
-              borderRadius={'0 4px 0 0'}
-              margin={'2px 0 4px 4px'}
+              margin={'2px auto'}
             />
           );
         }
@@ -108,6 +114,5 @@ const CellDot = styled.div`
 
 const CellDots = styled.div`
   display: flex;
-  flex-direction: column;
-  align-content:;
+  flex-direction: row;
 `;
