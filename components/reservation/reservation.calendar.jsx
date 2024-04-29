@@ -20,8 +20,7 @@ const ReservationCalendar = ({
       maxDate={moment().add(30, 'day').toDate()}
       tileContent={({ date }) => {
         let color = null;
-        let height = null;
-        let borderRadius = null;
+        let crowded = null;
         if (
           markedDates.find(
             (x) =>
@@ -31,22 +30,61 @@ const ReservationCalendar = ({
         ) {
           color = '#f2711c';
         }
-        if (
-          markedDates.filter(
-            (x) =>
-              moment(x).format('YYYY-MM-DD') ===
-              moment(date).format('YYYY-MM-DD'),
-          ).length > 1
-        ) {
-          height = '8px';
-          borderRadius = '50%';
+        crowded = markedDates.filter(
+          (x) =>
+            moment(x).format('YYYY-MM-DD') ===
+            moment(date).format('YYYY-MM-DD'),
+        ).length;
+        if (crowded > 4) {
+          return (
+            <CellDot
+              color={color}
+              width={'8px'}
+              height={'8px'}
+              borderRadius={'50%'}
+              margin={'2px 0 0 0'}
+            />
+          );
+        } else if (crowded > 3) {
+          return (
+            <CellDots>
+              <CellDot
+                color={color}
+                width={'4px'}
+                height={'4px'}
+                borderRadius={'0 4px 0 0'}
+                margin={'2px 0 0 4px'}
+              />
+              <CellDot
+                color={color}
+                width={'8px'}
+                height={'4px'}
+                borderRadius={'0 0 4px 4px'}
+                margin={'0 0 0 0'}
+              />
+            </CellDots>
+          );
+        } else if (crowded > 2) {
+          return (
+            <CellDot
+              color={color}
+              width={'4px'}
+              height={'8px'}
+              borderRadius={'0 4px 4px 0'}
+              margin={'2px 0 0 4px'}
+            />
+          );
         } else {
-          height = '4px';
-          borderRadius = '50%';
+          return (
+            <CellDot
+              color={color}
+              width={'4px'}
+              height={'4px'}
+              borderRadius={'0 4px 0 0'}
+              margin={'2px 0 4px 4px'}
+            />
+          );
         }
-        return (
-          <CellDot color={color} height={height} borderRadius={borderRadius} />
-        );
       }}
     />
   );
@@ -62,9 +100,14 @@ const StyledCalendar = styled(Calendar)`
 
 const CellDot = styled.div`
   height: ${(props) => props.height};
-  width: 8px;
+  width: ${(props) => props.width};
   background-color: ${(props) => props.color};
   border-radius: ${(props) => props.borderRadius};
+  margin: ${(props) => props.margin};
+`;
+
+const CellDots = styled.div`
   display: flex;
-  margin: 2px auto;
+  flex-direction: column;
+  align-content:;
 `;
