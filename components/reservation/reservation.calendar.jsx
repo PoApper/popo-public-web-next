@@ -39,7 +39,7 @@ const ReservationCalendar = ({
           return (
             <CellDots>
               <CellDots>
-                {[0, 1, 2].map((_, index) => (
+                {[0, 1, 2].map((index) => (
                   <CellDot
                     key={index}
                     color={color}
