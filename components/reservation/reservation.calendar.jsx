@@ -35,7 +35,7 @@ const ReservationCalendar = ({
             moment(x).format('YYYY-MM-DD') ===
             moment(date).format('YYYY-MM-DD'),
         ).length;
-        if (crowded > 3) {
+        if (crowded >= 3) {
           return (
             <CellDots>
               <CellDot
@@ -61,7 +61,7 @@ const ReservationCalendar = ({
               />
             </CellDots>
           );
-        } else if (crowded > 2) {
+        } else if (crowded >= 2) {
           return (
             <CellDots>
               <CellDot
