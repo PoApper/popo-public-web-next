@@ -43,21 +43,21 @@ const ReservationCalendar = ({
                 width={'8px'}
                 height={'8px'}
                 borderRadius={'50%'}
-                margin={'2px auto'}
+                margin={'2px 0 0 auto'}
               />
               <CellDot
                 color={color}
                 width={'8px'}
                 height={'8px'}
                 borderRadius={'50%'}
-                margin={'2px auto'}
+                margin={'2px 0 0 0'}
               />
               <CellDot
                 color={color}
                 width={'8px'}
                 height={'8px'}
                 borderRadius={'50%'}
-                margin={'2px auto'}
+                margin={'2px auto 0 0'}
               />
             </CellDots>
           );
@@ -69,14 +69,14 @@ const ReservationCalendar = ({
                 width={'8px'}
                 height={'8px'}
                 borderRadius={'50%'}
-                margin={'2px auto'}
+                margin={'2px 0 0 auto'}
               />
               <CellDot
                 color={color}
                 width={'8px'}
                 height={'8px'}
                 borderRadius={'50%'}
-                margin={'2px auto'}
+                margin={'2px auto 0 0'}
               />
             </CellDots>
           );
@@ -115,4 +115,5 @@ const CellDot = styled.div`
 const CellDots = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
