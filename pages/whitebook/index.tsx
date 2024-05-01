@@ -36,6 +36,7 @@ const WhiteBookIndexPage = () => {
         야생의 POSTECH에서 살아남기 위한 생활 백서! 📚 <br />
         카카오톡 플러스친구 &apos;POSTECH 생활백서&apos;를 통해서도 이용하실 수
         있습니다 😉
+        [DEBUG]
       </p>
       <CardDiv>
         {whitebookList.map((card: any) => {
