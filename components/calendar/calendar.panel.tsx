@@ -8,11 +8,24 @@ const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
   return (
     <div style={{ marginBottom: 12 }}>
       <NoticeCard>
-        <div style={{ fontWeight: 700, fontSize: 36, textDecoration: 'none', marginBottom: 12 }}>
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: 36,
+            textDecoration: 'none',
+            marginBottom: 12,
+          }}
+        >
           {dDay ? `D-${dDay}` : 'D-Day'}
         </div>
         <div>
-            {nextEvent.title} ({moment(nextEvent.start_date).format('M월 D일')})
+          {nextEvent.title}
+          <br />(
+          {nextEvent.start_date === nextEvent.end_date
+            ? `${moment(nextEvent.start_date).format('M월 D일')}`
+            : `${moment(nextEvent.start_date).format('M월 D일')} ~ ` +
+              `${moment(nextEvent.end_date).format('M월 D일')}`}
+          )
         </div>
       </NoticeCard>
     </div>
