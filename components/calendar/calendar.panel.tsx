@@ -19,9 +19,7 @@ const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
         </div>
         <div>
           {nextEvent.title}
-          <br />(
-          {`${moment(nextEvent.event_date).format('M월 D일')}`}
-          )
+          <br />({`${moment(nextEvent.event_date).format('M월 D일')}`})
         </div>
       </NoticeCard>
     </div>
