@@ -3,8 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
-  console.log(nextEvent);
-  const dDay = moment(nextEvent.start_date).diff(moment(), 'days');
+  const dDay = moment(nextEvent.event_date).diff(moment(), 'days');
   return (
     <div style={{ marginBottom: 12 }}>
       <NoticeCard>
@@ -21,10 +20,7 @@ const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
         <div>
           {nextEvent.title}
           <br />(
-          {nextEvent.start_date === nextEvent.end_date
-            ? `${moment(nextEvent.start_date).format('M월 D일')}`
-            : `${moment(nextEvent.start_date).format('M월 D일')} ~ ` +
-              `${moment(nextEvent.end_date).format('M월 D일')}`}
+          {`${moment(nextEvent.event_date).format('M월 D일')}`}
           )
         </div>
       </NoticeCard>
