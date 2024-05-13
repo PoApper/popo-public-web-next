@@ -7,10 +7,13 @@ import Layout from '@/components/layout';
 import { INotice } from '@/types/notice.interface';
 import { PoPoAxios } from '@/lib/axios.instance';
 import NoticePanel from '@/components/notice/notice.panel';
+import { ICalendar } from '@/types/calendar.interface';
+import CalendarPanel from '@/components/calendar/calendar.panel';
 
 const HomePage: React.FunctionComponent<{
   noticeList: INotice[];
-}> = ({ noticeList }) => {
+  nextEvent: ICalendar;
+}> = ({ noticeList, nextEvent }) => {
   const isDayTime = 9 <= new Date().getHours() && new Date().getHours() <= 18;
 
   return (
@@ -59,7 +62,10 @@ const HomePage: React.FunctionComponent<{
             />
           </div>
         </HomeCard>
-        <NoticePanel noticeList={noticeList} />
+        <div>
+          <CalendarPanel nextEvent={nextEvent} />
+          <NoticePanel noticeList={noticeList} />
+        </div>
       </HomeLayout>
     </Layout>
   );
@@ -71,8 +77,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const res = await PoPoAxios.get<INotice>('notice/active');
   const noticeList = res.data;
 
+  const res2 = await PoPoAxios.get<ICalendar>('calendar/get-next-event');
+  const nextEvent = res2.data;
+
   return {
-    props: { noticeList },
+    props: { noticeList, nextEvent },
   };
 };
 
