@@ -3,7 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
-  const dDay = moment(nextEvent.event_date).diff(moment(), 'days');
+  const dDay = moment(nextEvent.event_date).diff(moment().format('YYYY-MM-DD'), 'days');
   return (
     <div style={{ marginBottom: 12 }}>
       <NoticeCard>
