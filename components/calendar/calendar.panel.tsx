@@ -1,9 +1,14 @@
-import { ICalendar } from '@/types/calendar.interface';
 import moment from 'moment';
+import 'moment/locale/ko';
 import styled from 'styled-components';
 
+import { ICalendar } from '@/types/calendar.interface';
+
 const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
-  const dDay = moment(nextEvent.event_date).diff(moment(), 'days');
+  const dDay = moment(nextEvent.event_date).diff(
+    moment().format('YYYY-MM-DD'),
+    'days',
+  );
   return (
     <div style={{ marginBottom: 12 }}>
       <NoticeCard>
@@ -19,7 +24,7 @@ const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
         </div>
         <div>
           {nextEvent.title}
-          <br />({`${moment(nextEvent.event_date).format('M월 D일')}`})
+          <br />({`${moment(nextEvent.event_date).format('MM월 DD일 dddd')}`})
         </div>
       </NoticeCard>
     </div>
