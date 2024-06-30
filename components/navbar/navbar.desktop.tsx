@@ -5,79 +5,84 @@ import MenuItemUser from './menu.item.user';
 
 const NavbarDesktop = () => {
   return (
-    <>
-      <NavbarNav>
-        <NavbarDiv>
-          <NavbarMenu borderless>
+    <NavbarNav>
+      <NavbarDiv>
+        <NavbarMenu borderless>
+          <Menu.Item style={{ paddingLeft: 0 }}>
             <Link href={'/'} passHref>
-              <Menu.Item style={{ paddingLeft: 0 }}>
-                <span style={{ textAlign: 'center' }}>
-                  <Image
-                    centered
-                    src={'/popo.svg'}
-                    alt={'logo'}
-                    size={'small'}
-                  />
-                  <PopoFullText>Postechian&apos;s Portal</PopoFullText>
-                </span>
-              </Menu.Item>
+              <span style={{ textAlign: 'center' }}>
+                <Image centered src={'/popo.svg'} alt={'logo'} size={'small'} />
+                <PopoFullText>Postechian&apos;s Portal</PopoFullText>
+              </span>
             </Link>
+          </Menu.Item>
 
-            <Dropdown item simple text="장소/장비 예약">
-              <Dropdown.Menu>
+          <Dropdown item simple text="장소/장비 예약">
+            <Dropdown.Menu>
+              <Dropdown.Item>
                 <Link href={'/reservation/place'} passHref>
-                  <Dropdown.Item as="a" text={'장소 예약'} />
+                  장소 예약
                 </Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
                 <Link href={'/reservation/equipment'} passHref>
-                  <Dropdown.Item as="a" text={'장비 예약'} />
+                  장비 예약
                 </Link>
-              </Dropdown.Menu>
-            </Dropdown>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
 
-            <Dropdown item simple text="총학생회">
-              <Dropdown.Menu>
+          <Dropdown item simple text="총학생회">
+            <Dropdown.Menu>
+              <Dropdown.Item>
                 <Link href={'/association'} passHref>
-                  <Dropdown.Item as="a" text={'자치단체 소개'} />
+                  자치단체 소개
                 </Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
                 <Link href={'/benefits'} passHref>
-                  <Dropdown.Item as="a" text={'제휴 및 할인업체 소개'} />
+                  제휴 및 할인업체 소개
                 </Link>
-                <Dropdown.Item
-                  text={'총학생회 기록물관리기관'}
-                  target="_blank"
-                  href={
-                    'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'
-                  }
-                />
-              </Dropdown.Menu>
-            </Dropdown>
+              </Dropdown.Item>
+              <Dropdown.Item
+                text={'총학생회 기록물관리기관'}
+                target="_blank"
+                href={
+                  'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'
+                }
+              />
+            </Dropdown.Menu>
+          </Dropdown>
 
-            <Dropdown item simple text="동아리">
-              <Dropdown.Menu>
+          <Dropdown item simple text="동아리">
+            <Dropdown.Menu>
+              <Dropdown.Item>
                 <Link href={'/club'} passHref>
-                  <Dropdown.Item as="a" text={'동아리 소개'} />
+                  동아리 소개
                 </Link>
-              </Dropdown.Menu>
-            </Dropdown>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
 
-            <Dropdown item simple text="생활백서">
-              <Dropdown.Menu>
+          <Dropdown item simple text="생활백서">
+            <Dropdown.Menu>
+              <Dropdown.Item>
                 <Link href={'/whitebook'} passHref>
-                  <Dropdown.Item as="a" text={'생활백서'} />
+                  생활백서
                 </Link>
-                <Dropdown.Item
-                  text={'배달업체'}
-                  href={'http://delivery.postech.ac.kr/'}
-                  target={'_blank'}
-                />
-              </Dropdown.Menu>
-            </Dropdown>
+              </Dropdown.Item>
+              <Dropdown.Item
+                text={'배달업체'}
+                href={'http://delivery.postech.ac.kr/'}
+                target={'_blank'}
+              />
+            </Dropdown.Menu>
+          </Dropdown>
 
-            <MenuItemUser />
-          </NavbarMenu>
-        </NavbarDiv>
-      </NavbarNav>
-    </>
+          <MenuItemUser />
+        </NavbarMenu>
+      </NavbarDiv>
+    </NavbarNav>
   );
 };
 

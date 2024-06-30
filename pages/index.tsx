@@ -62,7 +62,7 @@ const HomePage: React.FunctionComponent<{
             />
           </div>
         </HomeCard>
-        <div>
+        <div style={{ flex: 1 }}>
           <CalendarPanel nextEvent={nextEvent} />
           <NoticePanel noticeList={noticeList} />
         </div>

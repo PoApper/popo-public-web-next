@@ -68,12 +68,16 @@ const LoginPage = () => {
         </Form>
 
         <List horizontal divided link size="small">
-          <Link href={'/auth/password/reset'} passHref>
-            <List.Item as="a" content={'비밀번호 찾기'} />
-          </Link>
-          <Link href={'/auth/register'} passHref>
-            <List.Item as="a" content={'회원가입'} />
-          </Link>
+          <List.Item>
+            <Link href={'/auth/password/reset'} passHref>
+              비밀번호 찾기
+            </Link>
+          </List.Item>
+          <List.Item>
+            <Link href={'/auth/register'} passHref>
+              회원가입
+            </Link>
+          </List.Item>
         </List>
       </Container>
     </Layout>
