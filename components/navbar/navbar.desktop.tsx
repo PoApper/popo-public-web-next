@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Dropdown, Image, Menu } from 'semantic-ui-react';
+import { Dropdown, Icon, Image, Menu } from 'semantic-ui-react';
 import Link from 'next/link';
 import MenuItemUser from './menu.item.user';
 
@@ -7,80 +7,12 @@ const NavbarDesktop = () => {
   return (
     <NavbarNav>
       <NavbarDiv>
-        <NavbarMenu borderless>
-          <Menu.Item style={{ paddingLeft: 0 }}>
-            <Link href={'/'} passHref>
-              <span style={{ textAlign: 'center' }}>
-                <Image centered src={'/popo.svg'} alt={'logo'} size={'small'} />
-                <PopoFullText>Postechian&apos;s Portal</PopoFullText>
-              </span>
-            </Link>
-          </Menu.Item>
-
-          <Dropdown item simple text="장소/장비 예약">
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                <Link href={'/reservation/place'} passHref>
-                  장소 예약
-                </Link>
-              </Dropdown.Item>
-              <Dropdown.Item>
-                <Link href={'/reservation/equipment'} passHref>
-                  장비 예약
-                </Link>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <Dropdown item simple text="총학생회">
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                <Link href={'/association'} passHref>
-                  자치단체 소개
-                </Link>
-              </Dropdown.Item>
-              <Dropdown.Item>
-                <Link href={'/benefits'} passHref>
-                  제휴 및 할인업체 소개
-                </Link>
-              </Dropdown.Item>
-              <Dropdown.Item
-                text={'총학생회 기록물관리기관'}
-                target="_blank"
-                href={
-                  'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'
-                }
-              />
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <Dropdown item simple text="동아리">
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                <Link href={'/club'} passHref>
-                  동아리 소개
-                </Link>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <Dropdown item simple text="생활백서">
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                <Link href={'/whitebook'} passHref>
-                  생활백서
-                </Link>
-              </Dropdown.Item>
-              <Dropdown.Item
-                text={'배달업체'}
-                href={'http://delivery.postech.ac.kr/'}
-                target={'_blank'}
-              />
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <MenuItemUser />
-        </NavbarMenu>
+        <MobileDiv>
+          <MobileNav />
+        </MobileDiv>
+        <DesktopDiv>
+          <DesktopNav />
+        </DesktopDiv>
       </NavbarDiv>
     </NavbarNav>
   );
@@ -127,3 +59,122 @@ const PopoFullText = styled.h1`
   font-family: 'Caveat', serif;
   font-size: medium;
 `;
+
+const LinkWithStyle = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;
+
+const MobileDiv = styled.div`
+  @media only screen and (min-width: 800px) {
+    display: none;
+  }
+`;
+
+const DesktopDiv = styled.span`
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MobileNav = () => {
+  return (
+    <NavbarMenu borderless>
+      <Menu.Item style={{ margin: 10 }}>
+        <Icon name={'sidebar'} style={{ margin: '0' }} />
+      </Menu.Item>
+
+      <Menu.Item position={'left'} style={{ paddingLeft: 0 }}>
+        <Link href={'/'} passHref>
+          <Image
+            src={'/popo.svg'}
+            alt={'logo'}
+            size={'tiny'}
+            style={{ margin: 'rgba(255, 255, 255, 0.7)' }}
+          />
+        </Link>
+      </Menu.Item>
+
+      <MenuItemUser />
+    </NavbarMenu>
+  );
+};
+
+const DesktopNav = () => {
+  return (
+    <NavbarMenu borderless>
+      <Menu.Item style={{ paddingLeft: 0 }}>
+        <LinkWithStyle href={'/'} passHref>
+          <span style={{ textAlign: 'center' }}>
+            <Image centered src={'/popo.svg'} alt={'logo'} size={'small'} />
+            <PopoFullText>Postechian&apos;s Portal</PopoFullText>
+          </span>
+        </LinkWithStyle>
+      </Menu.Item>
+
+      <Dropdown item simple text="장소/장비 예약">
+        <Dropdown.Menu>
+          <Dropdown.Item>
+            <LinkWithStyle href={'/reservation/place'} passHref>
+              장소 예약
+            </LinkWithStyle>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <LinkWithStyle href={'/reservation/equipment'} passHref>
+              장비 예약
+            </LinkWithStyle>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <Dropdown item simple text="총학생회">
+        <Dropdown.Menu>
+          <Dropdown.Item>
+            <LinkWithStyle href={'/association'} passHref>
+              자치단체 소개
+            </LinkWithStyle>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <LinkWithStyle href={'/benefits'} passHref>
+              제휴 및 할인업체 소개
+            </LinkWithStyle>
+          </Dropdown.Item>
+          <Dropdown.Item
+            text={'총학생회 기록물관리기관'}
+            target="_blank"
+            href={
+              'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'
+            }
+          />
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <Dropdown item simple text="동아리">
+        <Dropdown.Menu>
+          <Dropdown.Item>
+            <LinkWithStyle href={'/club'} passHref>
+              동아리 소개
+            </LinkWithStyle>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <Dropdown item simple text="생활백서">
+        <Dropdown.Menu>
+          <Dropdown.Item>
+            <LinkWithStyle href={'/whitebook'} passHref>
+              생활백서
+            </LinkWithStyle>
+          </Dropdown.Item>
+          <Dropdown.Item
+            text={'배달업체'}
+            href={'http://delivery.postech.ac.kr/'}
+            target={'_blank'}
+          />
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <MenuItemUser />
+    </NavbarMenu>
+  );
+};
