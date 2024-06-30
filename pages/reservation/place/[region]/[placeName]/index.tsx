@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import moment from 'moment-timezone';
 import { Button, Grid, Label } from 'semantic-ui-react';
 
 import Layout from '@/components/layout';
 import PlaceReservationTable from '@/components/reservation/place.reservation.table';
-import ReservationCalendar from '@/components/reservation/reservation.calendar';
 import PlaceInformationCard from '@/components/reservation/place.information.card';
 import { PoPoAxios } from '@/lib/axios.instance';
 import { IPlace } from '@/types/reservation.interface';
+
+// Due to the SSR issue, we need to use dynamic import
+const ReservationCalendar = dynamic(() => import('@/components/reservation/reservation.calendar'), { ssr: false })
 
 const PlaceReservationPage: React.FunctionComponent<{
   region: string;
@@ -74,18 +77,18 @@ const PlaceReservationPage: React.FunctionComponent<{
 
               <Grid.Row style={{ marginBottom: '1em' }}>
                 <p>날짜를 고르면, 예약 현황을 확인할 수 있습니다! 😎</p>
-                <p>
+                <div>
                   해당 날짜에 예약이 하나라도 존재하면, 달력에{' '}
                   <Label circular color={'orange'} empty />로 표시됩니다.
-                </p>
-                <p>
+                </div>
+                <div>
                   <b>심사중</b>은 <Label circular color={'black'} empty /> 로,
                   &nbsp;
                   <b>통과</b>는 <Label circular color={'green'} empty /> 로,
                   &nbsp;
                   <b>거절</b>은 <Label circular color={'red'} empty /> 로
                   표시됩니다.
-                </p>
+                </div>
               </Grid.Row>
 
               <Grid.Row>
