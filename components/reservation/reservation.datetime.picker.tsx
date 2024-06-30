@@ -31,17 +31,19 @@ const ReservationDatetimePicker = ({
           minDate={now.toDate()}
           maxDate={now.add(30, 'day').toDate()}
           selected={date.toDate()}
-          onChange={(date: Date) => {
-            const targetDate: string = moment(date).format('YYYY-MM-DD');
-            const nowDate: string = now.format('YYYY-MM-DD');
-            if (targetDate === nowDate) {
-              setDate(now);
-              setStartTime(now);
-              setEndTime(nowNext30Min);
-            } else {
-              setDate(moment(targetDate + 'T00:00'));
-              setStartTime(moment(targetDate + 'T00:00'));
-              setEndTime(moment(targetDate + 'T00:30'));
+          onChange={(date: Date | null) => {
+            if (date) {
+              const targetDate: string = moment(date).format('YYYY-MM-DD');
+              const nowDate: string = now.format('YYYY-MM-DD');
+              if (targetDate === nowDate) {
+                setDate(now);
+                setStartTime(now);
+                setEndTime(nowNext30Min);
+              } else {
+                setDate(moment(targetDate + 'T00:00'));
+                setStartTime(moment(targetDate + 'T00:00'));
+                setEndTime(moment(targetDate + 'T00:30'));
+              }
             }
           }}
         />
@@ -58,7 +60,7 @@ const ReservationDatetimePicker = ({
           selected={startTime.toDate()}
           minTime={date.toDate()}
           maxTime={moment(date.format('YYYY-MM-DD') + 'T23:59').toDate()}
-          onChange={(startTime: Date) => {
+          onChange={(startTime: Date | null) => {
             const newStartTime = moment(startTime);
             const newStartTimeNext30Min = moment(newStartTime).add(
               30,
@@ -85,7 +87,7 @@ const ReservationDatetimePicker = ({
               ? moment(date.format('YYYY-MM-DD') + 'T00:00').toDate() // edge-case
               : moment(date.format('YYYY-MM-DD') + 'T23:59').toDate()
           }
-          onChange={(endTime: Date) => {
+          onChange={(endTime: Date | null) => {
             setEndTime(moment(endTime));
           }}
         />
