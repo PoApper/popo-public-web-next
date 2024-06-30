@@ -61,9 +61,11 @@ const PasswordResetPage = () => {
         </Form>
 
         <List horizontal divided link size="small">
-          <Link href={'/auth/register'} passHref>
-            <List.Item as="a" content={'신규 회원이신가요?'} />
-          </Link>
+          <List.Item>
+            <Link href={'/auth/register'} passHref>
+              신규 회원이신가요?
+            </Link>
+          </List.Item>
         </List>
       </Container>
     </Layout>

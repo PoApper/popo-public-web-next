@@ -38,17 +38,15 @@ const ReservationCalendar = ({
         if (crowded >= 3) {
           return (
             <CellDots>
-              <CellDots>
-                {[0, 1, 2].map((index) => (
-                  <CellDot
-                    key={index}
-                    color={color}
-                    margin={`2px ${index === 2 ? 'auto' : '0'} 0 ${
-                      index === 0 ? 'auto' : '0'
-                    }`}
-                  />
-                ))}
-              </CellDots>
+              {[0, 1, 2].map((index) => (
+                <CellDot
+                  key={index}
+                  color={color}
+                  margin={`2px ${index === 2 ? 'auto' : '0'} 0 ${
+                    index === 0 ? 'auto' : '0'
+                  }`}
+                />
+              ))}
             </CellDots>
           );
         } else if (crowded >= 2) {

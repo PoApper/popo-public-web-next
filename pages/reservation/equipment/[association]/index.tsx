@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Button, Grid } from 'semantic-ui-react';
 
 import Layout from '@/components/layout';
-import ReservationCalendar from '@/components/reservation/reservation.calendar';
 import EquipReservationTable from '@/components/reservation/equip.reservation.table';
 import EquipListTable from '@/components/reservation/equip.list.table';
 import { PoPoAxios } from '@/lib/axios.instance';
 import { IEquipment } from '@/types/reservation.interface';
+
+// Due to the SSR issue, we need to use dynamic import
+const ReservationCalendar = dynamic(
+  () => import('@/components/reservation/reservation.calendar'),
+  { ssr: false },
+);
 
 type ObjectType = {
   [key: string]: string;
