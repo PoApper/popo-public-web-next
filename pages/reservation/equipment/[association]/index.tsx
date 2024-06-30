@@ -12,7 +12,10 @@ import { PoPoAxios } from '@/lib/axios.instance';
 import { IEquipment } from '@/types/reservation.interface';
 
 // Due to the SSR issue, we need to use dynamic import
-const ReservationCalendar = dynamic(() => import('@/components/reservation/reservation.calendar'), { ssr: false })
+const ReservationCalendar = dynamic(
+  () => import('@/components/reservation/reservation.calendar'),
+  { ssr: false },
+);
 
 type ObjectType = {
   [key: string]: string;
