@@ -3,7 +3,12 @@ import { Dropdown, Icon, Image, Menu } from 'semantic-ui-react';
 import Link from 'next/link';
 import MenuItemUser from './menu.item.user';
 
-const NavbarDesktop = () => {
+const StudentCouncilArchiveLink =
+  'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD';
+const InpostackLink = 'http://inpostack.poapper.club/';
+const PostechDeliveryLink = 'http://delivery.postech.ac.kr/';
+
+const Navbar = () => {
   return (
     <NavbarNav>
       <NavbarDiv>
@@ -18,7 +23,7 @@ const NavbarDesktop = () => {
   );
 };
 
-export default NavbarDesktop;
+export default Navbar;
 
 const NavbarNav = styled.nav`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -50,7 +55,7 @@ const NavbarMenu = styled(Menu)`
 
   box-shadow: none !important;
   border: none !important;
-  width: 100%;
+  width: 100% !important;
 `;
 
 const PopoFullText = styled.h1`
@@ -66,12 +71,14 @@ const LinkWithStyle = styled(Link)`
 `;
 
 const MobileDiv = styled.div`
+  width: 100%;
   @media only screen and (min-width: 800px) {
     display: none;
   }
 `;
 
 const DesktopDiv = styled.span`
+  width: 100%;
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -80,9 +87,71 @@ const DesktopDiv = styled.span`
 const MobileNav = () => {
   return (
     <NavbarMenu borderless>
-      <Menu.Item style={{ margin: 10 }}>
-        <Icon name={'sidebar'} style={{ margin: '0' }} />
-      </Menu.Item>
+      <Dropdown item icon={'sidebar'}>
+        <Dropdown.Menu style={{ width: 200 }}>
+          <Dropdown item text="장소/장비 예약">
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <LinkWithStyle href={'/reservation/place'} passHref>
+                  장소 예약
+                </LinkWithStyle>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <LinkWithStyle href={'/reservation/equipment'} passHref>
+                  장비 예약
+                </LinkWithStyle>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown item text="총학생회">
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <LinkWithStyle href={'/association'} passHref>
+                  자치단체 소개
+                </LinkWithStyle>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <LinkWithStyle href={'/benefits'} passHref>
+                  제휴 및 할인업체 소개
+                </LinkWithStyle>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <a href={StudentCouncilArchiveLink} target="_blank">
+                  총학생회 기록물관리기관 <Icon name="external" />
+                </a>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown item text="동아리">
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <LinkWithStyle href={'/club'} passHref>
+                  동아리 소개
+                </LinkWithStyle>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown item text="생활백서">
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <LinkWithStyle href={'/whitebook'} passHref>
+                  생활백서
+                </LinkWithStyle>
+              </Dropdown.Item>
+              <Dropdown.Item disabled>
+                <a href={InpostackLink} target={'_blank'}>
+                  인포스택 <Icon name="external" />
+                </a>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <a href={PostechDeliveryLink} target={'_blank'}>
+                  배달업체 <Icon name="external" />
+                </a>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Dropdown.Menu>
+      </Dropdown>
 
       <Menu.Item position={'left'} style={{ paddingLeft: 0 }}>
         <Link href={'/'} passHref>
@@ -142,9 +211,7 @@ const DesktopNav = () => {
           <Dropdown.Item
             text={'총학생회 기록물관리기관'}
             target="_blank"
-            href={
-              'https://drive.google.com/drive/u/0/folders/1vHexwLSdD92maoKNlvw9zQ0q0J59k5FD'
-            }
+            href={StudentCouncilArchiveLink}
           />
         </Dropdown.Menu>
       </Dropdown>

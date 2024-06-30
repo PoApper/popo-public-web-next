@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import styled, { ThemeProvider } from 'styled-components';
 import theme from '@/styles/theme';
-import NavbarDesktop from './navbar/navbar.desktop';
+import Navbar from './navbar/navbar';
 import Footer from './footer';
 
 type LayoutProps = {
@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
         <link rel="icon" href={'/favicon.ico'} />
       </Head>
       <main>
-        <NavbarDesktop />
+        <Navbar />
         <Wrapper>
           <div style={{ width: '100%' }}>{children}</div>
         </Wrapper>
