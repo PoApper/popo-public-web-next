@@ -10,13 +10,13 @@ export const KoreanWeekday: any = {
 };
 
 export const KoreanToEnglishMap: any = {
-  '월요일': 'Monday',
-  '화요일': 'Tuesday',
-  '수요일': 'Wednesday',
-  '목요일': 'Thursday',
-  '금요일': 'Friday',
-  '토요일': 'Saturday',
-  '일요일': 'Sunday',
+  월요일: 'Monday',
+  화요일: 'Tuesday',
+  수요일: 'Wednesday',
+  목요일: 'Thursday',
+  금요일: 'Friday',
+  토요일: 'Saturday',
+  일요일: 'Sunday',
 };
 
 export function isOnOpeningHours(
