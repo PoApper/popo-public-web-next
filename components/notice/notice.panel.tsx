@@ -10,7 +10,6 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>({
     name: '',
-    uuid: '',
   });
 
   useEffect(() => {
@@ -51,10 +50,9 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
       );
       setLikes(counts.map((count) => count.data));
     };
-    if (user) {
-      fetchLikeStatus();
-      fetchLikeCount();
-    }
+
+    fetchLikeStatus();
+    fetchLikeCount();
   }, [noticeList, user]);
 
   const handleLike = async (id: number) => {
