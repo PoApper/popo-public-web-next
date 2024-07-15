@@ -15,7 +15,7 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
 
   useEffect(() => {
     PoPoAxios.get('/auth/verifyToken', {
-      withCredentials: false,
+      withCredentials: true,
     })
       .then((res) => setUser(res.data))
       .catch(() => setUser(null));
