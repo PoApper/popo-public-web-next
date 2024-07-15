@@ -10,34 +10,51 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>({
     name: '',
+    uuid: '',
   });
 
   useEffect(() => {
     PoPoAxios.get('/auth/verifyToken', {
-      withCredentials: true,
+      withCredentials: false,
     })
       .then((res) => setUser(res.data))
       .catch(() => setUser(null));
   }, []);
 
-  const [likes, setLikes] = useState<number[]>(
-    noticeList.map((notice) => notice.like_count),
-  );
   const [isLike, setIsLike] = useState<boolean[]>(
     new Array(noticeList.length).fill(false),
   );
 
+  const [likes, setLikes] = useState<number[]>(
+    new Array(noticeList.length).fill(0),
+  );
+
   useEffect(() => {
     const fetchLikeStatus = async () => {
-      // fetch like status
+      if (!user) return;
+
       const statuses = await Promise.all(
         noticeList.map((notice) =>
-          PoPoAxios.get(`/notice/${notice.id}/like`, { params: { user } }),
+          PoPoAxios.get(`/like/status`, {
+            params: { user: user.uuid, notice: notice.id }, // user가 없을 시 status는 false
+          }),
         ),
       );
       setIsLike(statuses.map((status) => status.data));
     };
-    if (user) fetchLikeStatus();
+
+    const fetchLikeCount = async () => {
+      const counts = await Promise.all(
+        noticeList.map((notice) =>
+          PoPoAxios.get(`/like/count`, { params: { notice: notice.id } }),
+        ),
+      );
+      setLikes(counts.map((count) => count.data));
+    };
+    if (user) {
+      fetchLikeStatus();
+      fetchLikeCount();
+    }
   }, [noticeList, user]);
 
   const handleLike = async (id: number) => {
@@ -48,7 +65,26 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
     }
 
     try {
-      // TODO: Call API
+      if (isLike[id]) {
+        await PoPoAxios.delete(`/like`, {
+          params: { user: user.uuid, notice: noticeList[id] },
+        });
+        setLikes((prevLikes) => {
+          const newLikes = [...prevLikes];
+          newLikes[id] -= 1;
+          return newLikes;
+        });
+      } else {
+        await PoPoAxios.post(`/like`, {
+          params: { user: user.uuid, notice: noticeList[id] },
+        });
+        setLikes((prevLikes) => {
+          const newLikes = [...prevLikes];
+          newLikes[id] += 1;
+          return newLikes;
+        });
+      }
+
       setIsLike((prevIsLike) => {
         const newLike = [...prevIsLike];
         newLike[id] = !newLike[id];
@@ -59,7 +95,6 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
       console.log(err);
     }
   };
-  const like_count = 3; // 임시로 3으로 설정
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -96,11 +131,15 @@ const NoticePanel = ({ noticeList }: { noticeList: INotice[] }) => {
                 handleLike(notice.id);
               }}
             >
-              {/* TODO: 아이콘 interactive하게 변경 */}
-              {isLike[notice.id] ? 'Unlike' : 'Like'}
+              {isLike[notice.id] ? (
+                <span style={{ fontSize: '24px', color: 'red' }}>&#x2665;</span>
+              ) : (
+                <span style={{ fontSize: '24px', color: 'gray' }}>
+                  &#x2661;
+                </span>
+              )}
             </button>
-            {/* TODO: likes로 변경 */}
-            <span style={{ marginLeft: 8 }}>{like_count}</span>{' '}
+            <span style={{ marginLeft: 8 }}>{likes[notice.id]}</span>{' '}
           </div>
         </NoticeCard>
       ))}
