@@ -46,7 +46,7 @@ const PlaceReservationCreatePage: React.FunctionComponent<{
 
   const isPossible = isOnOpeningHours(
     placeInfo.opening_hours,
-    date.format('dddd'), // Monday
+    date.format('dddd'), // 월요일
     startTime.format('HH:mm'),
     endTime.format('HH:mm'),
   );
