@@ -24,6 +24,7 @@ const MenuItemUser = () => {
         withCredentials: true,
       });
       router.push('/');
+      window.location.reload();
     } catch (err) {
       alert('로그아웃에 실패했습니다.');
       console.log(err);
