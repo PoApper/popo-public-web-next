@@ -9,6 +9,16 @@ export const KoreanWeekday: any = {
   Everyday: '매일',
 };
 
+export const KoreanToEnglishMap: any = {
+  월요일: 'Monday',
+  화요일: 'Tuesday',
+  수요일: 'Wednesday',
+  목요일: 'Thursday',
+  금요일: 'Friday',
+  토요일: 'Saturday',
+  일요일: 'Sunday',
+};
+
 export function isOnOpeningHours(
   opening_hours: string,
   weekday: string, // Monday
@@ -19,6 +29,10 @@ export function isOnOpeningHours(
 
   if (openingHour['Everyday']) {
     weekday = 'Everyday';
+  }
+
+  if (KoreanToEnglishMap[weekday]) {
+    weekday = KoreanToEnglishMap[weekday];
   }
   const hours = openingHour[weekday].split(',');
 
