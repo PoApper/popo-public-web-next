@@ -16,6 +16,7 @@ const HomePage: React.FunctionComponent<{
 }> = ({ noticeList, nextEvent }) => {
   const isDayTime = 9 <= new Date().getHours() && new Date().getHours() <= 18;
   console.log(new Date().getHours());
+  console.log(isDayTime);
 
   return (
     <Layout>
