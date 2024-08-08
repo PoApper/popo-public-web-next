@@ -4,7 +4,7 @@ import { INotice } from '@/types/notice.interface';
 import { IUser } from '@/types/user.interface';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Image } from 'semantic-ui-react';
+import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 interface NoticeCardProps {
@@ -92,9 +92,9 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
           onClick={handleLike}
         >
           {isLike ? (
-            <span style={{ fontSize: '24px', color: 'red' }}>&#x2665;</span>
+            <Icon name="heart" color="red" />
           ) : (
-            <span style={{ fontSize: '24px', color: 'gray' }}>&#x2661;</span>
+            <Icon name="heart outline" color="grey" />
           )}
         </button>
         <span style={{ marginLeft: 8 }}>{likeCount}</span>
