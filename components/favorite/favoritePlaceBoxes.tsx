@@ -1,5 +1,6 @@
 import React from 'react';
 import { PoPoAxios } from '@/lib/axios.instance';
+import styled from 'styled-components';
 import {
   Card,
   Grid,
@@ -62,6 +63,20 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
                 <Card.Header style={{ color: 'black', 'font-weight': 'bold' }}>
                   {place.name}
                 </Card.Header>
+                <Card.Meta>
+                  <WhiteButton
+                    onClick={() =>
+                      handleDelete(`favorite-place/${place.favorite_id}`)
+                    }
+                  >
+                    삭제 하기
+                  </WhiteButton>
+                  <WhiteButton
+                    href={`/reservation/place/${place.region}/${place.name}`}
+                  >
+                    예약 하기
+                  </WhiteButton>
+                </Card.Meta>
               </div>
             </Card.Content>
           </Card>
@@ -85,3 +100,12 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
 };
 
 export default FavoritePlaceBoxes;
+
+const WhiteButton = styled(Button)`
+  background-color: white;
+  border: 0px;
+  color: black;
+  hover: {
+    text-decoration: underline;
+  }
+`;
