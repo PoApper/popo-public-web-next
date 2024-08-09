@@ -46,7 +46,9 @@ const MyInfoPage = () => {
           favoritePlaces.map((favoritePlace) => {
             PoPoAxios.get<IPlace>(`/place/${favoritePlace.place_id}`)
               .then((res) => {
-                setPlaceList((prev) => [...prev, res.data]);
+                const cur = res.data;
+                cur.favorite_id = favoritePlace.uuid;
+                setPlaceList((prev) => [...prev, cur]);
               })
               .catch((error) => {
                 console.error('Error fetching place information:', error);
