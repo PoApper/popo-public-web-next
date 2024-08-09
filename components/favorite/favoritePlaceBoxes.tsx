@@ -15,7 +15,7 @@ const FavoriteBoxes = ({ userId }: { userId: string }) => {
       .catch((err) => {
         console.error('Error fetching favorite places:', err);
       });
-  }, []);
+  }, [userId]);
 
   return <FavoriteBox placeIds={placeIds} />;
 };
