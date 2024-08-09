@@ -41,7 +41,7 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
               marginTop: '10px',
             }}
           >
-            <ButtonGroup>
+            <ButtonGroup fluid>
               <Button
                 icon
                 labelPosition="left"
@@ -52,7 +52,7 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
                 <Icon name="cancel" />
                 삭제하기
               </Button>
-              <Link href={`/reservation/place/${place.name}`}>
+              <Link href={`/reservation/place/${place.region}/${place.name}`}>
                 <Button icon labelPosition="right">
                   예약하기
                   <Icon name="arrow right" />
