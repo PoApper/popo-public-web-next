@@ -43,7 +43,7 @@ const MyInfoPage = () => {
         }}
       >
         <h2>내 즐겨찾기</h2>
-        <FavoriteBoxes userId={myInfo.email.replace("@postech.ac.kr", "")} />
+        <FavoriteBoxes userId={myInfo.email.replace('@postech.ac.kr', '')} />
       </Container>
     </Layout>
   );
