@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { PoPoAxios } from '@/lib/axios.instance';
 
 import Layout from '@/components/layout';
-import FavoriteBoxes from '@/components/favorite/favorite-places';
+import FavoriteBoxes from '@/components/favorite/favoritePlaceBoxes';
 
 interface MyInformation {
   email: string;

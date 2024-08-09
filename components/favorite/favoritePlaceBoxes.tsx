@@ -8,17 +8,15 @@ const FavoriteBoxes = ({ userId }: { userId: string }) => {
   const [placeIds, setPlaceIds] = useState([]);
   useEffect(() => {
     PoPoAxios.get(`/favorite-place/user_id/${userId}`)
-    .then((res) => {
-      setPlaceIds(res.data.map((place: IFavoritePlace) => place.place_id));
-    })
-    .catch((err) => {
-      console.error('Error fetching favorite places:', err);
-    });
+      .then((res) => {
+        setPlaceIds(res.data.map((place: IFavoritePlace) => place.place_id));
+      })
+      .catch((err) => {
+        console.error('Error fetching favorite places:', err);
+      });
   }, []);
 
-  return (
-    <FavoriteBox placeIds={placeIds} />
-  );
+  return <FavoriteBox placeIds={placeIds} />;
 };
 
 export default FavoriteBoxes;
