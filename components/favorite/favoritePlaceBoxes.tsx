@@ -1,6 +1,13 @@
 import React from 'react';
 import { PoPoAxios } from '@/lib/axios.instance';
-import { Card, Grid, Image, Button, Icon, ButtonGroup } from 'semantic-ui-react';
+import {
+  Card,
+  Grid,
+  Image,
+  Button,
+  Icon,
+  ButtonGroup,
+} from 'semantic-ui-react';
 
 import { IPlace } from '@/types/favorite.interface';
 
@@ -59,14 +66,10 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
             </Card.Content>
           </Card>
         </Grid.Column>
-      ))
-      }
+      ))}
       {placeList.length < 3 && (
         <Grid.Column>
-          <Card
-            href={`/reservation/place`}
-            centered
-          >
+          <Card href={`/reservation/place`} centered>
             <Card.Content style={{ display: 'flex', 'align-items': 'center' }}>
               <div>
                 <Card.Header style={{ color: 'black', 'font-weight': 'bold' }}>
