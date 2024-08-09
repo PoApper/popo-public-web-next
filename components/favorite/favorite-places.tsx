@@ -14,6 +14,7 @@ const FavoriteBoxes = ({ userId }: { userId: string }) => {
         const response = await PoPoAxios.get(
           `/favorite-place/user_id/${userId}`,
         );
+        console.log('response.data:', response.data);
         const placeIds = response.data.map(
           (place: IFavoritePlace) => place.place_id,
         );
