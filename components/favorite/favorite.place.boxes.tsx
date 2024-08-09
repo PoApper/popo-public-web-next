@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { PoPoAxios } from '@/lib/axios.instance';
 import {
   Card,
@@ -31,24 +32,26 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
             <Image src={place.image_url} alt={place.name} />
             <Card.Content>
               <Card.Header>{place.name}</Card.Header>
-              <ButtonGroup>
-                <Button
-                  icon
-                  labelPosition="left"
-                  onClick={() =>
-                    handleDelete(`favorite-place/${place.favorite_id}`)
-                  }
-                >
-                  <Icon name="cancel" />
-                  삭제하기
-                </Button>
-                <Button icon labelPosition="right">
-                  예약하기
-                  <Icon name="arrow right" />
-                </Button>
-              </ButtonGroup>
             </Card.Content>
           </Card>
+          <ButtonGroup>
+            <Button
+              icon
+              labelPosition="left"
+              onClick={() =>
+                handleDelete(`favorite-place/${place.favorite_id}`)
+              }
+            >
+              <Icon name="cancel" />
+              삭제하기
+            </Button>
+            <Link href={`/reservation/place/${place.name}`}>
+              <Button icon labelPosition="right">
+                예약하기
+                <Icon name="arrow right" />
+              </Button>
+            </Link>
+          </ButtonGroup>
         </Grid.Column>
       ))}
     </Grid>
