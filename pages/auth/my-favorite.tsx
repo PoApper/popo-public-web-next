@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { PoPoAxios } from '@/lib/axios.instance';
 
 import Layout from '@/components/layout';
-import FavoriteBoxes from '@/components/favorite/favoritePlaceBoxes';
+import FavoritePlaceBoxes from '@/components/favorite/favoritePlaceBoxes';
 
 interface MyInformation {
   email: string;
@@ -43,7 +43,9 @@ const MyInfoPage = () => {
         }}
       >
         <h2>내 즐겨찾기</h2>
-        <FavoriteBoxes userId={myInfo.email.replace('@postech.ac.kr', '')} />
+        <FavoritePlaceBoxes
+          userId={myInfo.email.replace('@postech.ac.kr', '')}
+        />
       </Container>
     </Layout>
   );
