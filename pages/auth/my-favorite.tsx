@@ -60,7 +60,7 @@ const MyInfoPage = () => {
     if (myInfo.email) {
       fetchFavoritePlaces(myInfo.email.replace('@postech.ac.kr', ''));
     }
-  }, [router]);
+  }, [router, myInfo.email]);
 
   return (
     <Layout>
