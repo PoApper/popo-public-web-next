@@ -2,41 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { PoPoAxios } from '@/lib/axios.instance';
 import styled from 'styled-components';
 
-import { IFavoritePlace } from '@/types/favorite.interface';
 import { IPlace } from '@/types/reservation.interface';
 
-const FavoriteBoxes = ({ userId }: { userId: string }) => {
-  const [placeIds, setPlaceIds] = useState([]);
+const FavoriteBox = ({ placeIds }: { placeIds: string[] }) => {
   const [placeInfos, setPlaceInfos] = useState([] as IPlace[]);
   useEffect(() => {
-    const fetchFavoritePlaces = async () => {
-      try {
-        const response = await PoPoAxios.get(
-          `/favorite-place/user_id/${userId}`,
-        );
-        console.log('user_id:', userId);
-        console.log('response.data:', response.data);
-        const placeIds = response.data.map(
-          (place: IFavoritePlace) => place.place_id,
-        );
-        setPlaceIds(placeIds);
-      } catch (error) {
-        console.error('Error fetching favorite places:', error);
-      }
-    };
-
     const fetchPlaceInfos = async (placeId: string) => {
       try {
         const response = await PoPoAxios.get(`/place/${placeId}`);
-        setPlaceInfos([...placeInfos, response.data]);
+        setPlaceInfos((prevPlaceInfos) => [...prevPlaceInfos, response.data]);
       } catch (error) {
         console.error('Error fetching place info:', error);
       }
     };
-
-    fetchFavoritePlaces();
     placeIds.forEach((placeId: string) => fetchPlaceInfos(placeId));
-  }, [userId]);
+  }, []);
 
   return (
     <div>
@@ -47,7 +27,7 @@ const FavoriteBoxes = ({ userId }: { userId: string }) => {
   );
 };
 
-export default FavoriteBoxes;
+export default FavoriteBox;
 
 const FavoriteCard = styled.div`
   background: #eeeeee;
