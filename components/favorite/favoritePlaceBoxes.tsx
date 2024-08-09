@@ -1,22 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Card, Grid, Image } from 'semantic-ui-react';
 
 import { IPlace } from '@/types/favorite.interface';
 
 const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
   return (
-    <div>
+    <Grid stackable centered columns={3} style={{ maxWidth: 900 }}>
       {placeList.map((place: IPlace) => (
-        <FavoriteCard key={place.uuid}>{place.name}</FavoriteCard>
+        <Grid.Column key={place.uuid}>
+          <Card
+            href={`/reservation/place/${place.region}/${place.name}`}
+            centered
+          >
+            <Image src={place.image_url} alt={place.name} />
+            <Card.Content>
+              <Card.Header>{place.name}</Card.Header>
+              <Card.Meta>{place.region}</Card.Meta>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
       ))}
-    </div>
+    </Grid>
   );
 };
 
 export default FavoritePlaceBoxes;
-
-const FavoriteCard = styled.div`
-  background: #eeeeee;
-  border-radius: 0.4em;
-  padding: 14px;
-`;
