@@ -88,7 +88,7 @@ const MyInfoPage = () => {
       >
         <h2>내 즐겨찾기</h2>
         <FavoritePlaceBoxes placeList={placeList} />
-        {totalPlaceList.length < 3 && (
+        {placeList.length < 3 && (
           <FavoritePlaceChoice
             placeList={totalPlaceList}
             userId={myInfo.email.replace('@postech.ac.kr', '')}
