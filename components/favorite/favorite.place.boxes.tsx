@@ -34,24 +34,32 @@ const FavoritePlaceBoxes = ({ placeList }: { placeList: IPlace[] }) => {
               <Card.Header>{place.name}</Card.Header>
             </Card.Content>
           </Card>
-          <ButtonGroup>
-            <Button
-              icon
-              labelPosition="left"
-              onClick={() =>
-                handleDelete(`favorite-place/${place.favorite_id}`)
-              }
-            >
-              <Icon name="cancel" />
-              삭제하기
-            </Button>
-            <Link href={`/reservation/place/${place.name}`}>
-              <Button icon labelPosition="right">
-                예약하기
-                <Icon name="arrow right" />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '10px',
+            }}
+          >
+            <ButtonGroup>
+              <Button
+                icon
+                labelPosition="left"
+                onClick={() =>
+                  handleDelete(`favorite-place/${place.favorite_id}`)
+                }
+              >
+                <Icon name="cancel" />
+                삭제하기
               </Button>
-            </Link>
-          </ButtonGroup>
+              <Link href={`/reservation/place/${place.name}`}>
+                <Button icon labelPosition="right">
+                  예약하기
+                  <Icon name="arrow right" />
+                </Button>
+              </Link>
+            </ButtonGroup>
+          </div>
         </Grid.Column>
       ))}
     </Grid>
