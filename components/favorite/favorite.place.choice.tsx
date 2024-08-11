@@ -32,7 +32,7 @@ const FavoritePlaceChoice = ({
   }
 
   return (
-    <div style={{marginTop: '40px'}}>
+    <div style={{ marginTop: '40px' }}>
       <Form onSubmit={handleSubmit}>
         <Form.Select
           label="즐겨찾기할 장소"
