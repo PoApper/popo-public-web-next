@@ -23,6 +23,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
 
       const status = await PoPoAxios.get('/noticeLike/status', {
         params: { user: user.uuid, notice: notice.id },
+        withCredentials: true,
       });
       setIsLike(status.data);
     };
@@ -49,17 +50,19 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       if (isLike) {
         await PoPoAxios.delete('/noticeLike', {
           params: { user: user.uuid, notice: notice.id },
+          withCredentials: true,
         });
         setLikeCount((prevLikes) => prevLikes - 1);
       } else {
         await PoPoAxios.post('/noticeLike', {
-          params: { user: user.uuid, notice: notice.id },
+          body: { user: user.uuid, notice: notice.id },
+          withCredentials: true,
         });
         setLikeCount((prevLikes) => prevLikes + 1);
       }
       setIsLike((prevIsLike) => !prevIsLike);
     } catch (err) {
-      alert('좋아요에 실패했습니다.');
+      alert('공지 좋아요에 실패했습니다.');
       console.log(err);
     }
   };
@@ -86,9 +89,10 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       {notice.image_url ? (
         <Image src={notice.image_url} alt={notice.title} />
       ) : null}
-      <div className="like-button">
+      <hr/>
+      <div style={{marginTop: 8, paddingRight: 4, textAlign: 'right'}}>
         <button
-          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           onClick={handleLike}
         >
           {isLike ? (
@@ -97,7 +101,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
             <Icon name="heart outline" color="grey" />
           )}
         </button>
-        <span style={{ marginLeft: 8 }}>{likeCount}</span>
+        <span style={{ marginLeft: 4 }}>{likeCount}</span>
       </div>
     </NoticeCardContainer>
   );
