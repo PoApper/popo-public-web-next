@@ -89,10 +89,15 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       {notice.image_url ? (
         <Image src={notice.image_url} alt={notice.title} />
       ) : null}
-      <hr/>
-      <div style={{marginTop: 8, paddingRight: 4, textAlign: 'right'}}>
+      <hr />
+      <div style={{ marginTop: 8, paddingRight: 4, textAlign: 'right' }}>
         <button
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,
+          }}
           onClick={handleLike}
         >
           {isLike ? (
