@@ -70,6 +70,8 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
           console.log(err);
         });
     }
+    // toggle my like status
+    setIsLike(!isLike);
   };
 
   return (
