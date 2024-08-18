@@ -46,20 +46,19 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       return;
     }
 
+    const data = { user: user.uuid, notice: notice.id };
+
     try {
       if (isLike) {
         await PoPoAxios.delete('/noticeLike', {
-          params: { user: user.uuid, notice: notice.id },
+          data,
           withCredentials: true,
         });
         setLikeCount((prevLikes) => prevLikes - 1);
       } else {
         await PoPoAxios.post(
           '/noticeLike',
-          {
-            user: user.uuid,
-            notice: notice.id,
-          },
+          data,
           { withCredentials: true },
         );
         setLikeCount((prevLikes) => prevLikes + 1);
@@ -67,6 +66,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       setIsLike((prevIsLike) => !prevIsLike);
     } catch (err) {
       alert('공지 좋아요에 실패했습니다.');
+      console.log(data);
       console.log(err);
     }
   };
