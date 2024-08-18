@@ -46,7 +46,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       return;
     }
 
-    const data = { user: user.uuid, notice: notice.id };
+    const data = { user_id: user.uuid, notice_id: notice.id };
 
     if (isLike) {
       await PoPoAxios.delete('/noticeLike', {
