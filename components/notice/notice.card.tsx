@@ -48,22 +48,27 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
 
     const data = { user: user.uuid, notice: notice.id };
 
-    try {
-      if (isLike) {
-        await PoPoAxios.delete('/noticeLike', {
-          data,
-          withCredentials: true,
+    if (isLike) {
+      await PoPoAxios.delete('/noticeLike', {
+        data,
+        withCredentials: true,
+      })
+        .then(() => setLikeCount(likeCount - 1))
+        .catch((err) => {
+          const errMsg = err.response.data.message;
+          alert(`공지 좋아요 취소에 실패했습니다.\n${errMsg}`);
+          console.log(data);
+          console.log(err);
         });
-        setLikeCount((prevLikes) => prevLikes - 1);
-      } else {
-        await PoPoAxios.post('/noticeLike', data, { withCredentials: true });
-        setLikeCount((prevLikes) => prevLikes + 1);
-      }
-      setIsLike((prevIsLike) => !prevIsLike);
-    } catch (err) {
-      alert('공지 좋아요에 실패했습니다.');
-      console.log(data);
-      console.log(err);
+    } else {
+      await PoPoAxios.post('/noticeLike', data, { withCredentials: true })
+        .then(() => setLikeCount(likeCount + 1))
+        .catch((err) => {
+          const errMsg = err.response.data.message;
+          alert(`공지 좋아요에 실패했습니다.\n${errMsg}`);
+          console.log(data);
+          console.log(err);
+        });
     }
   };
 
