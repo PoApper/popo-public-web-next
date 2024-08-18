@@ -56,11 +56,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
         });
         setLikeCount((prevLikes) => prevLikes - 1);
       } else {
-        await PoPoAxios.post(
-          '/noticeLike',
-          data,
-          { withCredentials: true },
-        );
+        await PoPoAxios.post('/noticeLike', data, { withCredentials: true });
         setLikeCount((prevLikes) => prevLikes + 1);
       }
       setIsLike((prevIsLike) => !prevIsLike);
