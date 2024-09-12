@@ -2,7 +2,7 @@
   "name": "popo-public-web-next",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https",
     "build": "next build --no-lint",
     "start": "next start -p 3000",
     "format": "prettier --write .",
