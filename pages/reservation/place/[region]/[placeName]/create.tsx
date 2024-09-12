@@ -55,7 +55,6 @@ const PlaceReservationCreatePage: React.FunctionComponent<{
     PoPoAxios.get('/auth/verifyToken', { withCredentials: true })
       .then((res) => setUserInfo(res.data))
       .catch(() => {
-        if (process.env.NEXT_PUBLIC_ENV === 'local') return;
         alert('로그인 후 예약 할 수 있습니다.');
         router.push('/auth/login');
       });
