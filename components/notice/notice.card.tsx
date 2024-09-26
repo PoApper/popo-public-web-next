@@ -17,21 +17,24 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
   const [isLike, setIsLike] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(0);
 
+  const user_id = user ? user.uuid : null;
+  const notice_id = notice.id;
+
   useEffect(() => {
     const fetchLikeStatus = async () => {
       if (!user) return;
 
-      const status = await PoPoAxios.get('/noticeLike/status', {
-        params: { user: user.uuid, notice: notice.id },
-        withCredentials: true,
-      });
+      const status = await PoPoAxios.get(
+        `/noticeLike/status/${user_id}/${notice_id}`,
+        {
+          withCredentials: true,
+        },
+      );
       setIsLike(status.data);
     };
 
     const fetchLikeCount = async () => {
-      const count = await PoPoAxios.get('/noticeLike/count', {
-        params: { notice: notice.id },
-      });
+      const count = await PoPoAxios.get(`/noticeLike/count/${notice_id}`);
       setLikeCount(count.data);
     };
 
@@ -46,27 +49,26 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
       return;
     }
 
-    const data = { user_id: user.uuid, notice_id: notice.id };
-
     if (isLike) {
-      await PoPoAxios.delete('/noticeLike', {
-        data,
+      await PoPoAxios.delete(`/noticeLike/${user_id}/${notice_id}`, {
         withCredentials: true,
       })
         .then(() => setLikeCount(likeCount - 1))
         .catch((err) => {
           const errMsg = err.response.data.message;
           alert(`공지 좋아요 취소에 실패했습니다.\n${errMsg}`);
-          console.log(data);
           console.log(err);
         });
     } else {
-      await PoPoAxios.post('/noticeLike', data, { withCredentials: true })
+      await PoPoAxios.post(
+        '/noticeLike',
+        { user_id: user_id, notice_id: notice_id },
+        { withCredentials: true },
+      )
         .then(() => setLikeCount(likeCount + 1))
         .catch((err) => {
           const errMsg = err.response.data.message;
           alert(`공지 좋아요에 실패했습니다.\n${errMsg}`);
-          console.log(data);
           console.log(err);
         });
     }
