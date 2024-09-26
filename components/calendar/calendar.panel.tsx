@@ -11,7 +11,7 @@ const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
   );
   return (
     <div style={{ marginBottom: 12 }}>
-      <NoticeCard>
+      <CalendarCard>
         <div
           style={{
             fontWeight: 700,
@@ -26,14 +26,14 @@ const CalendarPanel = ({ nextEvent }: { nextEvent: ICalendar }) => {
           {nextEvent.title}
           <br />({`${moment(nextEvent.event_date).format('MM월 DD일 dddd')}`})
         </div>
-      </NoticeCard>
+      </CalendarCard>
     </div>
   );
 };
 
 export default CalendarPanel;
 
-const NoticeCard = styled.div`
+const CalendarCard = styled.div`
   background: #eeeeee;
   border-radius: 0.4em;
   padding: 18px;
