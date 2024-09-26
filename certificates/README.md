@@ -22,3 +22,17 @@ Sudo password:
 ```
 
 가이드 대로 본인의 root password를 입력하면, 루트 경로에 `certificates/`란 폴더에 `localhost-key.pem`과 `localhost.pem`이 생성되고, NextJS app을 https로 실행할 수 있다.
+
+## NODE_TLS_REJECT_UNAUTHORIZED
+
+ENV에 요 값을 아래와 같이 세팅해야 한다.
+
+```
+NODE_TLS_REJECT_UNAUTHORIZED=0
+```
+
+그래야 self-signed cert를 사용해도 SSR과 API 요청을 할 수 있다.
+
+## Chrome Allow Insecure Localhost
+
+또, 크롬에서도 insecure localhost에 대한 접속을 허용해줘야 한다. `chrome://flags/#allow-insecure-localhost` 경로로 이동해서 해당 옵션을 Enabled로 바꾸자.
