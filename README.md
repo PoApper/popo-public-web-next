@@ -15,9 +15,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Docker-2CA5E0?style=flat-square&logo=Docker&logoColor=white"/>
-  <img src="https://img.shields.io/badge/node-18.7-brightgreen">
-  <img src="https://img.shields.io/badge/NextJS-12.3.7-brightgreen">
-  <img src="https://img.shields.io/badge/ReactJS-17.0.2-brightgreen">
+  <img src="https://img.shields.io/badge/node-20-brightgreen">
+  <img src="https://img.shields.io/badge/NextJS-14.2-brightgreen">
+  <img src="https://img.shields.io/badge/ReactJS-18.3-brightgreen">
 </p>
 
 ## About
