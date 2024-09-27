@@ -22,7 +22,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
-      if (!user) return;
+      if (!user_id) return;
 
       const status = await PoPoAxios.get(
         `/noticeLike/status/${user_id}/${notice_id}`,
@@ -40,7 +40,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({ notice, user }) => {
 
     fetchLikeStatus();
     fetchLikeCount();
-  }, [notice, user]);
+  }, [user_id, notice_id]);
 
   const handleLike = async () => {
     if (!user) {
