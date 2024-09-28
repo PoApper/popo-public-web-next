@@ -1,7 +1,5 @@
 on:
   push:
-  release:
-    types: [published]
 
 name: Docker Build and Push
 
@@ -50,9 +48,9 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
       - name: Determine Prod/Dev Stage
         run: |
-          if [[ ${{ github.event_name }} == 'release' ]]; then
+          if [[ ${{ github.ref_type }} == 'tag' ]]; then
             echo "PROD"
-            echo "IMAGE_TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+            echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
             echo "NEXT_PUBLIC_ENV=prod" >> $GITHUB_ENV
           else
             echo "DEV"
@@ -67,7 +65,7 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           build-args: |
             "NEXT_PUBLIC_ENV=${{ env.NEXT_PUBLIC_ENV }}"
-            "POPO_VERSION=${{ github.event.release.tag_name || github.sha }}"
+            "POPO_VERSION=${{ env.NEXT_PUBLIC_ENV == 'prod' ? github.ref_name || github.sha }}"
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
