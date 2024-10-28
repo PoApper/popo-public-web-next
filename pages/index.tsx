@@ -14,7 +14,8 @@ const HomePage: React.FunctionComponent<{
   noticeList: INotice[];
   nextEvent: ICalendar;
 }> = ({ noticeList, nextEvent }) => {
-  const isDayTime = 9 <= new Date().getHours() && new Date().getHours() <= 18;
+  const KRHour = new Date().getUTCHours() + 9;
+  const isDayTime = KRHour >= 6 && KRHour < 18;
 
   return (
     <Layout>
